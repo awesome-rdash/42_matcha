@@ -1,0 +1,12 @@
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 98vh;
+}
+
+#unlogscreen {
+	height: 800px;
+	width: 400px;
+	background-color: yellow;
+}
