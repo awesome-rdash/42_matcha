@@ -6,3 +6,5 @@ if ($user['connected'] === true) {
 } else {
 	$pageStylesheets[] = "index/unlogged.index.css";
 }
+
+include_once("app/init.app.php");
