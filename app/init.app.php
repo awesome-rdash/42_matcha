@@ -6,9 +6,10 @@
 if (file_exists("config/cfg.ini")) {
 	$bdd_infos = parse_ini_file("config/cfg.ini");
 	if (!isset($bdd_infos['db_name']) ||
-		!isset($bdd_infos['server_adress']) ||
-		!isset($bdd_infos['db_user']) ||
-		!isset($bdd_infos['db_password'])) {
+		!isset($bdd_infos['db_host']) ||
+		!isset($bdd_infos['db_username']) ||
+		!isset($bdd_infos['db_passwd']) ||
+		!isset($bdd_infos['db_port'])) {
 		header("Location: error.php");
 	}
 } else {
