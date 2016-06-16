@@ -23,7 +23,7 @@ function run_sql_file($location, $bdd){
     $total = $success = 0;
     foreach($commands as $command){
         if(trim($command)){
-            $success += (mysqli_query($bdd, $command)==false ? 0 : 1);
+            $success += ($bdd->exec($command)==false ? 0 : 1);
             $total += 1;
         }
     }
@@ -32,6 +32,7 @@ function run_sql_file($location, $bdd){
         "total" => $total
     );
 }
+
 function write_ini_file($assoc_arr, $path, $has_sections=FALSE) { 
     $content = ""; 
     if ($has_sections) { 
