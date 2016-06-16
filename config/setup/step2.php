@@ -58,7 +58,7 @@ if (isset($_POST['submit'])) {
 					<label for="dbport">Port : </label>
 					<input type="text" name="dbport" id="dbport" value="3307">
 				</fieldset>
-				<input type="submit" name="submit" value="Suivant">
+				<input type="submit" name="submit" value="REINSTALLER L'APPLICATION. ACTION IRREVERSIBLE !">
 			</form>
 		</div>
 	</body>
