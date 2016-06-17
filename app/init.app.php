@@ -27,6 +27,6 @@ try {
 require_once("app/class/Member.class.php");
 require_once("app/class/MemberManager.php");
 
-require_once("app/action.app.php");
-
 session_start();
+
+require_once("app/action.app.php");
