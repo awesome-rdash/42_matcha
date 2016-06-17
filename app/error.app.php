@@ -5,56 +5,20 @@ function genError($action, $type, $element) {
 		"type" => $type,
 		"element" => $element);
 
-	$error["msg"] = "Erreur inconnue.";
-	switch ($type) {
-		case "missingfield": {
-			switch ($element) {
-				case "nickname":
-					$error["msg"] = "Vous devez entrer un nom d'utilisateur.";
-					break;
+	global $db;
 
-				case "email":
-					$error["msg"] = "Vous devez entrer un email valide.";
-					break;
+	$q = $db->prepare('SELECT message FROM errors WHERE (action = :action) AND (type = :type) AND (element = :element)');
+	$q->bindValue(':action', $action, PDO::PARAM_STR);
+	$q->bindValue(':type', $type, PDO::PARAM_STR);
+	$q->bindValue(':element', $element, PDO::PARAM_STR);
+	$q->execute();
 
-				case "password":
-					$error["msg"] = "Vous devez entrer un mot de passe.";
-					break;
-
-				case "password2":
-					$error["msg"] = "Vous devez entrer la confirmation du mot de passe.";
-					break;
-
-				case "birthdate":
-					$error["msg"] = "Vous devez entrer votre date de naissance.";
-				break;
-
-				default:
-					$error["msg"] = "Un champs n'a pas été rempli.";
-					break;
-			}
-			break;
-			}
-			break;
-
-		case "notthesame":
-			$error['msg'] = "Les mots de passe ne correspondent pas.";
-			break;
-
-		case "alreadyexist": {
-			switch ($element) {
-				case "nickname":
-					$error["msg"] = "Le nom d'utilisateur que vous avez choisi existe déjà.";
-					break;
-
-				case "email":
-					$error["msg"] = "L'email que vous avez entrée est déjà associée à un autre compte.";
-					break;
-
-			}
-			break;
-		}
-		break;
+	if ($q->rowCount() === 0) {
+		$error['msg'] = "Erreur inconnue";
+	} else {
+		$msg = $q->fetch();
+		$error['msg'] = $msg['message'];
 	}
+
 	return $error;
 }
