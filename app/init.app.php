@@ -1,8 +1,7 @@
 <?php
 
-/* 
- * Connection to database 
- */
+require_once("app/error.app.php");
+
 if (file_exists("config/cfg.ini")) {
 	$db_infos = parse_ini_file("config/cfg.ini");
 	if (!isset($db_infos['db_name']) ||
