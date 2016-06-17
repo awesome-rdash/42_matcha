@@ -1,3 +1,8 @@
 body {
 	background-color: blue;
 }
+
+#errormsg {
+	color: red;
+	text-align: center;
+}
