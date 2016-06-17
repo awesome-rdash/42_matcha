@@ -1,6 +1,6 @@
 <?php
 
-require_once("app/class/Membre.class.php");
+require_once("app/class/Member.class.php");
 
 class MemberManager {
 	private $_db;
