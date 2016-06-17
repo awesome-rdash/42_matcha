@@ -1,4 +1,4 @@
 <?php
-	$DB_DSN = "mysql:dbname=" . $bdd_infos['db_name'] . ";host=" . $bdd_infos['server_adress'];
-	$DB_USER = $bdd_infos['db_user'];
-	$DB_PASSWORD = $bdd_infos['db_password'];
+	$DB_DSN = "mysql:dbname=" . $db_infos['db_name'] . ";host=" . $db_infos['db_host'];
+	$DB_USER = $db_infos['db_user'];
+	$DB_PASSWORD = $db_infos['db_password'];
