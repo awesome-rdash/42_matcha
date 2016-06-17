@@ -17,6 +17,7 @@ if (file_exists("config/cfg.ini")) {
 }
 
 include ("config/database.php");
+
 try {
 	$bdd = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 } catch (Exception $e) {
@@ -24,3 +25,6 @@ try {
 }
 
 session_start();
+
+include("app/class/Member.class.php");
+include("app/class/MemberManager.php");
