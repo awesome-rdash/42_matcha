@@ -5,6 +5,7 @@ class Member {
 	protected $nickname;
 	protected $email;
 	protected $password;
+	protected $password2;
 	protected $register_time;
 	protected $birthdate;
 	protected $firstname;
@@ -14,27 +15,26 @@ class Member {
 	protected $bio;
 	protected $mail_confirmed;
 
-	public function __construct( $playerID ) {
-		
+	public function __construct( $playerId ) {
 	}
 
-	static public function newMemberFromRegistration( $kwargs ) {
-		$toCheck = array("nickname", "email", "password", "password2", "birthdate");
-
-		foreach($toCheck as $element) {
-			if (!isset($kwargs[$element]) || empty($kwargs[$element])) {
-				$error = array("element" => $element,
-					"type" => "non-present");
-				return $error;
+	public function hydrate( $kwargs ) {
+		foreach($kwargs as $key => $value) {
+			$method = "set" . ucfirst($key);
+			if (method_exists($this, $method)) {
+				$result = $this->$method($value);
+				if ($result !== true) {
+					return $result;
+				}
 			}
 		}
+		return true;
+	}
 
-		$kwargs['password'] = hash("whirlpool", $kwargs['password']);
-		$kwargs['password2'] = hash("whirlpool", $kwargs['password2']);
-		if ($kwargs['password'] !== $kwargs['password2']) {
-			$error = array("element" => "password",
-				"type" => "notthesame");
-			return $error;
+	public function setNickname($nickname) {
+		if (strlen($nickname) < 3) {
+			return (genError("register", "tooshort", "nickname"));
 		}
+		return true;
 	}
 }
