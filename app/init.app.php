@@ -18,7 +18,7 @@ if (file_exists("config/cfg.ini")) {
 include ("config/database.php");
 
 try {
-	$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+	$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 } catch (Exception $e) {
         die('Erreur : ' . $e->getMessage());
 }
