@@ -14,7 +14,7 @@ function genError($action, $type, $element) {
 	$q->execute();
 
 	if ($q->rowCount() === 0) {
-		$error['msg'] = "Erreur inconnue";
+		$error['msg'] = "Erreur inconnue. Le problème a eu lieu lors de l'action " . $action . " sur l'élément " . $element . " à cause de " . $type . ".";
 	} else {
 		$msg = $q->fetch();
 		$error['msg'] = $msg['message'];
