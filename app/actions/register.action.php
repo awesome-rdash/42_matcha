@@ -13,7 +13,7 @@ if (!isset($error)) {
 	$manager = new MemberManager($db);
 	foreach($toCheck as $element) {
 		if ($manager->ifExist($element, $_POST[$element])) {
-			$error = genError("register", "alreadyexist", $element);
+			$error = genError("member", "alreadyexist", $element);
 			break;
 		}
 	}
