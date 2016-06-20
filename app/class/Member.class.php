@@ -117,6 +117,30 @@ class Member {
 		return true;
 	}
 
+	public function setSexe($sexe) {
+		if ($sexe == 1 || $sexe == 2) {
+			$this->_sexe = $sexe;
+			return true;
+		}
+		return genError("member", "invalid", "sexe");
+	}
+
+	public function setBio($bio) {
+		if (strlen($bio) > 1000) {
+			return genError("member", "toolong", "bio");
+		}
+		$this->_bio = $bio;
+		return true;
+	}
+
+	public function setMail_confirmed($mail) {
+		if ($mail === false || $mail === true) {
+			$this->_mail_confirmed = $mail;
+			return true;
+		}
+		return genError("member", "invalid", "mail_confirmed");
+	}
+
 	public function isPasswordConfirmationCorrect() {
 		if ($this->_password === $this->_password2) {
 			return true;
