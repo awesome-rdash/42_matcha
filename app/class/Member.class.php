@@ -15,7 +15,8 @@ class Member {
 	protected $bio;
 	protected $mail_confirmed;
 
-	public function __construct( $playerId ) {
+	public function __construct( $mid ) {
+		$this->id = $mid;
 	}
 
 	public function hydrate( $kwargs ) {
@@ -35,6 +36,35 @@ class Member {
 		if (strlen($nickname) < 3) {
 			return (genError("register", "tooshort", "nickname"));
 		}
+		if (strlen($nickname) > 15) {
+			return (genError("register", "toolong", "nickname"));
+		}
+		if (!ctype_alnum($nickname)) {
+			return (genError("register", "specialchar", "nickname"));
+		}
+		$this->nickname = $nickname;
+		return true;
+	}
+
+	public function setEmail($email) {
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			return (genError("register", "notvalid", "email"));
+		}
+		if (strlen($email) >= 255) {
+			return (genError("register", "toolong", "email"));
+		}
+		$this->email = $email;
+		return true;
+	}
+
+	public function setPassword($password) {
+		if (strlen($password) < 6) {
+			return (genError("register", "tooshort", "password"));
+		}
+		if (strlen($password) > 200) {
+			return (genError("register", "toolong", "password"));
+		}
+		$this->$password = hash("whirlpool", $password);
 		return true;
 	}
 }
