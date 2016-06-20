@@ -94,6 +94,7 @@ class Member {
 		}
 		$this->_firstname = $firstname;
 		return true;
+	}
 
 	public function setLastname($firstname) {
 		if (strlen($lastname) > 20) {
