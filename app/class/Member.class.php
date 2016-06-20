@@ -16,7 +16,7 @@ class Member {
 	protected $_mail_confirmed;
 
 	public function __construct( $mid ) {
-		$this->id = $mid;
+		$this->_id = $mid;
 	}
 
 	public function hydrate( $kwargs ) {
@@ -31,6 +31,19 @@ class Member {
 		}
 		return true;
 	}
+
+	public function getId() { return $this->_id; }
+	public function getNickname() { return $this->_nickname; }
+	public function getEmail() { return $this->_email; }
+	public function getPassword() { return $this->_password; }
+	public function getRegister_time() { return $this->_register_time; }
+	public function getBirthdate() { return $this->_birthdate; }
+	public function getFirstname() { return $this->_firstname; }
+	public function getLastname() { return $this->_lastname; }
+	public function getPhone() { return $this->_phone; }
+	public function getSexe() { return $this->_sexe; }
+	public function getBio() { return $this->_bio; }
+	public function getMail_confirmed() { return $this->_mail_confirmed; }
 
 	public function setNickname($nickname) {
 		if (strlen($nickname) < 3) {
@@ -82,7 +95,7 @@ class Member {
 	}
 
 	public function setBirthdate($birthdate) {
-
+		$this->_birthdate = $birthdate;
 	}
 
 	public function setFirstname($firstname) {
@@ -96,7 +109,7 @@ class Member {
 		return true;
 	}
 
-	public function setLastname($firstname) {
+	public function setLastname($lastname) {
 		if (strlen($lastname) > 20) {
 			return genError("member", "toolong", "lastname");
 		}
@@ -143,7 +156,7 @@ class Member {
 	}
 
 	public function isPasswordConfirmationCorrect() {
-		if ($this->_password === $this->_password2) {
+		if ($this->_password == $this->_password2) {
 			return true;
 		} else {
 			return false;

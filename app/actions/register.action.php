@@ -1,12 +1,26 @@
 <?php
 
-$member = new Member(0);
-$return = $member->hydrate($_POST);
+$toCheck = array("nickname", "email", "password", "password2", "birthdate");
 
-if ($return === true) {
-	echo "LISE";
+foreach($toCheck as $element) {
+	if (!isset($_POST[$element]) || empty($_POST[$element])) {
+		$error = genError("register", "missingfield", $_POST);
+	}
+}
+
+if (!isset($error)) {
+	$toCheck = array("nickname", "email");
 	$manager = new MemberManager($db);
-	$return = $manager->newMemberFromRegistration($_POST);
+	foreach($toCheck as $element) {
+		if ($manager->ifExist($element, $kwargs[$element])) {
+			$error = genError("register", "alreadyexist", $element);
+		}
+	}
+}
+
+if (!isset($error)) {
+	$member = new Member(0);
+	$return = $member->hydrate($_POST);
 }
 
 if (is_object($return)) {
@@ -14,4 +28,13 @@ if (is_object($return)) {
 
 } else {
 	$error = $return;
+}
+
+if (!isset($error)) {
+	if ($member->isPasswordConfirmationCorrect()) {
+		$manager->add($member);
+	}
+	else {
+		$error = genError("member", "notthesame", "password");
+	}
 }
