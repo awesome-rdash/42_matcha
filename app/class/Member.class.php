@@ -77,6 +77,43 @@ class Member {
 		if ($register_time <= 0) {
 			return genError("member", "invalid", "register_time");
 		}
+		$this->_register_time = $register_time;
+		return true;
+	}
+
+	public function setBirthdate($birthdate) {
+
+	}
+
+	public function setFirstname($firstname) {
+		if (strlen($firstname) > 20) {
+			return genError("member", "toolong", "firstname");
+		}
+		if (!ctype_alpha($firstname)) {
+			return genError("member", "invalid", "firstname");
+		}
+		$this->_firstname = $firstname;
+		return true;
+
+	public function setLastname($firstname) {
+		if (strlen($lastname) > 20) {
+			return genError("member", "toolong", "lastname");
+		}
+		if (!ctype_alpha($lastname)) {
+			return genError("member", "invalid", "lastname");
+		}
+		$this->_lastname = $lastname;
+		return true;
+	}
+
+	public function setPhone($phone) {
+		if (strlen($phone) != 10) {
+			return genError("member", "incorrectsize", "phone");
+		}
+		if (!is_numeric($phone)) {
+			return genError("member", "invalid", "phone");
+		}
+		$this->_phone = $phone;
 		return true;
 	}
 
