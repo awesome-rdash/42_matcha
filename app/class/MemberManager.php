@@ -34,5 +34,10 @@ class MemberManager {
 		$q->execute();
 
 		$result = $q->fetch();
+		if ($result > 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

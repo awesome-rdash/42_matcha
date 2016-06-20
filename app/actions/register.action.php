@@ -12,8 +12,9 @@ if (!isset($error)) {
 	$toCheck = array("nickname", "email");
 	$manager = new MemberManager($db);
 	foreach($toCheck as $element) {
-		if ($manager->ifExist($element, $kwargs[$element])) {
+		if ($manager->ifExist($element, $_POST[$element])) {
 			$error = genError("register", "alreadyexist", $element);
+			break;
 		}
 	}
 }
@@ -23,11 +24,12 @@ if (!isset($error)) {
 	$return = $member->hydrate($_POST);
 }
 
-if (is_object($return)) {
-	$member = $return;
-
-} else {
-	$error = $return;
+if (!isset($error)) {
+	if (is_object($return)) {
+		$member = $return;
+	} else {
+		$error = $return;
+	}
 }
 
 if (!isset($error)) {
