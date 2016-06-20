@@ -20,7 +20,7 @@ include ("config/database.php");
 try {
 	$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 } catch (Exception $e) {
-        die('Erreur : ' . $e->getMessage());
+        die('Il y a eu une erreur. Détails :  ' . $e->getMessage());
 }
 
 require_once("app/class/Member.class.php");
