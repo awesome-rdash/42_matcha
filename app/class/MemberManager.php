@@ -23,8 +23,22 @@ class MemberManager {
 		$q->execute();
 
 		$id = $this->_db->lastInsertId();
-		echo "test";
 		return ($id);
+	}
+
+	public function get($id) {
+		$q = $this->_db->prepare('SELECT * FROM users WHERE id = :id');
+		$q->bindValue(':id', $id, PDO::PARAM_INT);
+
+		$q->execute();
+
+		if ($q->rowCount() > 0) {
+			$member = new Member($id);
+			$member->hydrate($q->fetch());
+			return ($member);
+		} else {
+			return genError("users", "notfound", "id");
+		}
 	}
 
 	public function ifExist($field, $value) {

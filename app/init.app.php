@@ -29,3 +29,16 @@ require_once("app/class/MemberManager.php");
 session_start();
 
 require_once("app/action.app.php");
+
+if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
+	if (isset($_SESSION['userid'])) {
+		$manager = new MemberManager($db);
+		$return = $manager->get($_SESSION['userid']);
+		if (!is_object($currentUser)) {
+			$error = $return;
+			session_destroy();
+		} else {
+			$currentUser = $return;
+		}
+	}
+}
