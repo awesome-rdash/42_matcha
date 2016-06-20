@@ -34,13 +34,13 @@ class Member {
 
 	public function setNickname($nickname) {
 		if (strlen($nickname) < 3) {
-			return (genError("register", "tooshort", "nickname"));
+			return (genError("member", "tooshort", "nickname"));
 		}
 		if (strlen($nickname) > 15) {
-			return (genError("register", "toolong", "nickname"));
+			return (genError("member", "toolong", "nickname"));
 		}
 		if (!ctype_alnum($nickname)) {
-			return (genError("register", "specialchar", "nickname"));
+			return (genError("member", "specialchar", "nickname"));
 		}
 		$this->_nickname = $nickname;
 		return true;
@@ -48,10 +48,10 @@ class Member {
 
 	public function setEmail($email) {
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			return (genError("register", "notvalid", "email"));
+			return (genError("member", "notvalid", "email"));
 		}
 		if (strlen($email) >= 255) {
-			return (genError("register", "toolong", "email"));
+			return (genError("member", "toolong", "email"));
 		}
 		$this->_email = $email;
 		return true;
@@ -59,10 +59,10 @@ class Member {
 
 	public function setPassword($password) {
 		if (strlen($password) < 6) {
-			return (genError("register", "tooshort", "password"));
+			return (genError("member", "tooshort", "password"));
 		}
 		if (strlen($password) > 200) {
-			return (genError("register", "toolong", "password"));
+			return (genError("member", "toolong", "password"));
 		}
 		$this->_password = hash("whirlpool", $password);
 		return true;
@@ -70,6 +70,13 @@ class Member {
 
 	public function setPassword2($password2) {
 		$this->_password2 = hash("whirlpool", $password2);
+		return true;
+	}
+
+	public function setRegister_time($register_time) {
+		if ($register_time <= 0) {
+			return genError("member", "invalid", "register_time");
+		}
 		return true;
 	}
 
