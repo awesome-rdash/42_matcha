@@ -26,9 +26,15 @@ class MemberManager {
 		return ($id);
 	}
 
-	public function get($id) {
-		$q = $this->_db->prepare('SELECT * FROM users WHERE id = :id');
-		$q->bindValue(':id', $id, PDO::PARAM_INT);
+	public function getFrom( $field, $value ) {
+		$q = $this->_db->prepare('SELECT * FROM users WHERE :field = :value');
+		if ($field == "id") {
+			$q->bindValue(':field', $id, PDO::PARAM_INT);
+		} else if ($field == "nickname" || $field == "email") {
+			$q->bindValue(':field', $id, PDO::PARAM_STR);
+		} else {
+			return genError("users", "badselector", "get");
+		}
 
 		$q->execute();
 
@@ -37,7 +43,7 @@ class MemberManager {
 			$member->hydrate($q->fetch());
 			return ($member);
 		} else {
-			return genError("users", "notfound", "id");
+			return genError("users", "notfound", "get");
 		}
 	}
 
