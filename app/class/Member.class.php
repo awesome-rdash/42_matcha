@@ -1,19 +1,19 @@
 <?php
 
 class Member {
-	protected $id;
-	protected $nickname;
-	protected $email;
-	protected $password;
-	protected $password2;
-	protected $register_time;
-	protected $birthdate;
-	protected $firstname;
-	protected $lastname;
-	protected $phone;
-	protected $sexe;
-	protected $bio;
-	protected $mail_confirmed;
+	protected $_id;
+	protected $_nickname;
+	protected $_email;
+	protected $_password;
+	protected $_password2;
+	protected $_register_time;
+	protected $_birthdate;
+	protected $_firstname;
+	protected $_lastname;
+	protected $_phone;
+	protected $_sexe;
+	protected $_bio;
+	protected $_mail_confirmed;
 
 	public function __construct( $mid ) {
 		$this->id = $mid;
@@ -42,7 +42,7 @@ class Member {
 		if (!ctype_alnum($nickname)) {
 			return (genError("register", "specialchar", "nickname"));
 		}
-		$this->nickname = $nickname;
+		$this->_nickname = $nickname;
 		return true;
 	}
 
@@ -53,7 +53,7 @@ class Member {
 		if (strlen($email) >= 255) {
 			return (genError("register", "toolong", "email"));
 		}
-		$this->email = $email;
+		$this->_email = $email;
 		return true;
 	}
 
@@ -64,7 +64,20 @@ class Member {
 		if (strlen($password) > 200) {
 			return (genError("register", "toolong", "password"));
 		}
-		$this->$password = hash("whirlpool", $password);
+		$this->_password = hash("whirlpool", $password);
 		return true;
+	}
+
+	public function setPassword2($password2) {
+		$this->_password2 = hash("whirlpool", $password2);
+		return true;
+	}
+
+	public function isPasswordConfirmationCorrect() {
+		if ($this->_password === $this->_password2) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
