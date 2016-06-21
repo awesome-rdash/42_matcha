@@ -162,12 +162,4 @@ class Member {
 			return false;
 		}
 	}
-
-	public function isPasswordCorrect($passToCheck) {
-		if ($this->_password == $hash("whirlpool", $passToCheck)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }

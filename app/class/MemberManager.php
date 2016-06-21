@@ -60,4 +60,20 @@ class MemberManager {
 			return true;
 		}
 	}
+
+	public function isPasswordCorrect($memberID, $passToCheck) {
+		if ($this->ifExist("id", $memberID)) {
+			$q = $this->_db->prepare('SELECT password FROM users WHERE id = :id');
+			$q->bindValue(':id', $passToCheck, PDO::PARAM_INT);
+			$q->execute();
+
+			if ($this->_password == $hash("whirlpool", $passToCheck)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			
+		}
+	}
 }
