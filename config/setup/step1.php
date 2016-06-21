@@ -19,7 +19,9 @@ if (isset($_POST['password'])) {
 	</head>
 	<body>
 		<div id="page">
-		<?php if ($error) { echo "<p><font color=\"red\">Erreur : le mot de passe entré est incorrect. :(</font></p>"; } ?>
+		<?php if ($error) { echo "<p><font color=\"red\">Erreur : le mot de passe entré est incorrect. :(</font></p>"; }
+			if (isset($_GET['error'])) { echo "<font color=\"red\"><p>Il y a eu une erreur. Détails de l'erreur : <br />" . urldecode($_GET['error']) . "</p></font><p>Vous avez été redirigé sur cette page pour reconfigurer votre application."; }
+		?>
 			<h1>DANGER ZONE</h1>
 			<p>Cette partie du site vous sert à configurer ou réinitialiser votre application. Avant d'aller plus loin, gardez en tête que TOUT SERA REINITAILISE si vous continuez.</p>
 			<p>Entrez votre mot de passe super-admin ici.</p>

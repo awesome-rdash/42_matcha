@@ -6,7 +6,7 @@ function startsWith($haystack, $needle){
     return (substr($haystack, 0, $length) === $needle);
 }
 
-function run_sql_file($location, $bdd){
+function run_sql_file($location, $bdd, $dbname){
     $commands = file_get_contents($location);
 
     $lines = explode("\n",$commands);
@@ -21,9 +21,11 @@ function run_sql_file($location, $bdd){
     $commands = explode(";", $commands);
 
     $total = $success = 0;
+
+    $bdd->exec('USE ' . $dbname . ';');
     foreach($commands as $command){
         if(trim($command)){
-            $success += ($bdd->exec($command)==false ? 0 : 1);
+            $success += ($bdd->exec($command)===false ? 0 : 1);
             $total += 1;
         }
     }
@@ -79,8 +81,7 @@ if ( isset($_GET['step']) )
 		include("setup/step2.php");
 	else if ( $step == 3 )
 		include("setup/step3.php");
-	else if ( $step == 4 )
-		include("setup/step4.php");
 }
-else
-	header("Location: setup.php?step=1");
+else {
+        include("setup/step1.php");
+}

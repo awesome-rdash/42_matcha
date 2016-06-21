@@ -1,32 +1,10 @@
--- phpMyAdmin SQL Dump
--- version 4.6.0
--- http://www.phpmyadmin.net
---
--- Client :  localhost
--- Généré le :  Lun 20 Juin 2016 à 19:34
--- Version du serveur :  5.7.11
--- Version de PHP :  7.0.0
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données :  `camagru`
---
-CREATE DATABASE IF NOT EXISTS `camagru` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `camagru`;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `errors`
---
 
 DROP TABLE IF EXISTS `errors`;
 CREATE TABLE `errors` (
@@ -36,15 +14,6 @@ CREATE TABLE `errors` (
   `element` varchar(20) NOT NULL,
   `message` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Vider la table avant d'insérer `errors`
---
-
-TRUNCATE TABLE `errors`;
---
--- Contenu de la table `errors`
---
 
 INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (9, 'register', 'missingfield', 'nickname', 'Vous devez entrer un nom d\'utilisateur.'),
@@ -69,13 +38,9 @@ INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (28, 'member', 'incorrectsize', 'phone', 'Le numéro de téléphone doit être composé de 10 chiffres. Exemple : 0123456789'),
 (29, 'member', 'invalid', 'phone', 'Le numéro de téléphone doit être composé de 10 chiffres. Exemple : 0123456789'),
 (30, 'member', 'invalid', 'sexe', 'Votre sexe ne peut être que masculin ou féminin.'),
-(31, 'member', 'invalid', 'mail_confirmed', 'Confirmation du mail incorrecte.');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `users`
---
+(31, 'member', 'invalid', 'mail_confirmed', 'Confirmation du mail incorrecte.'),
+(32, 'users', 'notfound', 'get', 'Aucun utilisateur avec cet ID n\'a été trouvé.'),
+(33, 'users', 'badselector', 'get', 'Mauvais sélecteur. Sélecteurs disponibles : id nickname email');
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -93,50 +58,19 @@ CREATE TABLE `users` (
   `mail_confirmed` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Vider la table avant d'insérer `users`
---
-
-TRUNCATE TABLE `users`;
---
--- Contenu de la table `users`
---
-
 INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`) VALUES
-(1, 'test', 'test@test.fr', '989bac194dc428df07bd8f455326765ad001c7b3909c86b63400641fddc9bc4a205ca18458e112e978e6c9576a6a397fa2203cf458ca0412886b57c23b386f76', '2016-06-20 17:18:01', '2016-06-01', 'test', 'test', NULL, NULL, NULL, 0),
-(2, 'test', 'test@test.fr', '989bac194dc428df07bd8f455326765ad001c7b3909c86b63400641fddc9bc4a205ca18458e112e978e6c9576a6a397fa2203cf458ca0412886b57c23b386f76', '2016-06-20 18:55:48', '2016-06-01', 'test', 'test', NULL, NULL, NULL, 0),
-(3, 'test', 'test@test.fr', '989bac194dc428df07bd8f455326765ad001c7b3909c86b63400641fddc9bc4a205ca18458e112e978e6c9576a6a397fa2203cf458ca0412886b57c23b386f76', '2016-06-20 19:17:33', '2016-06-01', 'test', 'test', NULL, NULL, NULL, 0),
-(4, 'test', 'test@test.fr', '989bac194dc428df07bd8f455326765ad001c7b3909c86b63400641fddc9bc4a205ca18458e112e978e6c9576a6a397fa2203cf458ca0412886b57c23b386f76', '2016-06-20 19:17:35', '2016-06-01', 'test', 'test', NULL, NULL, NULL, 0),
-(5, 'test', 'test@test.fr', '989bac194dc428df07bd8f455326765ad001c7b3909c86b63400641fddc9bc4a205ca18458e112e978e6c9576a6a397fa2203cf458ca0412886b57c23b386f76', '2016-06-20 19:18:03', '2016-06-01', 'test', 'test', NULL, NULL, NULL, 0);
+(1, 'test', 'test@test.fr', '989bac194dc428df07bd8f455326765ad001c7b3909c86b63400641fddc9bc4a205ca18458e112e978e6c9576a6a397fa2203cf458ca0412886b57c23b386f76', '2016-06-20 17:18:01', '2016-06-01', 'test', 'test', NULL, NULL, NULL, 0);
 
---
--- Index pour les tables exportées
---
 
---
--- Index pour la table `errors`
---
 ALTER TABLE `errors`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `users`
---
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
---
--- AUTO_INCREMENT pour les tables exportées
---
 
---
--- AUTO_INCREMENT pour la table `errors`
---
 ALTER TABLE `errors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
---
--- AUTO_INCREMENT pour la table `users`
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

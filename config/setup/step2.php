@@ -8,11 +8,22 @@ if (isset($_POST['submit'])) {
 	if (isset($_POST['dbsrvname']) && isset($_POST['dbusername']) && isset($_POST['dbpasswd']) && isset($_POST['dbport']) && isset($_POST['dbname'])) {
 		if ($_POST['dbsrvname'] !== "" && $_POST['dbname'] !== "" && $_POST['dbusername'] !== "" && $_POST['dbpasswd'] !== "" && $_POST['dbport'] !== "") {
 			try {
+				if (!ctype_alnum($_POST['dbname'])) {
+					throw new Exception("Le nom de la base de données ne peut contenir que des caractères alphanumériques.");
+				}
+				if (isset($_POST['createdb']) && $_POST['createdb'] === "createdb") {
+					$db = "";
+				} else {
+					$db = ";dbname=" . $_POST['dbname'];
+				}
 				$bdd = new PDO('mysql:host=' . htmlspecialchars($_POST['dbsrvname']) .
-					';dbname=' . $_POST['dbname'] .
+					$db .
 					';charset=utf8',
 					htmlspecialchars($_POST['dbsrvname']),
 					htmlspecialchars($_POST['dbpasswd']));
+				if (empty($db)) {
+					$q = $bdd->exec('CREATE DATABASE IF NOT EXISTS ' . $_POST['dbname'] . ' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
+				}
 				$tosave = array(
 					'db_host' => $_POST['dbsrvname'],
 					'db_username' => $_POST['dbusername'],
@@ -48,6 +59,9 @@ if (isset($_POST['submit'])) {
 					<br />
 					<label for="dbname">Nom de la base de données : </label>
 					<input type="text" name="dbname" id="dbname" value="camagru">
+					<br />
+					<label for="createdb">Créer la base de donnée si elle n'existe pas (recommandé)</label>
+					<input type="checkbox" name="createdb" value="createdb" checked>
 					<br />
 					<label for="dbusername">Nom d'utilisateur : </label>
 					<input type="text" name="dbusername" id="dbusername" value="root">
