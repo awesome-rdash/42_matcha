@@ -1,6 +1,6 @@
 <div id="registerform">
 <?php 
-	if (isset($error)) { echo "<p id=\"errormsg\">" . $error['msg'] . "</p><br />"; }
+	if (isset($error) && $error['module'] == "register") { echo "<p id=\"errormsg\">" . $error['msg'] . "</p><br />"; }
 ?>
 	<form method="post" action="index.php?action=register">
 		<fieldset>
