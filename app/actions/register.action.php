@@ -4,7 +4,7 @@ $toCheck = array("nickname", "email", "password", "password2", "birthdate");
 
 foreach($toCheck as $element) {
 	if (!isset($_POST[$element]) || empty($_POST[$element])) {
-		$error = genError("register", "missingfield", $_POST);
+		$error = genError("register", "missingfield", $element);
 	}
 }
 
