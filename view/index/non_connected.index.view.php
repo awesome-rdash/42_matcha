@@ -6,7 +6,10 @@
 			include("view/register/registerform.view.php"); ?>
 		<div id="connectionform">
 			<p>Déjà inscrit ?</p>
-			<form method="POST" action="index.php?action=connexion">
+		<?php 
+			if (isset($error) && $error['module'] == "login") { echo "<p id=\"errormsg\">" . $error['msg'] . "</p>"; }
+?>
+			<form method="POST" action="index.php?action=login">
 				<label for="nickname">Nom d'utilisateur : </label>
 				<input type="text" name="nickname" id="nickname" maxlength="15" required <?php if (isset($_POST['nickname'])) { echo "value=\"" . $_POST['nickname'] . "\"" ; } ?> />
 				<br />
