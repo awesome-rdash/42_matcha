@@ -39,6 +39,7 @@ if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 			session_destroy();
 		} else {
 			$currentUser = $return;
+			echo "connected";
 		}
 	}
 }
