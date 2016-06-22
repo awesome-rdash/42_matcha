@@ -54,9 +54,9 @@ class MemberManager {
 	}
 
 	public function ifExist($field, $value) {
-		$q = $this->_db->prepare('SELECT COUNT(:field) FROM users WHERE value = :value');
+		$q = $this->_db->prepare('SELECT COUNT(*) FROM users WHERE :field = :value');
 		$q->bindValue(':field', $field, PDO::PARAM_STR);
-		$q->bindValue(':value', $field, PDO::PARAM_STR);
+		$q->bindValue(':value', $value, PDO::PARAM_STR);
 		$q->execute();
 
 		$result = $q->fetch();
