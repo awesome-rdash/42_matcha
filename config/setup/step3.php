@@ -5,15 +5,12 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
 
 $error = 0;
 if (file_exists("cfg.ini")) {
-	$dbi = parse_ini_file("cfg.ini");
+	$db_infos = parse_ini_file("cfg.ini");
 	try {
-		$bdd = new PDO('mysql:host=' . htmlspecialchars($dbi['db_srvname']) .
-			';dbname=' . $dbi['db_name'] .
-			';charset=utf8',
-			htmlspecialchars($dbi['db_srvname']),
-			htmlspecialchars($dbi['db_passwd']));
+		include "database.php";
+		$bdd = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", PDO::ERRMODE_EXCEPTION));
 		if (file_exists("database.sql")) {
-			$req = run_sql_file("database.sql", $bdd, $dbi['db_name']);
+			$req = run_sql_file("database.sql", $bdd, $db_infos['db_name']);
 		} else {
 			$error = 1;
 		}
