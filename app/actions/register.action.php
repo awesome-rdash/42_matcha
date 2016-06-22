@@ -23,17 +23,13 @@ if (!isset($error)) {
 if (!isset($error)) {
 	$member = new Member(0);
 	$return = $member->hydrate($_POST);
-}
-
-if (!isset($error)) {
-	if (is_object($return)) {
-		$member = $return;
-	} else {
+	if ($return !== true) {
 		$error = $return;
 	}
 }
 
 if (!isset($error)) {
+	echo "test";
 	if ($member->isPasswordConfirmationCorrect()) {
 		$manager->add($member);
 	}
