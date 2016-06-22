@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 require_once("app/error.app.php");
 
 if (file_exists("config/cfg.ini")) {
@@ -37,8 +40,11 @@ if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 		if (!is_object($return)) {
 			$error = $return;
 			session_destroy();
+			header("index.php");
 		} else {
 			$currentUser = $return;
 		}
 	}
+} else {
+	$_SESSION['connected'] = false;
 }
