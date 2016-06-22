@@ -58,16 +58,18 @@ class MemberManager {
 		if (!in_array($field, $fieldCorrectValues)) {
 			throw new Exception("Invalid field");
 		}
-		$q = $this->_db->prepare('SELECT COUNT(*) FROM users WHERE $field = :value');
+
+		$statement = 'SELECT COUNT(*) FROM users WHERE ' . $field . ' = :value';
+		$q = $this->_db->prepare($statement);
 		$q->bindValue(':value', $value, PDO::PARAM_STR);
 		$q->execute();
 
 		$result = $q->fetch();
-		
-		if ($result == 0) {
-			return false;
-		} else {
+
+		if ($result[0] > 0) {
 			return true;
+		} else {
+			return false;
 		}
 	}
 
