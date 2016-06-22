@@ -14,7 +14,6 @@ if (!isset($error)) {
 	foreach($toCheck as $element) {
 		if ($manager->ifExist($element, $_POST[$element])) {
 			$error = genError("member", "alreadyexist", $element);
-			$error['module'] = "register";
 			break;
 		}
 	}
@@ -29,12 +28,14 @@ if (!isset($error)) {
 }
 
 if (!isset($error)) {
-	echo "test";
 	if ($member->isPasswordConfirmationCorrect()) {
 		$manager->add($member);
 	}
 	else {
 		$error = genError("member", "notthesame", "password");
-		$error['module'] = "register";
 	}
+}
+
+if (isset($error)) {
+	$error['module'] = "register";
 }
