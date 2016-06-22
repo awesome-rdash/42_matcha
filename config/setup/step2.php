@@ -6,7 +6,7 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
 $error = 0;
 if (isset($_POST['submit'])) {
 	if (isset($_POST['dbsrvname']) && isset($_POST['dbusername']) && isset($_POST['dbpasswd']) && isset($_POST['dbport']) && isset($_POST['dbname'])) {
-		if ($_POST['dbsrvname'] !== "" && $_POST['dbname'] !== "" && $_POST['dbusername'] !== "" && $_POST['dbpasswd'] !== "" && $_POST['dbport'] !== "") {
+		if ($_POST['dbsrvname'] !== "" && $_POST['dbname'] !== "" && $_POST['dbusername'] !== "" && $_POST['dbport'] !== "") {
 			try {
 				if (!ctype_alnum($_POST['dbname'])) {
 					throw new Exception("Le nom de la base de données ne peut contenir que des caractères alphanumériques.");
@@ -14,22 +14,23 @@ if (isset($_POST['submit'])) {
 				if (isset($_POST['createdb']) && $_POST['createdb'] === "createdb") {
 					$db = "";
 				} else {
-					$db = ";dbname=" . $_POST['dbname'];
+					$db = ";dbname=" . htmlspecialchars($_POST['dbname']);
 				}
 				$bdd = new PDO('mysql:host=' . htmlspecialchars($_POST['dbsrvname']) .
+					';port=' . htmlspecialchars($_POST['dbport']) .
 					$db .
 					';charset=utf8',
-					htmlspecialchars($_POST['dbsrvname']),
-					htmlspecialchars($_POST['dbpasswd']));
+					htmlspecialchars($_POST['dbusername']),
+					$_POST['dbpasswd']);
 				if (empty($db)) {
 					$q = $bdd->exec('CREATE DATABASE IF NOT EXISTS ' . $_POST['dbname'] . ' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
 				}
 				$tosave = array(
-					'db_host' => $_POST['dbsrvname'],
-					'db_username' => $_POST['dbusername'],
+					'db_host' => htmlspecialchars($_POST['dbsrvname']),
+					'db_username' => htmlspecialchars($_POST['dbusername']),
 					'db_passwd' => $_POST['dbpasswd'],
-					'db_name' => $_POST['dbname'],
-					'db_port' => $_POST['dbport']);
+					'db_name' => htmlspecialchars($_POST['dbname']),
+					'db_port' => htmlspecialchars($_POST['dbport']));
 				write_ini_file($tosave, "cfg.ini");
 				header("Location: setup.php?step=3");
 			} catch (Exception $e) {
@@ -47,7 +48,7 @@ if (isset($_POST['submit'])) {
 	</head>
 	<body>
 		<div id="page">
-		<?php if ($error) { echo "<p><font color=\"red\">Erreur : Connexion impossible à la base de données. Veuillez vérifiez vos informations.<br /></font></p>"; echo $e;} ?>
+		<?php if ($error) { echo "<p><font color=\"red\">Erreur : Connexion impossible à la base de données. Veuillez vérifier vos informations.<br /></font></p>"; } ?>
 			<h1>Connexion à la base de données</h1>
 			<p>Entrez les paramètres de votre base de données</p>
 			<form action="setup.php?step=2" method="POST">
