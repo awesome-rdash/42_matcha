@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<?php 
-			if ($_SESSION['connected'] === true) {
+			if (isUserLogged()) {
 				include("view/index/connected.index.view.php");
 			} else {
 				include("view/index/non_connected.index.view.php");

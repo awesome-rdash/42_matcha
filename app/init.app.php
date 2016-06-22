@@ -48,3 +48,7 @@ if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 } else {
 	$_SESSION['connected'] = false;
 }
+
+function isUserLogged() {
+	return $_SESSION['connected'];
+}
