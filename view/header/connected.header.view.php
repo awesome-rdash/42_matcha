@@ -1,1 +1,1 @@
-<p>Connecté en tant que <?php echo $logged_user->getNickname(); ?></p>
+<p>Connecté en tant que <?php echo $currentUser->getNickname(); ?></p>

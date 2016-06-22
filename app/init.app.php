@@ -34,12 +34,11 @@ if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 	if (isset($_SESSION['userid'])) {
 		$manager = new MemberManager($db);
 		$return = $manager->get($_SESSION['userid']);
-		if (!is_object($currentUser)) {
+		if (!is_object($return)) {
 			$error = $return;
 			session_destroy();
 		} else {
 			$currentUser = $return;
-			echo "connected";
 		}
 	}
 }
