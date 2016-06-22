@@ -54,17 +54,13 @@ class MemberManager {
 	}
 
 	public function ifExist($field, $value) {
-		$fieldCorrectValues = array("id", "nickname", "email");
-		if (!in_array($field, $fieldCorrectValues)) {
-			throw new Exception("Invalid field");
-		}
-		$q = $this->_db->prepare('SELECT COUNT(*) FROM users WHERE $field = :value');
+		$q = $this->_db->prepare('SELECT COUNT(*) FROM users WHERE :field = :value');
+		$q->bindValue(':field', $field, PDO::PARAM_STR);
 		$q->bindValue(':value', $value, PDO::PARAM_STR);
 		$q->execute();
 
 		$result = $q->fetch();
-		
-		if ($result == 0) {
+		if ($result > 0) {
 			return false;
 		} else {
 			return true;
