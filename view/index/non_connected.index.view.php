@@ -6,7 +6,7 @@
 			include("view/register/registerform.view.php"); ?>
 		<div id="connectionform">
 			<p>Déjà inscrit ?</p>
-		<?php 
+		<?php
 			if (isset($error) && $error['module'] == "login") { echo "<p id=\"errormsg\">" . $error['msg'] . "</p>"; }
 ?>
 			<form method="POST" action="index.php?action=login">

@@ -14,6 +14,7 @@ if (!isset($error)) {
 	foreach($toCheck as $element) {
 		if ($manager->ifExist($element, $_POST[$element])) {
 			$error = genError("member", "alreadyexist", $element);
+			$error['module'] = "register";
 			break;
 		}
 	}
@@ -38,5 +39,6 @@ if (!isset($error)) {
 	}
 	else {
 		$error = genError("member", "notthesame", "password");
+		$error['module'] = "register";
 	}
 }
