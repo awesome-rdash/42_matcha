@@ -30,7 +30,6 @@ class MemberManager {
 		$q = $this->_db->prepare('SELECT * FROM users WHERE id=:value');
 		$q->bindValue(':value', $id, PDO::PARAM_INT);
 		$q->execute();
-			echo $id;
 		if ($q->rowCount() > 0) {
 			$member = new Member($id);
 			$member->hydrate($q->fetch());
@@ -70,9 +69,7 @@ class MemberManager {
 
 	public function isPasswordCorrect($memberID, $passToCheck) {
 		$member = $this->get($memberID);
-		print_r($member);
 		if (is_object($member)) {
-			echo "\n" . $member->getPassword() . "\n" . hash("whirlpool", $passToCheck);
 			if ($member->getPassword() == hash("whirlpool", $passToCheck)) {
 				return true;
 			} else {

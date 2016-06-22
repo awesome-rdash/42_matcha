@@ -1,8 +1,6 @@
 <?php
 $toCheck = array("nickname", "password");
 
-print_r($_POST);
-
 foreach($toCheck as $element) {
 	if (!isset($_POST[$element]) || empty($_POST[$element])) {
 		$error = genError("login", "missingfield", $element);
