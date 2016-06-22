@@ -71,13 +71,17 @@ class Member {
 	}
 
 	public function setPassword($password) {
-		if (strlen($password) < 6) {
-			return (genError("member", "tooshort", "password"));
+		if ($this->_id == 0) {
+			if (strlen($password) < 6) {
+				return (genError("member", "tooshort", "password"));
+			}
+			if (strlen($password) > 200) {
+				return (genError("member", "toolong", "password"));
+			}
+			$this->_password = hash("whirlpool", $password);
+		} else {
+			$this->_password = $password;
 		}
-		if (strlen($password) > 200) {
-			return (genError("member", "toolong", "password"));
-		}
-		$this->_password = hash("whirlpool", $password);
 		return true;
 	}
 
