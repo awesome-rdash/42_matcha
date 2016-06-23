@@ -35,11 +35,23 @@ if (!isset($error)) {
 
 if (!isset($error)) {
 	if ($member->isPasswordConfirmationCorrect()) {
-		$manager->add($member);
+		$addedId = $manager->add($member);
+		$member->setId($addedId);
 	}
 	else {
 		$error = genError("member", "notthesame", "password");
 	}
+}
+
+if (!isset($error)) {
+	$confirmationToken = new Token(0);
+	$parameters = array(
+		"userId" => $member->getId(),
+		"usefor" => "mailconfirmation");
+	$confirmationToken->hydrate($parameters);
+	$manager = new TokenManager($db);
+
+	$manager->add($confirmationToken);
 }
 
 if (isset($error)) {
