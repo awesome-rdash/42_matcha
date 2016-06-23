@@ -1,8 +1,8 @@
 <?php
 
 trait commonMembers{
-	public function __construct( $mid ) {
-		$this->_id = $mid;
+	public function __construct( $id ) {
+		$this->_id = $id;
 	}
 
 	public function hydrate( $kwargs ) {
