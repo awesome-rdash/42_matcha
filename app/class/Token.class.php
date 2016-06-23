@@ -23,6 +23,17 @@ Class Token {
 		}
 		return genError("token", "invalid", "userid");
 	}
+	
+	public function setToken($token) {
+		$this->_token = $token;
+		return true;
+	}
 
-	public function 
+	public function setTime_created($time) {
+		if (!Utilities::isDigits($register_time) || $register_time <= 0) {
+			return genError("member", "invalid", "register_time");
+		}
+		$this->_register_time = $register_time;
+		return true;
+	}
 }
