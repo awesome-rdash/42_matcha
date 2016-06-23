@@ -1,4 +1,5 @@
 <?php
+
 Class Token {
 	private $_id;
 	private $_user_id;
@@ -20,7 +21,7 @@ Class Token {
 		if (!Utilities::isDigits($id) || $id < 0) {
 			return genError("token", "invalid", "id");
 		}
-		$this->_id = $_id;
+		$this->_id = $id;
 		if ($id == 0) {
 			$this->generateToken();
 		}
