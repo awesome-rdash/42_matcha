@@ -76,7 +76,7 @@ class Member {
 	}
 
 	public function setRegister_time($register_time) {
-		if (!Utilities::isDigits($register_time) || $register_time <= 0) {
+		if (!Utilities::isDigits($register_time) || $register_time <= 0	) {
 			return genError("member", "invalid", "register_time");
 		}
 		$this->_register_time = $register_time;
