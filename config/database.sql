@@ -44,7 +44,11 @@ INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (32, 'users', 'notfound', 'get', 'Aucun utilisateur avec cet ID n\'a été trouvé.'),
 (33, 'users', 'badselector', 'get', 'Mauvais sélecteur. Sélecteurs disponibles : id nickname email'),
 (34, 'login', 'notfound', 'nickname', 'Aucun compte n\'existe avec ce nom d\'utilisateur.'),
-(35, 'login', 'invalid', 'password', 'Le mot de passe ne correspond pas au compte.');
+(35, 'login', 'invalid', 'password', 'Le mot de passe ne correspond pas au compte.'),
+(36, 'token', 'missingfield', 'token', 'Impossible de valider l\'action sans jeton.'),
+(37, 'token', 'invalid', 'token', 'Le jeton est invalide. Etes-vous sur d\'avoir cliqué sur le bon lien ?'),
+(38, 'token', 'alreadyused', 'token', 'Ce jeton a déjà été utilisé. Etes-vous sur d\'avoir cliqué sur le bon lien ?'),
+(39, 'token', 'outdated', 'token', 'Le jeton a expiré.');
 
 DROP TABLE IF EXISTS `tokens`;
 CREATE TABLE `tokens` (
@@ -86,7 +90,7 @@ ALTER TABLE `users`
 
 
 ALTER TABLE `errors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 ALTER TABLE `tokens`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `users`
