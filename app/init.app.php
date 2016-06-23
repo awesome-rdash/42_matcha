@@ -31,6 +31,7 @@ require_once("app/class/MemberManager.php");
 
 session_start();
 
+require_once("app/utilities.app.php");
 require_once("app/action.app.php");
 
 if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {

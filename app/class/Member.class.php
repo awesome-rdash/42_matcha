@@ -15,23 +15,6 @@ class Member {
 	protected $_bio;
 	protected $_mail_confirmed;
 
-	public function __construct( $mid ) {
-		$this->_id = $mid;
-	}
-
-	public function hydrate( $kwargs ) {
-		foreach($kwargs as $key => $value) {
-			$method = "set" . ucfirst($key);
-			if (method_exists($this, $method)) {
-				$result = $this->$method($value);
-				if ($result !== true) {
-					return $result;
-				}
-			}
-		}
-		return true;
-	}
-
 	public function getId() { return $this->_id; }
 	public function getNickname() { return $this->_nickname; }
 	public function getEmail() { return $this->_email; }
@@ -45,30 +28,7 @@ class Member {
 	public function getBio() { return $this->_bio; }
 	public function getMail_confirmed() { return $this->_mail_confirmed; }
 
-	public function setNickname($nickname) {
-		if (strlen($nickname) < 3) {
-			return (genError("member", "tooshort", "nickname"));
-		}
-		if (strlen($nickname) > 15) {
-			return (genError("member", "toolong", "nickname"));
-		}
-		if (!ctype_alnum($nickname)) {
-			return (genError("member", "specialchar", "nickname"));
-		}
-		$this->_nickname = $nickname;
-		return true;
-	}
-
-	public function setEmail($email) {
-		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			return (genError("member", "notvalid", "email"));
-		}
-		if (strlen($email) >= 255) {
-			return (genError("member", "toolong", "email"));
-		}
-		$this->_email = $email;
-		return true;
-	}
+	use commonMembers;
 
 	public function setPassword($password) {
 		if ($this->_id == 0) {
@@ -100,6 +60,7 @@ class Member {
 
 	public function setBirthdate($birthdate) {
 		$this->_birthdate = $birthdate;
+		return true;
 	}
 
 	public function setFirstname($firstname) {
@@ -166,5 +127,4 @@ class Member {
 			return false;
 		}
 	}
-
 }
