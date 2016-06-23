@@ -18,7 +18,7 @@ Class TokenManager {
 		$q->bindValue(':usefor', $token->getUsefor(), PDO::PARAM_STR);
 
 		$q->execute();
-		$token->id = $this->_db->lastInsertId();
-		return ($token->id);
+		$id = $this->_db->lastInsertId();
+		return ($id);
 	}
 }
