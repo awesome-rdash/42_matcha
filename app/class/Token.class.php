@@ -31,9 +31,17 @@ Class Token {
 
 	public function setTime_created($time) {
 		if (!Utilities::isDigits($register_time) || $register_time <= 0) {
-			return genError("member", "invalid", "register_time");
+			return genError("token", "invalid", "time_created");
 		}
 		$this->_register_time = $register_time;
+		return true;
+	}
+
+	public function setUsefor($usefor) {
+		if (strlen($usefor) > 20 || !ctype_alpha($usefor)) {
+			return genError("token", "invalid", "usefor");
+		}
+		$this->_usefor = $usefor;
 		return true;
 	}
 }
