@@ -22,8 +22,8 @@ class MemberManager {
 
 		$q->execute();
 
-		$member->id = $this->_db->lastInsertId();
-		return ($member->id);
+		$id = $this->_db->lastInsertId();
+		return ($id);
 	}
 
 	public function get($id) {
