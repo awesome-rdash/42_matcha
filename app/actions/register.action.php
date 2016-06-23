@@ -53,7 +53,7 @@ if (!isset($error)) {
 
 	$manager->add($confirmationToken);
 
-	$message = "Lien : http://localhost/camagru/action.php?action=validateemail&token=" . $confirmationToken->getToken();
+	$message = "Lien : http://localhost/camagru/action.php?action=useToken&token=" . $confirmationToken->getToken();
 
 	utilities::sendMail($member->getEmail(), "Confirmation d'inscription", $message);
 }
