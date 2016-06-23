@@ -15,6 +15,8 @@ class Member {
 	protected $_bio;
 	protected $_mail_confirmed;
 
+	use commonMembers;
+
 	public function getId() { return $this->_id; }
 	public function getNickname() { return $this->_nickname; }
 	public function getEmail() { return $this->_email; }
@@ -28,7 +30,30 @@ class Member {
 	public function getBio() { return $this->_bio; }
 	public function getMail_confirmed() { return $this->_mail_confirmed; }
 
-	use commonMembers;
+	public function setNickname($nickname) {
+		if (strlen($nickname) < 3) {
+			return (genError("member", "tooshort", "nickname"));
+		}
+		if (strlen($nickname) > 15) {
+			return (genError("member", "toolong", "nickname"));
+		}
+		if (!ctype_alnum($nickname)) {
+			return (genError("member", "specialchar", "nickname"));
+		}
+		$this->_nickname = $nickname;
+		return true;
+	}
+
+	public function setEmail($email) {
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			return (genError("member", "notvalid", "email"));
+		}
+		if (strlen($email) >= 255) {
+			return (genError("member", "toolong", "email"));
+		}
+		$this->_email = $email;
+		return true;
+	}
 
 	public function setPassword($password) {
 		if ($this->_id == 0) {
@@ -60,7 +85,6 @@ class Member {
 
 	public function setBirthdate($birthdate) {
 		$this->_birthdate = $birthdate;
-		return true;
 	}
 
 	public function setFirstname($firstname) {

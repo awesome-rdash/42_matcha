@@ -26,6 +26,7 @@ try {
         header("Location: config/setup.php?error=" . urlencode($e));
 }
 
+require_once("app/class/commonmembers.trait.php");
 require_once("app/class/Member.class.php");
 require_once("app/class/MemberManager.php");
 
