@@ -8,7 +8,7 @@ trait commonMembers{
 	public function hydrate( $kwargs ) {
 		foreach($kwargs as $key => $value) {
 			$method = "set" . ucfirst($key);
-			if (method_exists($this, $method) && !empty($value)) {
+			if (method_exists($this, $method) && isset($value)) {
 				$result = $this->$method($value);
 				if ($result !== true) {
 					return $result;
