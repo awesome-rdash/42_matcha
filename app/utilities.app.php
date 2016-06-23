@@ -13,8 +13,6 @@ Class Utilities {
 	}
 
 	static public function isDigits($string) {
-		return !preg_match("/[^0-9]/", $element);
+		return !preg_match("/[^0-9]/", $string);
 	}
 }
-
-Utilities::sendMail("jrouzier@outlook.com", "test", "test");
