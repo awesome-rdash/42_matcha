@@ -30,6 +30,14 @@ class Member {
 	public function getBio() { return $this->_bio; }
 	public function getMail_confirmed() { return $this->_mail_confirmed; }
 
+	public function setId($id) {
+		if (!Utilities::isDigits($id) || $id <= 0) {
+			return genError("member", "invalid", "id");
+		}
+		$this->_id = $id;
+		return true;
+	}
+
 	public function setNickname($nickname) {
 		if (strlen($nickname) < 3) {
 			return (genError("member", "tooshort", "nickname"));
