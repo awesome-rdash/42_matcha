@@ -31,7 +31,7 @@ class Member {
 	public function getMail_confirmed() { return $this->_mail_confirmed; }
 
 	public function setId($id) {
-		if (!Utilities::isDigits($id) || $id <= 0) {
+		if (!Utilities::isDigits($id) || $id < 0) {
 			return genError("member", "invalid", "id");
 		}
 		$this->_id = $id;
