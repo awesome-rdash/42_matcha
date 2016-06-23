@@ -2,7 +2,7 @@
 
 Class Token {
 	private $_id;
-	private $_userId;
+	private $_user_id;
 	private $_token;
 	private $_time_created;
 	private $_usefor;
@@ -15,7 +15,7 @@ Class Token {
 	public function getToken() { return $this->_token; }
 	public function getTime_created() { return $this->_time_created; }
 	public function getUsefor() { return $this->_usefor; }
-	public function getIsUsed() { return $this->_isUsed; }
+	public function isUsed() { return $this->_isUsed; }
 
 	public function setId($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {
@@ -28,7 +28,7 @@ Class Token {
 		return true;
 	}
 
-	public function setUserId($id) {
+	public function setUser_id($id) {
 		if (is_numeric($id)) {
 			$this->_user_id = $id;
 			return true;
@@ -42,6 +42,7 @@ Class Token {
 	}
 
 	public function setTime_created($time_created) {
+		$time_created = strtotime($time_created);
 		if (!Utilities::isDigits($time_created) || $time_created <= 0) {
 			return genError("token", "invalid", "time_created");
 		}
@@ -57,7 +58,7 @@ Class Token {
 		return true;
 	}
 
-	public function setIsUsed($isused) {
+	public function setIsused($isused) {
 		if ($isused) {
 			$this->_isUsed = true;
 		} else {
