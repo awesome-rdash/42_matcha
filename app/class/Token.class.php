@@ -7,7 +7,7 @@ Class Token {
 	private $_usefor;
 	private $_isUsed;
 
-	use commomMembers;
+	use commonMembers;
 
 	public function getId() { return $this->_id; }
 	public function getUser_id() { return $this->_user_id; }
