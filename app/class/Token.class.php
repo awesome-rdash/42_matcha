@@ -7,7 +7,7 @@ Class Token {
 	private $_usefor;
 	private $_isUsed;
 
-	use commonMembers;
+	use commomMembers;
 
 	public function getId() { return $this->_id; }
 	public function getUser_id() { return $this->_user_id; }
@@ -52,5 +52,11 @@ Class Token {
 			$this->_isUsed = false;
 		}
 		return true;
+	}
+
+	public function generateToken() {
+		$token = bin2hex(random_bytes(20));
+		$this->setToken($token);
+		return $this->getToken();
 	}
 }
