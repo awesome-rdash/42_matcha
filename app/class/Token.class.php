@@ -44,4 +44,13 @@ Class Token {
 		$this->_usefor = $usefor;
 		return true;
 	}
+
+	public function setIsUsed($isused) {
+		if ($isused) {
+			$this->_isUsed = true;
+		} else {
+			$this->_isUsed = false;
+		}
+		return true;
+	}
 }
