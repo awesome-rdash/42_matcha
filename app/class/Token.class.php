@@ -40,11 +40,11 @@ Class Token {
 		return true;
 	}
 
-	public function setTime_created($time) {
-		if (!Utilities::isDigits($register_time) || $register_time <= 0) {
+	public function setTime_created($time_created) {
+		if (!Utilities::isDigits($time_created) || $time_created <= 0) {
 			return genError("token", "invalid", "time_created");
 		}
-		$this->_register_time = $register_time;
+		$this->_time_created = $time_created;
 		return true;
 	}
 
