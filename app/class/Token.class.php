@@ -16,6 +16,17 @@ Class Token {
 	public function getUsefor() { return $this->_usefor; }
 	public function getIsUsed() { return $this->_isUsed; }
 
+	public function setId($id) {
+		if (!Utilities::isDigits($id) || $id <= 0) {
+			return genError("token", "invalid", "id");
+		}
+		$this->_id = $_id;
+		if ($id == 0) {
+			$this->generateToken();
+		}
+		return true;
+	}
+
 	public function setUser_id($id) {
 		if (is_numeric($id)) {
 			$this->_user_id = $id;
