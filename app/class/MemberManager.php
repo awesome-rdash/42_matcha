@@ -9,21 +9,21 @@ class MemberManager {
 		$this->_db = $db;
 	}
 
-	public function add(Member $membre) {
+	public function add(Member $member) {
 		$q = $this->_db->prepare('
 			INSERT INTO users(nickname, email, password, birthdate, firstname, lastname)
 			VALUES(:nickname, :email, :password, :birthdate, :firstname, :lastname)');
-		$q->bindValue(':nickname', $membre->getNickname(), PDO::PARAM_STR);
-		$q->bindValue(':email', $membre->getEmail(), PDO::PARAM_STR);
-		$q->bindValue(':password', $membre->getPassword(), PDO::PARAM_STR);
-		$q->bindValue(':birthdate', $membre->getBirthdate());
-		$q->bindValue(':firstname', $membre->getFirstname(), PDO::PARAM_STR);
-		$q->bindValue(':lastname', $membre->getLastname(), PDO::PARAM_STR);
+		$q->bindValue(':nickname', $member->getNickname(), PDO::PARAM_STR);
+		$q->bindValue(':email', $member->getEmail(), PDO::PARAM_STR);
+		$q->bindValue(':password', $member->getPassword(), PDO::PARAM_STR);
+		$q->bindValue(':birthdate', $member->getBirthdate());
+		$q->bindValue(':firstname', $member->getFirstname(), PDO::PARAM_STR);
+		$q->bindValue(':lastname', $member->getLastname(), PDO::PARAM_STR);
 
 		$q->execute();
 
-		$id = $this->_db->lastInsertId();
-		return ($id);
+		$member->id = $this->_db->lastInsertId();
+		return ($member->id);
 	}
 
 	public function get($id) {
