@@ -9,7 +9,7 @@ foreach($toCheck as $element) {
 
 if (!isset($error)) {
 	$manager = new MemberManager($db);
-	$return = $manager->getFromNickname(htmlspecialchars($_POST['nickname']));
+	$return = $manager->get("nickname", htmlspecialchars($_POST['nickname']));
 	if (is_object($return)) {
 		if ($manager->isPasswordCorrect($return->getId(), htmlspecialchars($_POST['password']))) {
 			$_SESSION['connected'] = true;

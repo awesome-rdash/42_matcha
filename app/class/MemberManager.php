@@ -26,31 +26,29 @@ class MemberManager {
 		return ($id);
 	}
 
-	public function get($id) {
-		$q = $this->_db->prepare('SELECT * FROM users WHERE id=:value');
-		$q->bindValue(':value', $id, PDO::PARAM_INT);
+	public function get( $field, $value ) {
+		$fieldCorrectValues = array("id", "nickname", "email");
+		if (!in_array($field, $fieldCorrectValues)) {
+			throw new Exception("Invalid field");
+		}
+		$statement = ('SELECT * FROM users WHERE ' . $field . ' = :value');
+		$q = $this->_db->prepare($statement);
+		$q->bindValue(':value', $value, PDO::PARAM_STR);
 		$q->execute();
+
+		$donnees = $q->fetch();
+
 		if ($q->rowCount() > 0) {
-			$member = new Member($id);
-			$member->hydrate($q->fetch());
+			$member = new Member($donnees['id']);
+			$member->hydrate($donnees);
 			return ($member);
 		} else {
 			return false;
 		}
 	}
 
-	public function getFromNickname( $nickname ) {
-		$q = $this->_db->prepare('SELECT id FROM users WHERE nickname=:value');
-		$q->bindValue(':value', $nickname, PDO::PARAM_STR);
-		$q->execute();
-
-		if ($q->rowCount() > 0) {
-			$data = $q->fetch();
-			$member = $this->get($data['id']);
-			return $member;
-		} else {
-			return false;
-		}
+	public function getFromId($id) {
+		return $this->get('id', $id);
 	}
 
 	public function ifExist($field, $value) {
@@ -66,7 +64,7 @@ class MemberManager {
 
 		$result = $q->fetch();
 
-		if ($result[0] > 0) {
+		if ($result > 0) {
 			return true;
 		} else {
 			return false;
@@ -74,7 +72,7 @@ class MemberManager {
 	}
 
 	public function isPasswordCorrect($memberID, $passToCheck) {
-		$member = $this->get($memberID);
+		$member = $this->get('id', $memberID);
 		if (is_object($member)) {
 			if ($member->getPassword() == hash("whirlpool", $passToCheck)) {
 				return true;

@@ -40,7 +40,7 @@ require_once("app/action.app.php");
 if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 	if (isset($_SESSION['userid'])) {
 		$manager = new MemberManager($db);
-		$return = $manager->get($_SESSION['userid']);
+		$return = $manager->getFromId($_SESSION['userid']);
 		if (!is_object($return)) {
 			$error = $return;
 			session_destroy();
