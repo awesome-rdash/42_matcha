@@ -59,10 +59,10 @@ Class Token {
 	}
 
 	public function setIsused($isused) {
-		if ($isused) {
-			$this->_isUsed = true;
+		if ($isused == 1) {
+			$this->_isUsed = 1;
 		} else {
-			$this->_isUsed = false;
+			$this->_isUsed = 0;
 		}
 		return true;
 	}
