@@ -1,2 +1,3 @@
 <?php
-include("app/action.app.php");
+include("app/init.app.php");
+header("Location: index.php");
