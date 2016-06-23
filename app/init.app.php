@@ -29,6 +29,7 @@ try {
 require_once("app/class/commonmembers.trait.php");
 require_once("app/class/Member.class.php");
 require_once("app/class/MemberManager.php");
+require_once("app/class/Token.class.php");
 
 session_start();
 
