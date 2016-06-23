@@ -21,4 +21,29 @@ Class TokenManager {
 		$id = $this->_db->lastInsertId();
 		return ($id);
 	}
+
+	public function get( $field, $value ) {
+		$fieldCorrectValues = array("id", "token");
+		if (!in_array($field, $fieldCorrectValues)) {
+			throw new Exception("Invalid field");
+		}
+		$statement = ('SELECT * FROM tokens WHERE ' . $field . ' = :value');
+		$q = $this->_db->prepare($statement);
+		$q->bindValue(':value', $value, PDO::PARAM_STR);
+		$q->execute();
+
+		$donnees = $q->fetch();
+
+		if ($q->rowCount() > 0) {
+			$token = new Token($donnees['id']);
+			$token->hydrate($donnees);
+			return ($token);
+		} else {
+			return false;
+		}
+	}
+
+	public function getFromToken($token) {
+		return $this->get('token', $token);
+	}
 }
