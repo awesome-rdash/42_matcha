@@ -14,7 +14,7 @@
 				<input type="text" name="nickname" id="nickname" maxlength="15" required <?php if (isset($_POST['nickname'])) { echo "value=\"" . $_POST['nickname'] . "\"" ; } ?> />
 				<br />
 
-				<label for="password">Email : </label>
+				<label for="password">Mot de passe : </label>
 				<input type="password" name="password" id="password" maxlength="255" required <?php if (isset($_POST['password'])) { echo "value=\"" . $_POST['password'] . "\"" ; } ?> />
 				<br />
 				<input type="submit" value="Connexion">
