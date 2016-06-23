@@ -14,6 +14,7 @@ if (!isset($error)) {
 		if ($manager->isPasswordCorrect($return->getId(), htmlspecialchars($_POST['password']))) {
 			$_SESSION['connected'] = true;
 			$_SESSION['userid'] = $return->getId();
+			$redirection = true;
 		} else {
 			$error = genError("login", "invalid", "password");
 		}
@@ -21,4 +22,3 @@ if (!isset($error)) {
 		$error = genError("login", "notfound", "nickname");
 	}
 }
-$redirection = true;
