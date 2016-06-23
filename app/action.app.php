@@ -6,6 +6,9 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 	foreach($valid_actions as $va) {
 		if ($action == $va) {
 			require_once("app/actions/" . $action . ".action.php");
+			if (isset($redirection)) {
+				header("Location: " . basename($_SERVER['PHP_SELF']));
+			}
 		}
 	}
 }

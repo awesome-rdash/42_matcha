@@ -21,3 +21,4 @@ if (!isset($error)) {
 		$error = genError("login", "notfound", "nickname");
 	}
 }
+$redirection = true;
