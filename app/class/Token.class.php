@@ -2,7 +2,7 @@
 
 Class Token {
 	private $_id;
-	private $_user_id;
+	private $_userId;
 	private $_token;
 	private $_time_created;
 	private $_usefor;
