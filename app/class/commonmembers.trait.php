@@ -2,7 +2,7 @@
 
 trait commonMembers{
 	public function __construct( $id ) {
-		$this->_id = $id;
+		$this->setId($id);
 	}
 
 	public function hydrate( $kwargs ) {
