@@ -1,5 +1,9 @@
 <?php
-$valid_actions = array("register", "login", "logout");
+$valid_actions = array(
+	"register",
+	"login",
+	"logout"
+	"useToken");
 
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = $_GET['action'];
