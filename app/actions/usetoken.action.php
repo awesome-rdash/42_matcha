@@ -6,8 +6,8 @@ if (!isset($_GET['token']) || empty($_GET['token'])) {
 }
 
 if (!isset($error)) {
-	$manager = new TokenManager($db);
-	$token = $manager->getFromToken(htmlspecialchars($_GET['token']));
+	$token_manager = new TokenManager($db);
+	$token = $token_manager->getFromToken(htmlspecialchars($_GET['token']));
 	if (!is_object($token)) {
 		$error = genError('token', 'invalid', 'token');
 	}
@@ -23,11 +23,18 @@ if (!isset($error)) {
 }
 
 if (!isset($error)) {
-	$manager = new MemberManager($db);
-	$member = $manager->getFromId($token->getId());
+	$member_manager = new MemberManager($db);
+	$member = $member_manager->getFromId($token->getId());
 }
 
 switch ($token->getUsefor()) {
 	case "mailconfirmation":
+		$member->setMail_confirmed(1);
+		$member_manager->update($member);
 		break;
+}
+
+if (!isset($error)) {
+	$token->useToken();
+	$token_manager->update($token);
 }
