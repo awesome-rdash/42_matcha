@@ -52,6 +52,10 @@ if (!isset($error)) {
 	$manager = new TokenManager($db);
 
 	$manager->add($confirmationToken);
+
+	$message = "Lien : http://localhost/camagru/action.php?action=validateemail&token=" . $confirmationToken->getToken();
+
+	utilities::sendMail($member->getEmail(), "Confirmation d'inscription", $message);
 }
 
 if (isset($error)) {
