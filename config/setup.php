@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+/*
+
+MASTER PASSWORD
+kef0x8160JV3|JQ
+
+*/
+
 function startsWith($haystack, $needle){
     $length = strlen($needle);
     return (substr($haystack, 0, $length) === $needle);
