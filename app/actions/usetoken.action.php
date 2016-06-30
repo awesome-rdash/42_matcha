@@ -24,7 +24,7 @@ if (!isset($error)) {
 
 if (!isset($error)) {
 	$manager = new MemberManager($db);
-	$member = $manager->getFromId($token->getId());
+	$member = $manager->getFromId($token->getUser_id());
 	if (!is_object($member)) {
 		$error = genError('token', 'unknownuser', 'usetoken');
 	}
@@ -38,3 +38,4 @@ if (!isset($error)) {
 			$manager->update($member);
 		break;
 	}
+}

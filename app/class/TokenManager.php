@@ -43,10 +43,6 @@ Class TokenManager {
 		}
 	}
 
-	public function update(Token $token) {
-		
-	}
-
 	public function getFromToken($token) {
 		return $this->get('token', $token);
 	}
