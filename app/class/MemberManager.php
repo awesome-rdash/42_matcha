@@ -51,6 +51,10 @@ class MemberManager {
 		return $this->get('id', $id);
 	}
 
+	public function update(Member $member) {
+		
+	}
+
 	public function ifExist($field, $value) {
 		$fieldCorrectValues = array("id", "nickname", "email");
 		if (!in_array($field, $fieldCorrectValues)) {
