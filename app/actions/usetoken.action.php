@@ -35,11 +35,15 @@ if (!isset($error)) {
 		case "mailconfirmation":
 			$member->setMail_confirmed(true);
 			$manager->update($member);
-		break;
+			$tokenUsed = true;
+			break;
+		case "resetpassword":
+			$custom_module = "reset_password";
+			break;
 	}
 }
 
-if (!isset($error)) {
+if (!isset($error) && isset($tokenUsed)) {
 	$token->setIsused(true);
 	$token_manager->update($token);
 }

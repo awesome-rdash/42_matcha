@@ -45,7 +45,6 @@ Class TokenManager {
 	}
 
 	public function update(Token $token) {
-		print_r($token);
 		$q = $this->_db->prepare('
 			UPDATE tokens
 			SET user_id = :user_id, token = :token, time_created = :time_created, usefor = :usefor, isused = :isused

@@ -1,11 +1,32 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.0
+-- http://www.phpmyadmin.net
+--
+-- Client :  localhost
+-- Généré le :  Jeu 30 Juin 2016 à 17:59
+-- Version du serveur :  5.7.11
+-- Version de PHP :  7.0.0
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Base de données :  `camagru`
+--
+CREATE DATABASE IF NOT EXISTS `camagru` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `camagru`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `errors`
+--
 
 DROP TABLE IF EXISTS `errors`;
 CREATE TABLE `errors` (
@@ -16,7 +37,15 @@ CREATE TABLE `errors` (
   `message` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Vider la table avant d'insérer `errors`
+--
+
 TRUNCATE TABLE `errors`;
+--
+-- Contenu de la table `errors`
+--
+
 INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (9, 'register', 'missingfield', 'nickname', 'Vous devez entrer un nom d\'utilisateur.'),
 (10, 'register', 'missingfield', 'email', 'Vous devez entrer votre email.'),
@@ -45,22 +74,52 @@ INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (33, 'users', 'badselector', 'get', 'Mauvais sélecteur. Sélecteurs disponibles : id nickname email'),
 (34, 'login', 'notfound', 'nickname', 'Aucun compte n\'existe avec ce nom d\'utilisateur.'),
 (35, 'login', 'invalid', 'password', 'Le mot de passe ne correspond pas au compte.'),
-(36, 'token', 'missingfield', 'token', 'Impossible de valider l\'action sans jeton.'),
-(37, 'token', 'invalid', 'token', 'Le jeton est invalide. Etes-vous sur d\'avoir cliqué sur le bon lien ?'),
-(38, 'token', 'alreadyused', 'token', 'Ce jeton a déjà été utilisé. Etes-vous sur d\'avoir cliqué sur le bon lien ?'),
-(39, 'token', 'outdated', 'token', 'Le jeton a expiré.');
+(36, 'token', 'missing', 'usetoken', 'Impossible de valider l\'action sans jeton.'),
+(37, 'token', 'invalid', 'usetoken', 'Le jeton est invalide. Etes-vous sur d\'avoir cliqué sur le bon lien ?'),
+(38, 'token', 'alreadyused', 'usetoken', 'Ce jeton a déjà été utilisé. Etes-vous sur d\'avoir cliqué sur le bon lien ?'),
+(39, 'token', 'outdated', 'usetoken', 'Le jeton a expiré.'),
+(40, 'resetpassword', 'missingfield', 'email', 'Vous devez indiquer votre email.'),
+(41, 'resetpassword', 'missingfield', 'birthdate', 'Vous devez indiquer votre date de naissance.'),
+(42, 'resetpassword', 'notfound', 'email', 'Aucun compte n\'est associé à cette adresse.'),
+(43, 'resetpassword', 'invalide', 'birthdate', 'La date de naissance ne correspond pas.');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tokens`
+--
 
 DROP TABLE IF EXISTS `tokens`;
 CREATE TABLE `tokens` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `token` varchar(40) NOT NULL,
-  `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_created` int(11) NOT NULL,
   `usefor` varchar(20) NOT NULL,
   `isused` bit(1) NOT NULL DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Vider la table avant d'insérer `tokens`
+--
+
 TRUNCATE TABLE `tokens`;
+--
+-- Contenu de la table `tokens`
+--
+
+INSERT INTO `tokens` (`id`, `user_id`, `token`, `time_created`, `usefor`, `isused`) VALUES
+(5, 4, 'e8a45cc686b27b4c0e2ab2becd37bbd9d109359b', 1467299377, 'mailconfirmation', b'1'),
+(6, 5, '365eb2440584f953a56183d93c7ee42d47478aa0', 1467299752, 'mailconfirmation', b'1'),
+(7, 4, '24520fd57caec5d188c2677baa28867b27f33040', 1467307592, 'resetpassword', b'0'),
+(8, 4, '6e532fcf8ceed0f75d4dd866b8e6e3d52ff47f17', 1467307607, 'resetpassword', b'1');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
+--
+
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
@@ -77,24 +136,60 @@ CREATE TABLE `users` (
   `mail_confirmed` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Vider la table avant d'insérer `users`
+--
+
 TRUNCATE TABLE `users`;
+--
+-- Contenu de la table `users`
+--
 
+INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`) VALUES
+(4, 'jrouzier', 'jrouzier@outlook.com', '989bac194dc428df07bd8f455326765ad001c7b3909c86b63400641fddc9bc4a205ca18458e112e978e6c9576a6a397fa2203cf458ca0412886b57c23b386f76', '2016-06-30 15:09:54', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(5, 'jrouzier1', 'justin.rouzier.perso@outlook.com', '989bac194dc428df07bd8f455326765ad001c7b3909c86b63400641fddc9bc4a205ca18458e112e978e6c9576a6a397fa2203cf458ca0412886b57c23b386f76', '2016-06-30 15:16:02', NULL, NULL, NULL, NULL, NULL, NULL, 1);
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `errors`
+--
 ALTER TABLE `errors`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Index pour la table `tokens`
+--
 ALTER TABLE `tokens`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Index pour la table `users`
+--
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
 
+--
+-- AUTO_INCREMENT pour la table `errors`
+--
 ALTER TABLE `errors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+--
+-- AUTO_INCREMENT pour la table `tokens`
+--
 ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT pour la table `users`
+--
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

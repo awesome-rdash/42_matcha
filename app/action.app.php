@@ -3,7 +3,8 @@ $valid_actions = array(
 	"register",
 	"login",
 	"logout",
-	"useToken");
+	"useToken",
+	"resetpassword");
 
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = $_GET['action'];

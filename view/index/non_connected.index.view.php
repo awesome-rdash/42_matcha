@@ -5,7 +5,7 @@
 			<?php 
 			include("view/register/registerform.view.php"); ?>
 		<div id="connectionform">
-			<p>Déjà inscrit ?</p>
+			<h2>Connection</h2>
 		<?php
 			if (isset($error) && $error['module'] == "login") { echo "<p id=\"errormsg\">" . $error['msg'] . "</p>"; }
 ?>
@@ -19,6 +19,11 @@
 				<br />
 				<input type="submit" value="Connexion">
 			</form>
+		</div>
+		<div id="forgettenpassword">
+		<h2>Mot de passe oublié ?</h2>
+			<?php 
+			include("view/index/resetpassword.view.php"); ?>
 		</div>
 	</div>
 </div>
