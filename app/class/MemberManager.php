@@ -63,8 +63,7 @@ class MemberManager {
 		$q->execute();
 
 		$result = $q->fetch();
-
-		if ($result > 0) {
+		if ($result[0] > 0) {
 			return true;
 		} else {
 			return false;
