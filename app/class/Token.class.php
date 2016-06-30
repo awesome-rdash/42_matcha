@@ -67,6 +67,10 @@ Class Token {
 		return true;
 	}
 
+	public function useToken() {
+		$this->setIsused(true);
+	}
+
 	public function generateToken() {
 		$token = bin2hex(random_bytes(20));
 		$this->setToken($token);

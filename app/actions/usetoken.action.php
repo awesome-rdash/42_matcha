@@ -6,8 +6,8 @@ if (!isset($_GET['token']) || empty($_GET['token'])) {
 }
 
 if (!isset($error)) {
-	$manager = new TokenManager($db);
-	$token = $manager->getFromToken(htmlspecialchars($_GET['token']));
+	$token_manager = new TokenManager($db);
+	$token = $token_manager->getFromToken(htmlspecialchars($_GET['token']));
 	if (!is_object($token)) {
 		$error = genError('token', 'invalid', 'usetoken');
 	}
@@ -38,4 +38,3 @@ if (!isset($error)) {
 			$manager->update($member);
 		break;
 	}
-}
