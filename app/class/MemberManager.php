@@ -16,7 +16,7 @@ class MemberManager {
 		$q->bindValue(':nickname', $member->getNickname(), PDO::PARAM_STR);
 		$q->bindValue(':email', $member->getEmail(), PDO::PARAM_STR);
 		$q->bindValue(':password', $member->getPassword(), PDO::PARAM_STR);
-		$q->bindValue(':birthdate', $member->getBirthdate());
+		$q->bindValue(':birthdate', $member->getBirthdate(), PDO::PARAM_STR);
 		$q->bindValue(':firstname', $member->getFirstname(), PDO::PARAM_STR);
 		$q->bindValue(':lastname', $member->getLastname(), PDO::PARAM_STR);
 
@@ -52,7 +52,26 @@ class MemberManager {
 	}
 
 	public function update(Member $member) {
-		
+
+		echo "update member<br />";
+		$q = $this->_db->prepare('
+			UPDATE users
+			SET nickname = :nickname, email = :email, password = :password, register_time = :register_time, birthdate = :birthdate, lastname = :lastname, firstname  = :firstname, phone = :phone, sexe = :sexe, bio = :bio, mail_confirmed = :mail_confirmed
+			WHERE id = :id');
+		$q->bindValue(':id', $member->getId(), PDO::PARAM_INT);
+		$q->bindValue(':nickname', $member->getNickname(), PDO::PARAM_STR);
+		$q->bindValue(':email', $member->getEmail(), PDO::PARAM_STR);
+		$q->bindValue(':password', $member->getPassword(), PDO::PARAM_STR);
+		$q->bindValue(':register_time', $member->getRegister_time(), PDO::PARAM_STR);
+		$q->bindValue(':birthdate', $member->getBirthdate(), PDO::PARAM_STR);
+		$q->bindValue(':lastname', $member->getLastname(), PDO::PARAM_STR);
+		$q->bindValue(':firstname', $member->getFirstname(), PDO::PARAM_STR);
+		$q->bindValue(':phone', $member->getPhone(), PDO::PARAM_STR);
+		$q->bindValue(':sexe', $member->getSexe(), PDO::PARAM_INT);
+		$q->bindValue(':bio', $member->getBio(), PDO::PARAM_STR);
+		$q->bindValue(':mail_confirmed', $member->getMail_confirmed(), PDO::PARAM_INT);
+
+		$q->execute();
 	}
 
 	public function ifExist($field, $value) {
