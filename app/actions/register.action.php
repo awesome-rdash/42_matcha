@@ -46,14 +46,14 @@ if (!isset($error)) {
 if (!isset($error)) {
 	$confirmationToken = new Token(0);
 	$parameters = array(
-		"userId" => $member->getId(),
+		"user_id" => $member->getId(),
 		"usefor" => "mailconfirmation");
 	$confirmationToken->hydrate($parameters);
 	$manager = new TokenManager($db);
 
 	$manager->add($confirmationToken);
 
-	$message = "Lien : http://localhost/camagru/action.php?action=useToken&token=" . $confirmationToken->getToken();
+	$message = "Lien : http://localhost:8080/camagru/index.php?action=useToken&token=" . $confirmationToken->getToken();
 
 	utilities::sendMail($member->getEmail(), "Confirmation d'inscription", $message);
 }

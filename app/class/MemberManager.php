@@ -52,8 +52,6 @@ class MemberManager {
 	}
 
 	public function update(Member $member) {
-
-		echo "update member<br />";
 		$q = $this->_db->prepare('
 			UPDATE users
 			SET nickname = :nickname, email = :email, password = :password, register_time = :register_time, birthdate = :birthdate, lastname = :lastname, firstname  = :firstname, phone = :phone, sexe = :sexe, bio = :bio, mail_confirmed = :mail_confirmed

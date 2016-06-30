@@ -42,7 +42,6 @@ Class Token {
 	}
 
 	public function setTime_created($time_created) {
-		$time_created = strtotime($time_created);
 		if (!Utilities::isDigits($time_created) || $time_created <= 0) {
 			return genError("token", "invalid", "time_created");
 		}
@@ -73,6 +72,7 @@ Class Token {
 
 	public function generateToken() {
 		$token = bin2hex(random_bytes(20));
+		$this->setTime_created(time());
 		$this->setToken($token);
 		return $this->getToken();
 	}

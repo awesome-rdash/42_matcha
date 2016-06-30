@@ -1,5 +1,4 @@
 <?php
-echo "no redirection <br />";
 
 if (!isset($_GET['token']) || empty($_GET['token'])) {
 	$error = genError('token', 'missing', 'usetoken');
@@ -38,4 +37,9 @@ if (!isset($error)) {
 			$manager->update($member);
 		break;
 	}
+}
+
+if (!isset($error)) {
+	$token->setIsused(true);
+	$token_manager->update($token);
 }
