@@ -26,11 +26,11 @@ try {
         header("Location: config/setup.php?error=" . urlencode($e));
 }
 
-require_once("app/class/commonmembers.trait.php");
-require_once("app/class/Member.class.php");
-require_once("app/class/MemberManager.php");
-require_once("app/class/Token.class.php");
-require_once("app/class/TokenManager.php");
+date_default_timezone_set('Europe/Paris');
+
+spl_autoload_register(function($class) {
+    require_once 'app/class/'. $class .'.class.php';
+});
 
 session_start();
 
