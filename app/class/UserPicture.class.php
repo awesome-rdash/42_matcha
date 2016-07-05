@@ -24,7 +24,7 @@ class UserPicture {
 	}
 
 	public function setOwner_Id($id) {
-		if (!Utilities::isDigits($id) || $id < 0) {
+		if (!Utilities::isDigits($id) || $id <= 0) {
 			trigger_error("Invalid owner ID", E_USER_WARNING);
 		}
 		$this->_owner_id = $id;
@@ -45,6 +45,14 @@ class UserPicture {
 			trigger_error("Invalid upload time", E_USER_WARNING);
 		}
 		$this->_upload_time = $upload_time;
+		return true;
+	}
+
+	public function setFilterUsed($filter_used) {
+		if (!Utilities::isDigits($filter_used) || $filter_used <= 0) {
+			trigger_error("Invalid filter ID", E_USER_WARNING);
+		}
+		$this->_filter_used = $filter_used;
 		return true;
 	}
 }
