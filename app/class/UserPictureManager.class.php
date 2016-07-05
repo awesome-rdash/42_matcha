@@ -11,9 +11,9 @@ class UserPictureManager {
 		$q = $this->_db->prepare('
 			INSERT INTO userpictures(upload_source, filter_used, owner_id)
 			VALUES(:upload_source, :filter_used, :owner_id)');
-		$q->bindValue(':upload_source', $member->getNickname(), PDO::PARAM_STR);
-		$q->bindValue(':filter_used', $member->getPassword(), PDO::PARAM_INT);
-		$q->bindValue(':owner_id', $member->getBirthdate(), PDO::PARAM_INT);
+		$q->bindValue(':upload_source', $userPicture->getUpload_source(), PDO::PARAM_STR);
+		$q->bindValue(':filter_used', $userPicture->getFilter_used(), PDO::PARAM_INT);
+		$q->bindValue(':owner_id', $userPicture->getOwner_id(), PDO::PARAM_INT);
 
 		$q->execute();
 

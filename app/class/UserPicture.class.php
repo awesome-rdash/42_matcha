@@ -33,7 +33,7 @@ class UserPicture {
 
 	public function setUpload_source($upload_source) {
 		$valid_sources = array("camera", "file");
-		if (!in_array($upload, $valid)) {
+		if (!in_array($upload_source, $valid_sources)) {
 			trigger_error("Invalid source", E_USER_WARNING);
 		}
 		$this->_upload_source = $upload_source;
@@ -48,7 +48,7 @@ class UserPicture {
 		return true;
 	}
 
-	public function setFilterUsed($filter_used) {
+	public function setFilter_used($filter_used) {
 		if (!Utilities::isDigits($filter_used) || $filter_used <= 0) {
 			trigger_error("Invalid filter ID", E_USER_WARNING);
 		}

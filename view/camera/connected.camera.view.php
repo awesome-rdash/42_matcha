@@ -25,6 +25,8 @@
 <button id="take">Take a photo</button><br />
 <img src="" id="photo" alt="photo">
 
+<p id="test"></p>
+
 <script>
 function ajax(elementID,filename,str,post)
 {
