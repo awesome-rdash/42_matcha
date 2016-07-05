@@ -1,6 +1,6 @@
 <?php
 
-class Image {
+class UserPicture {
 	protected $_id;
 	protected $_upload_source;
 	protected $_upload_time;
