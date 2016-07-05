@@ -23,7 +23,7 @@
 
 
 <button id="take">Take a photo</button><br />
-<img src="" id="photo" alt="photo">
+<img src="" id="photo" alt="photo" height="200px">
 
 <p id="test"></p>
 
@@ -82,9 +82,9 @@ document.getElementById('take').addEventListener('click', function(){
         canvas.width = videoElement.videoWidth;
         canvas.height = videoElement.videoHeight;
         canvas.getContext('2d').drawImage(video, 0, 0);
-        var data = canvas.toDataURL('image/webp');
+        var data = canvas.toDataURL('image/jpeg');
         document.getElementById('photo').setAttribute('src', data);
-        ajax("test", "action.php", "action=upload_camera_image&image="+data, true);
+        ajax("test", "action.php", "action=upload_camera_image&filter=" + 1 + "&image=" + encodeURIComponent(data), true);
     }
 }, false);
 

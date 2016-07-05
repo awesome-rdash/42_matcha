@@ -17,7 +17,8 @@ class UserPictureManager {
 
 		$q->execute();
 
-		$id = $this->_db->lastInsertId();
-		return ($id);
+		$userPicture->setId($this->_db->lastInsertId());
+		$userPicture->saveToFile();
+		return ($userPicture->getId());
 	}
 }
