@@ -4,3 +4,5 @@
 *~
 userfiles/*
 *.ini
+data/*/*.jpeg
+data/*/*.webp
