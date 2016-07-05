@@ -65,8 +65,8 @@ CREATE TABLE `tokens` (
   `isused` bit(1) NOT NULL DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `userpicture`;
-CREATE TABLE `userpicture` (
+DROP TABLE IF EXISTS `userpictures`;
+CREATE TABLE `userpictures` (
   `id` int(11) NOT NULL,
   `upload_source` varchar(20) NOT NULL,
   `upload_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -97,7 +97,7 @@ ALTER TABLE `errors`
 ALTER TABLE `tokens`
   ADD PRIMARY KEY (`id`);
 
-ALTER TABLE `userpicture`
+ALTER TABLE `userpictures`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `users`
@@ -108,7 +108,7 @@ ALTER TABLE `errors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 ALTER TABLE `tokens`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-ALTER TABLE `userpicture`
+ALTER TABLE `userpictures`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
