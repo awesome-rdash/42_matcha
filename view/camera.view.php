@@ -14,7 +14,7 @@
 			if (isUserLogged()) {
 				include("view/camera/connected.camera.view.php");
 			} else {
-				include("view/camera/non_connected.camera.view.php");
+				include("view/camera/disconnected.camera.view.php");
 			}?>
 	</body>
 </html>

@@ -34,9 +34,6 @@ spl_autoload_register(function($class) {
 
 session_start();
 
-require_once("app/utilities.app.php");
-require_once("app/action.app.php");
-
 if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 	if (isset($_SESSION['userid'])) {
 		$manager = new MemberManager($db);
@@ -56,3 +53,5 @@ if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 function isUserLogged() {
 	return $_SESSION['connected'];
 }
+
+require_once("app/action.app.php");
