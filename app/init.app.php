@@ -54,5 +54,4 @@ function isUserLogged() {
 	return $_SESSION['connected'];
 }
 
-require_once("app/utilities.app.php");
 require_once("app/action.app.php");
