@@ -30,4 +30,21 @@ class Image {
 		$this->_owner_id = $id;
 		return true;
 	}
+
+	public function setUpload_source($upload_source) {
+		$valid_sources = array("camera", "file");
+		if (!in_array($upload, $valid)) {
+			trigger_error("Invalid source", E_USER_WARNING);
+		}
+		$this->_upload_source = $upload_source;
+		return true;
+	}
+
+	public function setUpload_time($upload_time) {
+		if (!Utilities::isDigits($upload_time) || $upload_time <= 0) {
+			trigger_error("Invalid upload time", E_USER_WARNING);
+		}
+		$this->_upload_time = $upload_time;
+		return true;
+	}
 }
