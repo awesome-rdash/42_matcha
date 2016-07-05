@@ -17,7 +17,7 @@ class Image {
 
 	public function setId($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {
-			return genError("photo", "invalid", "id");
+			trigger_error("Invalid ID", E_USER_WARNING);
 		}
 		$this->_id = $id;
 		return true;
@@ -25,7 +25,7 @@ class Image {
 
 	public function setOwner_Id($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {
-			return genError("photo", "invalid", "owner_id");
+			trigger_error("Invalid owner ID", E_USER_WARNING);
 		}
 		$this->_owner_id = $id;
 		return true;
