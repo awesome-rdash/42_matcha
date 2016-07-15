@@ -20,7 +20,7 @@ if (!isset($error)) {
 	$parameters = array(
 		"owner_id" => $currentUser->getId(),
 		"upload_source" => "camera",
-		"filter_used" => "0",
+		"filter_used" => $action['filter'],
 		"source" => $source);
 	$return = $image->hydrate($parameters);
 	if ($return !== true) {
