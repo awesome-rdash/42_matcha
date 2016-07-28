@@ -23,9 +23,6 @@
 
 
 <button id="take">Take a photo</button><br />
-<img src="" id="photo" alt="photo" height="200px">
-
-<p id="test"></p>
 
 <input type="file" id="image_file">
 <button id="upload">Upload picture</button><br />
