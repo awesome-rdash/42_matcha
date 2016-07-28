@@ -11,13 +11,10 @@
 }
 
 #headerMenu {
-	position: absolute;
-	right: 5px;
 	display: inline-block;
 }
 
 #userBox {
 	display: inline-block;
-	position: absolute;
-	right: 5px;
+	float:right;
 }

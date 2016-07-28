@@ -1,5 +1,5 @@
 <header id="mainheader">
-	<img src="assets/img/logo.svg" id="logoCamagru">
+	<a href="index.php"><img src="assets/img/logo.svg" id="logoCamagru"></a>
 	<nav id="headerMenu">
 		<?php include("view/header/headermenu.header.view.php"); ?>
 	</nav>
