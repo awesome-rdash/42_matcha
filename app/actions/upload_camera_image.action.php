@@ -39,5 +39,4 @@ if (!isset($error)) {
 	if ($image->addFilter($action['filter'])) {
 		$image->setId($imageManager->add($image));
 	}
-	echo "ok";
 }
