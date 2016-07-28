@@ -1,11 +1,13 @@
 <?php
+
+print_r($_POST);
 $valid_actions = array(
 	"register",
 	"login",
 	"logout",
 	"useToken",
 	"resetpassword",
-	"upload_file_image"
+	"upload_file_image",
 	"upload_camera_image");
 
 if (isset($_GET['action']) && !empty($_GET['action'])) {

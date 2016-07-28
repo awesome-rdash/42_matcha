@@ -31,9 +31,10 @@
 <button id="upload">Upload picture</button><br />
 
 <script>
-function ajax(elementID,filename,str,post)
+function upload(webcam, data)
 {
     var ajax;
+
     if (window.XMLHttpRequest) {
         ajax = new XMLHttpRequest();
     }
@@ -47,21 +48,29 @@ function ajax(elementID,filename,str,post)
         alert("Il semble que votre navigateur ne supporte pas AJAX. :(");
         return false;
     }
-    ajax.onreadystatechange=function() {
-        if (ajax.readyState==4&&ajax.status==200) {
-            document.getElementById(elementID).innerHTML=ajax.responseText;
+
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            console.log(ajax.responseText);
         }
     }
-    if (post==false) {
-        ajax.open("GET",filename+str,true);
-        ajax.send(null);
+
+    if (webcam == true) {
+        ajax.open("POST", "action.php", true);
+        ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        ajax.send("action=upload_camera_image&filter=" + 1 + "&data=" + data);
     }
     else {
-        ajax.open("POST",filename,true);
-        ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        ajax.send(str);
+        var formData = new FormData();
+        formData.append('filter', 1);
+        formData.append('action', "upload_file_image");
+        formData.append('image_file', image_file.files[0]);
+
+        ajax.open('post', "action.php", true);
+        ajax.send(formData);
     }
     return ajax;
+
 }
 
 var video = document.querySelector("#videoElement");
@@ -86,29 +95,12 @@ document.getElementById('take').addEventListener('click', function(){
         canvas.height = videoElement.videoHeight;
         canvas.getContext('2d').drawImage(video, 0, 0);
         var data = canvas.toDataURL('image/jpeg');
-        document.getElementById('photo').setAttribute('src', data);
-        ajax("test", "action.php", "action=upload_camera_image&filter=" + 1 + "&image=" + encodeURIComponent(data), true);
+        upload(true, encodeURIComponent(data));
     }
 }, false);
 
 document.getElementById('upload').addEventListener('click', function(){
-    
-        var formData = new FormData(),
-        file = document.getElementById('image_file').files[0],
-        xhr = new XMLHttpRequest();
-
-        formData.append('file', file);
-        formData.append('filter', 1);
-        xhr.open('POST', 'action.php');
-        xhr.send(formData);
-
-        var file = document.getElementById('image_file').files[0];
-        xhr = new XMLHttpRequest();
-
-        xhr.open('POST', 'myserver/uploads');
-        xhr.setRequestHeader('Content-Type', file.type);
-        xhr.send(file);
-        ajax("test", "action.php", "action=upload_image_file&filter=" + 1 + "&image=" + encodeURIComponent(data), true);
+    upload(false, image_file);
 }, false);
 
 </script>
