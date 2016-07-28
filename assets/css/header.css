@@ -1,9 +1,23 @@
 #logoCamagru {
 	width: 100px;
+	display: inline-block;
 }
 
 #mainheader {
-	height: 200px;
+	height: 85px;
 	background-color: red;
 	margin: auto;
+	position: relative;
+}
+
+#headerMenu {
+	position: absolute;
+	right: 5px;
+	display: inline-block;
+}
+
+#userBox {
+	display: inline-block;
+	position: absolute;
+	right: 5px;
 }
