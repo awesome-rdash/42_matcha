@@ -1,4 +1,3 @@
-<?php include("view/header/connected.header.view.php"); ?>
 <style>
 #container {
     margin: 0px auto;
@@ -28,7 +27,7 @@
 <button id="upload">Upload picture</button><br />
 
 <script>
-function upload(webcam, data)
+function upload_picture(webcam, data)
 {
     var ajax;
 
@@ -92,12 +91,12 @@ document.getElementById('take').addEventListener('click', function(){
         canvas.height = videoElement.videoHeight;
         canvas.getContext('2d').drawImage(video, 0, 0);
         var data = canvas.toDataURL('image/jpeg');
-        upload(true, encodeURIComponent(data));
+        upload_picture(true, encodeURIComponent(data));
     }
 }, false);
 
 document.getElementById('upload').addEventListener('click', function(){
-    upload(false, image_file);
+    upload_picture(false, image_file);
 }, false);
 
 </script>

@@ -11,6 +11,7 @@
 	</head>
 	<body>
 		<?php 
+			include("view/header.view.php");
 			if (isUserLogged()) {
 				include("view/index/connected.index.view.php");
 			} else {

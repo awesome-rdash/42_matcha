@@ -10,7 +10,8 @@
 		?>
 	</head>
 	<body>
-		<?php 
+		<?php
+			include("view/header.view.php");
 			if (isUserLogged()) {
 				include("view/camera/connected.camera.view.php");
 			} else {
