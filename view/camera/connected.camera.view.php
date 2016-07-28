@@ -27,6 +27,9 @@
 
 <p id="test"></p>
 
+<input type="file" id="image_file">
+<button id="upload">Upload picture</button><br />
+
 <script>
 function ajax(elementID,filename,str,post)
 {
@@ -86,6 +89,26 @@ document.getElementById('take').addEventListener('click', function(){
         document.getElementById('photo').setAttribute('src', data);
         ajax("test", "action.php", "action=upload_camera_image&filter=" + 1 + "&image=" + encodeURIComponent(data), true);
     }
+}, false);
+
+document.getElementById('upload').addEventListener('click', function(){
+    
+        var formData = new FormData(),
+        file = document.getElementById('image_file').files[0],
+        xhr = new XMLHttpRequest();
+
+        formData.append('file', file);
+        formData.append('filter', 1);
+        xhr.open('POST', 'action.php');
+        xhr.send(formData);
+
+        var file = document.getElementById('image_file').files[0];
+        xhr = new XMLHttpRequest();
+
+        xhr.open('POST', 'myserver/uploads');
+        xhr.setRequestHeader('Content-Type', file.type);
+        xhr.send(file);
+        ajax("test", "action.php", "action=upload_image_file&filter=" + 1 + "&image=" + encodeURIComponent(data), true);
 }, false);
 
 </script>
