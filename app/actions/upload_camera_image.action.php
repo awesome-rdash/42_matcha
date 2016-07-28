@@ -1,5 +1,5 @@
 <?php
-$toCheck = array("image", "filter");
+$toCheck = array("data", "filter");
 
 foreach($toCheck as $element) {
 	if (!isset($action[$element]) || empty($action[$element])) {
@@ -7,12 +7,14 @@ foreach($toCheck as $element) {
 	}
 }
 
-try {
-	$data = base64_decode(substr($action['image'], 22));
-	$source = imagecreatefromstring($data);
-} catch (Exception $e) {
-	unset($e);
-	$error = genError("upload_camera_image", "invalid", "image");
+if (!isset($error)) {
+	try {
+		$data = base64_decode(substr($action['data'], 22));
+		$source = imagecreatefromstring($data);
+	} catch (Exception $e) {
+		unset($e);
+		$error = genError("upload_camera_image", "invalid", "image");
+	}
 }
 
 if (!isset($error)) {
@@ -37,4 +39,5 @@ if (!isset($error)) {
 	if ($image->addFilter($action['filter'])) {
 		$image->setId($imageManager->add($image));
 	}
+	echo "ok";
 }
