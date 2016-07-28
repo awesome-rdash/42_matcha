@@ -1,6 +1,5 @@
 <?php
 
-print_r($_POST);
 $valid_actions = array(
 	"register",
 	"login",
