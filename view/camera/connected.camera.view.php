@@ -51,7 +51,7 @@ function upload(webcam, data)
 
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
-            console.log(ajax.responseText);
+            //console.log(ajax.responseText);
         }
     }
 
