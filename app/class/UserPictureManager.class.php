@@ -9,11 +9,12 @@ class UserPictureManager {
 
 	public function add(UserPicture $userPicture) {
 		$q = $this->_db->prepare('
-			INSERT INTO userpictures(upload_source, filter_used, owner_id)
-			VALUES(:upload_source, :filter_used, :owner_id)');
+			INSERT INTO userpictures(upload_source, filter_used, owner_id, upload_time)
+			VALUES(:upload_source, :filter_used, :owner_id, :upload_time)');
 		$q->bindValue(':upload_source', $userPicture->getUpload_source(), PDO::PARAM_STR);
 		$q->bindValue(':filter_used', $userPicture->getFilter_used(), PDO::PARAM_INT);
 		$q->bindValue(':owner_id', $userPicture->getOwner_id(), PDO::PARAM_INT);
+		$q->bindValue(':upload_time', time(), PDO::PARAM_INT);
 
 		$q->execute();
 
@@ -40,7 +41,7 @@ class UserPictureManager {
 
 	public function getEditedPictures() {
 		$q = $this->_db->prepare('
-			SELECT id FROM userpictures WHERE filter_used != 0');
+			SELECT * FROM userpictures WHERE filter_used != 0');
 		$q->execute();
 
 		$result = $q->fetchAll();

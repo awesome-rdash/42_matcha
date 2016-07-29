@@ -18,10 +18,11 @@
 		$picManager = new UserPictureManager($db);
 		$pics = $picManager->getEditedPictures();
 		foreach($pics as $element) {
-			$pic = new UserPicture($element['id']);
+			$pic = new UserPicture(0);
+			$pic->hydrate($element);
 			?>
 			<div class="picture">
-				<img src="data/userpics/<?php echo $element['id'];?>.jpeg" class="userpic" />
+				<img src="data/userpics/<?php echo $pic->getId();?>.jpeg" class="userpic" />
 			</div>
 			<?php
 		}
