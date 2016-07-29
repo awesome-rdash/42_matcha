@@ -16,7 +16,7 @@
 		<div id="picture">
 			<img src="data/userpics/<?php echo $pic->getId();?>.jpeg" class="userpicture" />
 		</div>
-		<p id="likeCounter"><?php echo $likeManager->getCountFromPicture($pic->getId()); ?> likes</p><button id="like">Like</button>
+		<p id="likeCounter"><?php echo $likeManager->getCountFromPicture($pic->getId()); ?> likes</p><button id="like"><?php if ($likeManager->ifUserLikePicture($currentUser->getId(), $pic->getId())) { ?>Dislike<?php } else { ?>Like<?php } ?></button>
 		<div id="comments">
 			<?php
 			if (isUserLogged()) {
@@ -59,10 +59,14 @@
 			        formData.append('action', "comment_picture");
 			    } else {
 			    	formData.append('action', "like_picture");
-
 				    ajax.onreadystatechange = function() {
 				        if (ajax.readyState == 4 && ajax.status == 200) {
 				            document.getElementById("likeCounter").innerHTML = ajax.responseText + " likes";
+				            if (document.getElementById("like").innerHTML == "Like") {
+				            	document.getElementById("like").innerHTML = "Dislike"
+				            } else {
+				            	document.getElementById("like").innerHTML = "Like"
+				            }
 				        }
 				    }
 			    }

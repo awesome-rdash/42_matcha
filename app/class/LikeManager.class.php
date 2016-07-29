@@ -62,4 +62,13 @@ class LikeManager {
 			return false;
 		}
 	}
+
+	public function delete( $id_user, $id_picture ) {		
+		$q = $this->_db->prepare('DELETE FROM likes WHERE id_picture = :id_picture AND id_user = :id_user');
+		$q->bindValue(':id_picture', $id_picture, PDO::PARAM_INT);
+		$q->bindValue(':id_user', $id_user, PDO::PARAM_INT);
+		$q->execute();
+
+		return true;
+	}
 }
