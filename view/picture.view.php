@@ -52,12 +52,6 @@
 			        return false;
 			    }
 
-			    ajax.onreadystatechange = function() {
-			        if (ajax.readyState == 4 && ajax.status == 200) {
-			            console.log(ajax.responseText);
-			        }
-			    }
-
 			    var formData = new FormData();
 		        formData.append('id_picture', <?php echo $pic->getId();?>);
 		        if (like == false) {
@@ -65,6 +59,12 @@
 			        formData.append('action', "comment_picture");
 			    } else {
 			    	formData.append('action', "like_picture");
+
+				    ajax.onreadystatechange = function() {
+				        if (ajax.readyState == 4 && ajax.status == 200) {
+				            document.getElementById("likeCounter").innerHTML = ajax.responseText + " likes";
+				        }
+				    }
 			    }
 
 			    ajax.open("POST", "action.php", true);

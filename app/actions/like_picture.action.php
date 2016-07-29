@@ -24,3 +24,5 @@ if (!isset($error)) {
 		$error = genError("like", "notlogged", "login");
 	}
 }
+
+echo $likeManager->getCountFromPicture($action['id_picture']);
