@@ -1,12 +1,15 @@
 <div id="upload_box">
     <div id="camera_box">
-    <div id="video_container">
-        <video autoplay="true" id="videoElement">
-        </video>
+        <div id="video_container">
+            <video autoplay="true" id="videoElement">
+            </video>
+        </div>
+
+        <canvas id="canvas" style="display:none;"></canvas>
     </div>
-
-    <canvas id="canvas" style="display:none;"></canvas>
-
+    <div id="filters">
+        
+    </div>
     <button id="take">Take a photo</button><br />
 
     <div id="upload_file">
@@ -14,9 +17,10 @@
         <button id="upload">Upload picture</button><br />
     </div>
 </div>
-    <section id="previous_pics">
-        
-    </section>
+
+<section id="previous_pics">
+    
+</section>
 <script>
 function upload_picture(webcam, data)
 {
