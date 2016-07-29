@@ -13,8 +13,8 @@ class CommentManager {
 			VALUES(:id, :id_user, :id_picture, :content, :time_posted)');
 		$q->bindValue(':id', $comment->getId(), PDO::PARAM_INT);
 		$q->bindValue(':id_user', $comment->getId_user(), PDO::PARAM_INT);
-		$q->bindValue(':id_picture', $comment->getId_picture(), PDO::PARAM_INT);
-		$q->bindValue(':content', $comment->getContent(), PDO::PARAM_STR);
+		$q->bindValue(':id_picture', $comment->getId_picture(), PDO::PARAM_INT); 
+		$q->bindValue(':content', htmlspecialchars($comment->getContent()), PDO::PARAM_STR);
 		$q->bindValue(':time_posted', time(), PDO::PARAM_INT);
 
 		$q->execute();
