@@ -16,6 +16,7 @@
 		<div id="picture">
 			<img src="data/userpics/<?php echo $pic->getId();?>.jpeg" class="userpicture" />
 		</div>
+		<p id="likeCounter"><?php echo $likeManager->getCountFromPicture($pic->getId()); ?> likes</p>
 		<div id="comments">
 			<?php
 			foreach($comments as $element) {
