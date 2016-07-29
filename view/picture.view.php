@@ -34,7 +34,7 @@
 			?>
 		</div>
 		<script>
-			function comment()
+			function comment(like)
 			{
 			    var ajax;
 
@@ -60,8 +60,12 @@
 
 			    var formData = new FormData();
 		        formData.append('id_picture', <?php echo $pic->getId();?>);
-		        formData.append('content', document.getElementById('comment_content').value);
-		        formData.append('action', "coment_picture");
+		        if (like == false) {
+			        formData.append('content', document.getElementById('comment_content').value);
+			        formData.append('action', "comment_picture");
+			    } else {
+			    	formData.append('action', "like_picture");
+			    }
 
 			    ajax.open("POST", "action.php", true);
 			    ajax.send(formData);
@@ -70,7 +74,7 @@
 			}
 
 			document.getElementById('comment').addEventListener('click', function() {
-    				comment();
+    				comment(false);
 				}, false);
 		</script>
 	</body>

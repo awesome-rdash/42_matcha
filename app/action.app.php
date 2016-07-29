@@ -8,7 +8,8 @@ $valid_actions = array(
 	"resetpassword",
 	"upload_file_image",
 	"upload_camera_image",
-	"comment_picture");
+	"comment_picture",
+	"like_picture");
 
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = $_GET;
