@@ -47,4 +47,12 @@ class UserPictureManager {
 		$result = $q->fetchAll();
 		return ($result);
 	}
+
+	public function delete( $id ) {		
+		$q = $this->_db->prepare('DELETE FROM userpictures WHERE id = :id');
+		$q->bindValue(':id', $id, PDO::PARAM_INT);
+		$q->execute();
+
+		return true;
+	}
 }
