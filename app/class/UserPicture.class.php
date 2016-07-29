@@ -67,13 +67,15 @@ class UserPicture {
         imagecopy($cut, $dst_im, 0, 0, $dst_x, $dst_y, $src_w, $src_h);
         imagecopy($cut, $src_im, 0, 0, $src_x, $src_y, $src_w, $src_h);
         imagecopymerge($dst_im, $cut, $dst_x, $dst_y, 0, 0, $src_w, $src_h, $pct); 
-    } 
+    }
 
 	public function addFilter($idFilter) {
 		if (!$this->setFilter_used($idFilter)) {
 			return genError("userpicture", "badfilter", "addfilter");
 		}
 		$overlay = imagecreatefrompng("assets/img/filters/default/" . $idFilter . ".png");
+
+		$this->_source = imagescale($this->getSource(), 1280, -1, IMG_BICUBIC_FIXED);
 
 		$largeur_source = imagesx($overlay);
 		$hauteur_source = imagesy($overlay);
