@@ -19,9 +19,8 @@ class CommentManager {
 
 		$q->execute();
 
-		$userPicture->setId($this->_db->lastInsertId());
-		$userPicture->saveToFile();
-		return ($userPicture->getId());
+		$comment->setId($this->_db->lastInsertId());
+		return ($comment->getId());
 	}
 
 	public function get( $id ) {
