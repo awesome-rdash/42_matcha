@@ -39,4 +39,14 @@ class CommentManager {
 			return false;
 		}
 	}
+
+	public function getFromPicture( $pictureId ) {
+		$q = $this->_db->prepare('
+			SELECT * FROM comments WHERE id_picture = :id_picture');
+		$q->bindValue(':id_picture', $pictureId, PDO::PARAM_INT);
+		$q->execute();
+
+		$result = $q->fetchAll();
+		return ($result);
+	}
 }
