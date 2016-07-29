@@ -61,7 +61,7 @@
 			    var formData = new FormData();
 		        formData.append('id_picture', <?php echo $pic->getId();?>);
 		        formData.append('content', document.getElementById('comment_content').value);
-		        formData.append('action', "upload_file_image");
+		        formData.append('action', "coment_picture");
 
 			    ajax.open("POST", "action.php", true);
 			    ajax.send(formData);
