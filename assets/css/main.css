@@ -1,8 +1,13 @@
 body {
-	background-color: green;
+	background-color: #FBFCFF;
+	font-family: Helvetica, Georgia, Serif;
 }
 
 #errormsg {
 	color: red;
 	text-align: center;
+}
+
+p {
+	color: #588BF9;
 }

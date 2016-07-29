@@ -1,20 +1,53 @@
-#logoCamagru {
-	width: 100px;
-	display: inline-block;
+#mainheader {
+	min-height: 75px;
+	background-color: #C6D6F8;
+	margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+	padding: 5px 5px 5px 5px;
+	border-radius: 5px;
+	box-shadow: 2px 2px #8BACF3;
 }
 
-#mainheader {
-	height: 85px;
-	background-color: red;
-	margin: auto;
-	position: relative;
+#logoCamagru {
+	width: 110px;
+	display: inline-block;
 }
 
 #headerMenu {
 	display: inline-block;
+	margin: auto 10px 10px auto;
+	font-size: 30px;
+}
+
+#headerMenu ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+#headerMenu li {
+	display: inline;
+	color: #FEFEFE;
+	font-weight: bold;
+}
+
+#headerMenu li a {
+    text-decoration: none;
+}
+
+#headerMenu li a:visited {
+    color: #FEFEFE;
+    text-decoration: none;
+}
+
+#headerMenu li a:hover {
+    color: #259CFF;
+    text-decoration: none;
+    text-shadow: 1px 1px #ffffff;
 }
 
 #userBox {
 	display: inline-block;
-	float:right;
 }
