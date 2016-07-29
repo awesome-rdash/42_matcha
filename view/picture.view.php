@@ -19,6 +19,8 @@
 		<p id="likeCounter"><?php echo $likeManager->getCountFromPicture($pic->getId()); ?> likes</p>
 		<?php if (isUserLogged()) { ?><button id="like"><?php if ($likeManager->ifUserLikePicture($currentUser->getId(), $pic->getId())) { ?>Dislike<?php } else { ?>Like<?php } ?></button>
 		<?php } ?>
+		<?php if (isUserLogged() && $currentUser->getId() === $pic->getOwner_id()) { ?>
+			<button id="remove">Remove this picture</button><?php } ?>
 		<div id="comments">
 			<?php
 			if (isUserLogged()) {
@@ -98,6 +100,9 @@
 				}, false);
 			document.getElementById('like').addEventListener('click', function() {
     				comment(true);
+				}, false);
+			document.getElementById('remove').addEventListener('click', function() {
+    				window.location.href='action.php?action=delete_picture&id=<?php echo $pic->getId();?>';
 				}, false);
 		</script>
 	</body>

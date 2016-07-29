@@ -9,7 +9,8 @@ $valid_actions = array(
 	"upload_file_image",
 	"upload_camera_image",
 	"comment_picture",
-	"like_picture");
+	"like_picture",
+	"delete_picture");
 
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = $_GET;
