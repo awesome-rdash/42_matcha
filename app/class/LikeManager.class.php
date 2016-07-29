@@ -9,17 +9,17 @@ class LikeManager {
 
 	public function add(Like $like) {
 		$q = $this->_db->prepare('
-			INSERT INTO likes(id, id_user, id_picture, tine_liked)
+			INSERT INTO likes(id, id_user, id_picture, time_liked)
 			VALUES(:id, :id_user, :id_picture, :time_liked)');
-		$q->bindValue(':id', $comment->getId(), PDO::PARAM_INT);
-		$q->bindValue(':id_user', $comment->getId_user(), PDO::PARAM_INT);
-		$q->bindValue(':id_picture', $comment->getId_picture(), PDO::PARAM_INT);
+		$q->bindValue(':id', $like->getId(), PDO::PARAM_INT);
+		$q->bindValue(':id_user', $like->getId_user(), PDO::PARAM_INT);
+		$q->bindValue(':id_picture', $like->getId_picture(), PDO::PARAM_INT);
 		$q->bindValue(':time_liked', time(), PDO::PARAM_INT);
 
 		$q->execute();
 
 		$like->setId($this->_db->lastInsertId());
-		return ($comment->getId());
+		return ($like->getId());
 	}
 
 	public function get( $id ) {
