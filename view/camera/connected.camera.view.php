@@ -1,31 +1,22 @@
-<style>
-#container {
-    margin: 0px auto;
-    width: 500px;
-    height: 375px;
-    border: 10px #333 solid;
-}
-#videoElement {
-    width: 500px;
-    height: 375px;
-    background-color: #666;
-}
-</style>
+<div id="upload_box">
+    <div id="camera_box">
+    <div id="video_container">
+        <video autoplay="true" id="videoElement">
+        </video>
+    </div>
 
-<div id="container">
-    <video autoplay="true" id="videoElement">
-     
-    </video>
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <button id="take">Take a photo</button><br />
+
+    <div id="upload_file">
+        <input type="file" id="image_file">
+        <button id="upload">Upload picture</button><br />
+    </div>
 </div>
-
-<canvas id="canvas" style="display:none;"></canvas>
-
-
-<button id="take">Take a photo</button><br />
-
-<input type="file" id="image_file">
-<button id="upload">Upload picture</button><br />
-
+    <section id="previous_pics">
+        
+    </section>
 <script>
 function upload_picture(webcam, data)
 {

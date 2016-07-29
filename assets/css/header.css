@@ -1,7 +1,7 @@
 #mainheader {
 	min-height: 75px;
 	background-color: #C6D6F8;
-	margin: auto;
+	margin: auto  auto 10px auto;
 	display: flex;
 	flex-wrap: wrap;
 	position: relative;
