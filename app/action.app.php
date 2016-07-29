@@ -7,7 +7,8 @@ $valid_actions = array(
 	"useToken",
 	"resetpassword",
 	"upload_file_image",
-	"upload_camera_image");
+	"upload_camera_image",
+	"comment_picture");
 
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = $_GET;
