@@ -12,7 +12,7 @@ class Comment {
 	public function getId() { return $this->_id; }
 	public function getId_user() { return $this->_id_user; }
 	public function getId_picture() { return $this->_id_picture; }
-	public function getText() { return $this->_content; }
+	public function getContent() { return $this->_content; }
 	public function getTime_posted() { return $this->_time_posted; }
 
 	public function setId($id) {
@@ -44,7 +44,7 @@ class Comment {
 			return genError("comment", "toolong", "text");
 		}
 		$this->_content = $text;
-		return true
+		return true;
 	}
 
 	public function setTime_posted($time) {

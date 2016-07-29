@@ -11,6 +11,9 @@ if (isset($_GET['pic']) && !empty($_GET['pic'])) {
 	if ($pic === false) {
 		header ("location: gallery.php");
 	}
+
+	$commentManager = new CommentManager($db);
+	$comments = $commentManager->getFromPicture($pic->getId());
 } else {
 	header ("location: gallery.php");
 }
