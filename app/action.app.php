@@ -30,9 +30,16 @@ if (isset($action)) {
 	foreach($valid_actions as $va) {
 		if ($action['action'] == $va) {
 			require_once("app/actions/" . strtolower($action['action']) . ".action.php");
+			$valid = true;
 			if (isset($redirection)) {
 				header("Location: " . basename($_SERVER['PHP_SELF']));
 			}
 		}
 	}
+} else {
+	$valid = true;
+}
+
+if ($valid !== true) {
+	header("Location: index.php");
 }
