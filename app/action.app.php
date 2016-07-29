@@ -1,16 +1,19 @@
 <?php
 
-$valid_actions = array(
-	"register",
-	"login",
+$valid_logged_actions = array(
 	"logout",
 	"useToken",
-	"resetpassword",
 	"upload_file_image",
 	"upload_camera_image",
 	"comment_picture",
 	"like_picture",
 	"delete_picture");
+
+$valid_unlogged_actions = array(
+	"register",
+	"login",
+	"useToken",
+	"resetpassword");
 
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = $_GET;
@@ -19,6 +22,11 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 }
 
 if (isset($action)) {
+	if (isUserLogged()) {
+		$valid_actions = $valid_logged_actions;
+	} else {
+		$valid_actions = $valid_unlogged_actions;
+	}
 	foreach($valid_actions as $va) {
 		if ($action['action'] == $va) {
 			require_once("app/actions/" . strtolower($action['action']) . ".action.php");
