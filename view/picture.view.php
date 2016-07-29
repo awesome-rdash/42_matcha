@@ -57,8 +57,21 @@
 		        if (like == false) {
 			        formData.append('content', document.getElementById('comment_content').value);
 			        formData.append('action', "comment_picture");
+
+			        ajax.onreadystatechange = function() {
+				        if (ajax.readyState == 4 && ajax.status == 200) {
+						var newItem = document.createElement("P");
+						newItem.className = "comment";
+						newItem.appendChild(document.createTextNode(ajax.responseText));
+
+						var c_div = document.getElementById("comments");
+						c_div.appendChild(newItem, c_div.childNodes[0]);
+				        }
+				    }
+
 			    } else {
 			    	formData.append('action', "like_picture");
+
 				    ajax.onreadystatechange = function() {
 				        if (ajax.readyState == 4 && ajax.status == 200) {
 				            document.getElementById("likeCounter").innerHTML = ajax.responseText + " likes";
@@ -69,6 +82,7 @@
 				            }
 				        }
 				    }
+
 			    }
 
 			    ajax.open("POST", "action.php", true);

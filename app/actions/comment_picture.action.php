@@ -18,10 +18,10 @@ if (!isset($error)) {
 		if ($state === true) {
 			$commentManager = new CommentManager($db);
 			$commentManager->add($comment);
-			$mail = "Un nouveau commentaire a ete poste sur votre photo, cliquez ici pour le voir.";
-			Utilities::sendMail($currentUser->getEmail(),
-				"Votre photo a recu un nouveau commentaire",
-				$mail);
+			$mail = "Un nouveau commentaire a ete poste sur votre photo : " . $comment->getContent();
+			//Utilities::sendMail($currentUser->getEmail(),
+			//	"Votre photo a recu un nouveau commentaire",
+			//	$mail);
 		} else {
 			$error = $state;
 		}
@@ -29,3 +29,5 @@ if (!isset($error)) {
 		$error = genError("comment", "notlogged", "login");
 	}
 }
+
+echo $comment->getContent();
