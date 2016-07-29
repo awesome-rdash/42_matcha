@@ -16,21 +16,20 @@
 		<div id="picture">
 			<img src="data/userpics/<?php echo $pic->getId();?>.jpeg" class="userpicture" />
 		</div>
-		<p id="likeCounter"><?php echo $likeManager->getCountFromPicture($pic->getId()); ?> likes</p>
+		<p id="likeCounter"><?php echo $likeManager->getCountFromPicture($pic->getId()); ?> likes</p><button id="like">Like</button>
 		<div id="comments">
 			<?php
+			if (isUserLogged()) {
+			?>
+				<input type="text" id="comment_content" maxlength="255" ><button id="comment">Comment</button>
+			<?php
+			}
 			foreach($comments as $element) {
 				$comment = new Comment(0);
 				$comment->hydrate($element);
 				?>
 				<p class="comment"><?php echo $comment->getContent();?></p>
 				<?php
-			}
-
-			if (isUserLogged()) {
-			?>
-				<input type="text" id="comment_content" maxlength="255" ><button id="comment">Comment</button>
-			<?php
 			}
 			?>
 		</div>
@@ -76,6 +75,9 @@
 
 			document.getElementById('comment').addEventListener('click', function() {
     				comment(false);
+				}, false);
+			document.getElementById('like').addEventListener('click', function() {
+    				comment(true);
 				}, false);
 		</script>
 	</body>
