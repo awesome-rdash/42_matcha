@@ -14,7 +14,7 @@
 			include("view/header.view.php");
 		?>
 		<div id="picture">
-		
+			<img src="data/userpics/<?php echo $pic->getId();?>.jpeg" class="userpicture" />
 		</div>
 	</body>
 </html>

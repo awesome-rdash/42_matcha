@@ -15,14 +15,12 @@
 		?>
 		<div id="pics_page">
 		<?php
-		$picManager = new UserPictureManager($db);
-		$pics = $picManager->getEditedPictures();
 		foreach($pics as $element) {
 			$pic = new UserPicture(0);
 			$pic->hydrate($element);
 			?>
 			<div class="picture">
-				<img src="data/userpics/<?php echo $pic->getId();?>.jpeg" class="userpic" />
+				<a href="picture.php?pic=<?php echo $pic->getId(); ?>"><img src="data/userpics/<?php echo $pic->getId();?>.jpeg" class="userpic" /></a>
 			</div>
 			<?php
 		}

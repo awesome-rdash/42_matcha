@@ -25,7 +25,7 @@ class UserPictureManager {
 
 	public function get( $id ) {
 		$q = $this->_db->prepare('SELECT * FROM userpictures WHERE id = :id');
-		$q->bindValue(':id', $value, PDO::PARAM_INT);
+		$q->bindValue(':id', $id, PDO::PARAM_INT);
 		$q->execute();
 
 		$donnees = $q->fetch();
@@ -33,7 +33,7 @@ class UserPictureManager {
 		if ($q->rowCount() > 0) {
 			$picture = new userPicture($donnees['id']);
 			$picture->hydrate($donnees);
-			return ($member);
+			return ($picture);
 		} else {
 			return false;
 		}
