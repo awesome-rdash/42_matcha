@@ -16,7 +16,9 @@
 		<div id="picture">
 			<img src="data/userpics/<?php echo $pic->getId();?>.jpeg" class="userpicture" />
 		</div>
-		<p id="likeCounter"><?php echo $likeManager->getCountFromPicture($pic->getId()); ?> likes</p><button id="like"><?php if ($likeManager->ifUserLikePicture($currentUser->getId(), $pic->getId())) { ?>Dislike<?php } else { ?>Like<?php } ?></button>
+		<p id="likeCounter"><?php echo $likeManager->getCountFromPicture($pic->getId()); ?> likes</p>
+		<?php if (isUserLogged()) { ?><button id="like"><?php if ($likeManager->ifUserLikePicture($currentUser->getId(), $pic->getId())) { ?>Dislike<?php } else { ?>Like<?php } ?></button>
+		<?php } ?>
 		<div id="comments">
 			<?php
 			if (isUserLogged()) {
