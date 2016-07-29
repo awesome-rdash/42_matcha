@@ -22,9 +22,20 @@ class UserPictureManager {
 		return ($userPicture->getId());
 	}
 
-	public function get($id) {
+	public function get( $id ) {
+		$q = $this->_db->prepare('SELECT * FROM userpictures WHERE id = :id');
+		$q->bindValue(':id', $value, PDO::PARAM_INT);
+		$q->execute();
 
-	}
+		$donnees = $q->fetch();
+
+		if ($q->rowCount() > 0) {
+			$picture = new userPicture($donnees['id']);
+			$picture->hydrate($donnees);
+			return ($member);
+		} else {
+			return false;
+		}
 
 	public function getEditedPictures() {
 		$q = $this->_db->prepare('
