@@ -4,7 +4,7 @@ class Comment {
 	protected $_id;
 	protected $_id_user;
 	protected $_id_picture;
-	protected $_text;
+	protected $_content;
 	protected $_time_posted;
 
 	use CommonMembers;
@@ -12,7 +12,7 @@ class Comment {
 	public function getId() { return $this->_id; }
 	public function getId_user() { return $this->_id_user; }
 	public function getId_picture() { return $this->_id_picture; }
-	public function getText() { return $this->_text; }
+	public function getText() { return $this->_content; }
 	public function getTime_posted() { return $this->_time_posted; }
 
 	public function setId($id) {
@@ -39,11 +39,11 @@ class Comment {
 		return true;
 	}
 
-	public function setText($text) {
+	public function setContent($text) {
 		if (strlen($text) > 255) {
 			return genError("comment", "toolong", "text");
 		}
-		$this->_text = $text;
+		$this->_content = $text;
 		return true
 	}
 
