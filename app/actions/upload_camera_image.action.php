@@ -38,7 +38,7 @@ if (!isset($error)) {
 if (!isset($error)) {
 	if ($image->addFilter($action['filter'])) {
 		$image->setUpload_source("stock");
-		$image->setFilter($action['filter']);
+		$image->setFilter_used($action['filter']);
 		$image->setId($imageManager->add($image));
 	}
 }
