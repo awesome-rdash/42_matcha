@@ -9,6 +9,16 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `camagru` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `camagru`;
 
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_picture` int(11) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `time_posted` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+TRUNCATE TABLE `comments`;
 DROP TABLE IF EXISTS `errors`;
 CREATE TABLE `errors` (
   `id` int(11) NOT NULL,
@@ -18,6 +28,7 @@ CREATE TABLE `errors` (
   `message` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+TRUNCATE TABLE `errors`;
 INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (9, 'register', 'missingfield', 'nickname', 'Vous devez entrer un nom d''utilisateur.'),
 (10, 'register', 'missingfield', 'email', 'Vous devez entrer votre email.'),
@@ -55,6 +66,15 @@ INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (42, 'resetpassword', 'notfound', 'email', 'Aucun compte n''est associé à cette adresse.'),
 (43, 'resetpassword', 'invalide', 'birthdate', 'La date de naissance ne correspond pas.');
 
+DROP TABLE IF EXISTS `likes`;
+CREATE TABLE `likes` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_picture` int(11) NOT NULL,
+  `time_liked` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+TRUNCATE TABLE `likes`;
 DROP TABLE IF EXISTS `tokens`;
 CREATE TABLE `tokens` (
   `id` int(11) NOT NULL,
@@ -65,15 +85,17 @@ CREATE TABLE `tokens` (
   `isused` bit(1) NOT NULL DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+TRUNCATE TABLE `tokens`;
 DROP TABLE IF EXISTS `userpictures`;
 CREATE TABLE `userpictures` (
   `id` int(11) NOT NULL,
   `upload_source` varchar(20) NOT NULL,
-  `upload_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `filter_used` varchar(30) NOT NULL,
+  `upload_time` int(11) NOT NULL,
+  `filter_used` int(11) NOT NULL,
   `owner_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+TRUNCATE TABLE `userpictures`;
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
@@ -90,8 +112,15 @@ CREATE TABLE `users` (
   `mail_confirmed` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+TRUNCATE TABLE `users`;
+
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `errors`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `likes`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `tokens`
@@ -104,8 +133,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `errors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+ALTER TABLE `likes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `tokens`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `userpictures`
