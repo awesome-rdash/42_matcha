@@ -36,6 +36,7 @@ class UserPictureManager {
 		} else {
 			return false;
 		}
+	}
 
 	public function getEditedPictures() {
 		$q = $this->_db->prepare('
