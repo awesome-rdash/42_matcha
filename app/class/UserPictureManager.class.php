@@ -21,4 +21,17 @@ class UserPictureManager {
 		$userPicture->saveToFile();
 		return ($userPicture->getId());
 	}
+
+	public function get($id) {
+
+	}
+
+	public function getEditedPictures() {
+		$q = $this->_db->prepare('
+			SELECT id FROM userpictures WHERE filter_used != 0');
+		$q->execute();
+
+		$result = $q->fetchAll();
+		return ($result);
+	}
 }

@@ -34,7 +34,7 @@ class UserPicture {
 	}
 
 	public function setUpload_source($upload_source) {
-		$valid_sources = array("camera", "file");
+		$valid_sources = array("camera", "file", "stock");
 		if (!in_array($upload_source, $valid_sources)) {
 			trigger_error("Invalid source", E_USER_WARNING);
 		}

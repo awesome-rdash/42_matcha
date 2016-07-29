@@ -13,5 +13,19 @@
 		<?php 
 			include("view/header.view.php");
 		?>
+		<div id="pics_page">
+		<?php
+		$picManager = new UserPictureManager($db);
+		$pics = $picManager->getEditedPictures();
+		foreach($pics as $element) {
+			$pic = new UserPicture($element['id']);
+			?>
+			<div class="picture">
+				<img src="data/userpics/<?php echo $element['id'];?>.jpeg" class="userpic" />
+			</div>
+			<?php
+		}
+		?>
+		</div>
 	</body>
 </html>
