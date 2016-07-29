@@ -38,7 +38,7 @@ if (!isset($error)) {
 	$parameters = array(
 		"owner_id" => $currentUser->getId(),
 		"upload_source" => "file",
-		"filter_used" => $action['filter'],
+		"filter_used" => 0,
 		"source" => $source);
 	$return = $image->hydrate($parameters);
 	if ($return !== true) {
@@ -53,6 +53,8 @@ if (!isset($error)) {
 
 if (!isset($error)) {
 	if ($image->addFilter($action['filter'])) {
+		$image->setUpload_source("stock");
+		$image->setFilter($action['filter']);
 		$image->setId($imageManager->add($image));
 	}
 }
