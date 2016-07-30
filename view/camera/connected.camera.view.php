@@ -28,10 +28,14 @@ function upload_picture(webcam, data)
                 var container = document.createElement("DIV");
                 container.className = "ppic";
 
+                var image_link = document.createElement("A");
+                image_link.setAttribute("href", "picture.php?pic=" + id_image);
+                container.appendChild(image_link);
+
                 var image = document.createElement("IMG");
                 image.className = "ppic_image";
                 image.src = "data/userpics/" + id_image + ".jpeg";
-                container.appendChild(image);
+                image_link.appendChild(image);
 
                 var c_div = document.getElementById("previous_pics");
                 c_div.insertBefore(container, c_div.firstChild);
@@ -184,7 +188,7 @@ function selectFilter(id) {
         $picture->hydrate($element);
         ?>
         <div class="ppic" id="picture-<?php echo $picture->getId();?>">
-            <img src="data/userpics/<?php echo $picture->getId();?>.jpeg" class="ppic_image" />
+            <a href="picture.php?pic=<?php echo $picture->getId(); ?>"><img src="data/userpics/<?php echo $picture->getId();?>.jpeg" class="ppic_image" /></a>
         </div>
     <?php
     }
