@@ -58,6 +58,7 @@ function selectFilter(id) {
         document.getElementById('filter-' + currentFilter).className = "filter";
     }
     document.getElementById('filter-' + id).className = "filter selected";
+    document.getElementById('preview').src="data/userfilters/" + id + ".png";
     currentFilter = id;
 }
 
@@ -67,6 +68,7 @@ function selectFilter(id) {
 <div id="upload_box">
     <div id="camera_box">
         <div id="video_container">
+            <img id="preview" />
             <video autoplay="true" id="videoElement">
             </video>
         </div>
