@@ -22,6 +22,7 @@ if (!isset($error)) {
 			Utilities::sendMail($currentUser->getEmail(),
 				"Votre photo a recu un nouveau commentaire",
 				$mail);
+			echo $comment->getContent();
 		} else {
 			$error = $state;
 		}
@@ -29,5 +30,3 @@ if (!isset($error)) {
 		$error = genError("comment", "notlogged", "login");
 	}
 }
-
-echo $comment->getContent();
