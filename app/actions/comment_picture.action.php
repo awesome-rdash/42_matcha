@@ -19,9 +19,9 @@ if (!isset($error)) {
 			$commentManager = new CommentManager($db);
 			$commentManager->add($comment);
 			$mail = "Un nouveau commentaire a ete poste sur votre photo : " . $comment->getContent();
-			//Utilities::sendMail($currentUser->getEmail(),
-			//	"Votre photo a recu un nouveau commentaire",
-			//	$mail);
+			Utilities::sendMail($currentUser->getEmail(),
+				"Votre photo a recu un nouveau commentaire",
+				$mail);
 		} else {
 			$error = $state;
 		}
