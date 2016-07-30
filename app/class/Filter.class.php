@@ -1,6 +1,6 @@
 <?php
 
-class UserPicture {
+class Filter {
 	protected $_id;
 	protected $_upload_time;
 	protected $_owner_id;

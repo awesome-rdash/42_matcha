@@ -73,7 +73,7 @@ class UserPicture {
 		if (!$this->setFilter_used($idFilter)) {
 			return genError("userpicture", "badfilter", "addfilter");
 		}
-		$overlay = imagecreatefrompng("assets/img/filters/default/" . $idFilter . ".png");
+		$overlay = imagecreatefrompng("data/userfilters/" . $idFilter . ".png");
 
 		$this->_source = imagescale($this->getSource(), 1280, 720, IMG_BICUBIC_FIXED);
 

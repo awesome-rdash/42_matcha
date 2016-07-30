@@ -1,26 +1,3 @@
-<div id="upload_box">
-    <div id="camera_box">
-        <div id="video_container">
-            <video autoplay="true" id="videoElement">
-            </video>
-        </div>
-
-        <canvas id="canvas" style="display:none;"></canvas>
-    </div>
-    <div id="filters">
-        
-    </div>
-    <button id="take">Take a photo</button><br />
-
-    <div id="upload_file">
-        <input type="file" id="image_file">
-        <button id="upload">Upload picture</button><br />
-    </div>
-</div>
-
-<section id="previous_pics">
-    
-</section>
 <script>
 function upload_picture(webcam, data)
 {
@@ -64,22 +41,7 @@ function upload_picture(webcam, data)
 
 }
 
-var video = document.querySelector("#videoElement");
- 
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
- 
-if (navigator.getUserMedia) {       
-    navigator.getUserMedia({video: true}, handleVideo, videoError);
-}
- 
-function handleVideo(stream) {
-    video.src = window.URL.createObjectURL(stream);
-}
- 
-function videoError(e) {
-}
-
-document.getElementById('take').addEventListener('click', function(){
+function takeCamera(){
     if (video){
         var canvas = document.getElementById('canvas');
         canvas.width = videoElement.videoWidth;
@@ -88,10 +50,62 @@ document.getElementById('take').addEventListener('click', function(){
         var data = canvas.toDataURL('image/jpeg');
         upload_picture(true, encodeURIComponent(data));
     }
-}, false);
+}
 
-document.getElementById('upload').addEventListener('click', function(){
-    upload_picture(false, image_file);
-}, false);
+function selectFilter(id) {
 
+}
+
+</script>
+
+
+<div id="upload_box">
+    <div id="camera_box">
+        <div id="video_container">
+            <video autoplay="true" id="videoElement">
+            </video>
+        </div>
+
+        <canvas id="canvas" style="display:none;"></canvas>
+    </div>
+    <div id="filters">
+        <?php
+        foreach($filters as $element) {
+            $filter = new Filter(0);
+            $filter->hydrate($element);
+            ?>
+            <div class="filter">
+                <a onclick="selectFilter(<?php echo $filter->getId();?>)" href="#"><img src="data/userfilters/<?php echo $filter->getId();?>.png" class="filter_image" /></a>
+            </div>
+        <?php
+        }
+        ?>
+    </div>
+    <button id="take" onclick="takeCamera()">Take a photo</button><br />
+
+    <div id="upload_file">
+        <input type="file" id="image_file">
+        <button id="upload" onclick="upload_picture(false, image_file)">Upload picture</button><br />
+    </div>
+</div>
+
+<section id="previous_pics">
+    
+</section>
+
+<script>
+    var video = document.querySelector("#videoElement");
+     
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+     
+    if (navigator.getUserMedia) {       
+        navigator.getUserMedia({video: true}, handleVideo, videoError);
+    }
+     
+    function handleVideo(stream) {
+        video.src = window.URL.createObjectURL(stream);
+    }
+     
+    function videoError(e) {
+    }
 </script>
