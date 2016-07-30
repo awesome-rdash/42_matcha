@@ -41,7 +41,7 @@ if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 		if (!is_object($return)) {
 			$error = $return;
 			session_destroy();
-			header("index.php");
+			header("Location: index.php");
 		} else {
 			$currentUser = $return;
 		}
