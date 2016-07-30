@@ -128,6 +128,9 @@ var currentFilter = 0;
 function selectFilter(id) {
     if (currentFilter != 0) {
         document.getElementById('filter-' + currentFilter).className = "filter";
+    } else {
+        document.getElementById("take").disabled = false;
+        document.getElementById("upload").disabled = false;
     }
     document.getElementById('filter-' + id).className = "filter selected";
     document.getElementById('preview').src="data/userfilters/" + id + ".png";
@@ -161,14 +164,14 @@ function selectFilter(id) {
         ?>
         <div id="upload_filter">
             <input type="file" id="filter_file">
-            <button id="upload_filter" onclick="upload_filter()">Upload filter</button><br />
+            <button id="upload_filter" disabled onclick="upload_filter()">Upload filter</button><br />
         </div>
     </div>
-    <button id="take" onclick="takeCamera()">Take a photo</button><br />
+    <button id="take" onclick="takeCamera()" disabled>Take a photo</button><br />
 
     <div id="upload_file">
         <input type="file" id="image_file">
-        <button id="upload" onclick="upload_picture(false, image_file)">Upload picture</button><br />
+        <button id="upload" onclick="upload_picture(false, image_file)" disabled>Upload picture</button><br />
     </div>
 </div>
 
