@@ -90,6 +90,6 @@ class UserPicture {
 	}
 
 	public function saveToFile() {
-		imagejpeg($this->getSource(), "data/userpics/" . $this->getId() . ".jpeg", 75);
+		imagejpeg($this->getSource(), "data/userpics/" . $this->getId() . ".jpeg", 100);
 	}
 }
