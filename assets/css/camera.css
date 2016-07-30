@@ -1,6 +1,6 @@
 #video_container {
-    max-width: 750px;
-    max-height: 422px;
+    width: 750px;
+    height: 422px;
     border: 1px #333 solid;
     position: relative;
 }
@@ -11,11 +11,15 @@
     max-width: 750px;
     max-height: 422px;
     background-color: #666;
+    position: absolute;
+    z-index: 0;
+    object-fit: fill;
 }
 
 .filter {
 	height: 72px;
 	width: 128px;
+    display: inline-block;
 }
 
 .filter_image {
@@ -33,4 +37,5 @@
     height: 100%;
     max-width: 750px;
     max-height: 422px;
+    z-index: 1;
 }
