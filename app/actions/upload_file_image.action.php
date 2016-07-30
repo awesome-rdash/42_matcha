@@ -59,3 +59,6 @@ if (!isset($error)) {
 		echo $image->getId();
 	}
 }
+if (isset($error)) {
+	echo "error";
+}

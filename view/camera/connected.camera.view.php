@@ -19,16 +19,23 @@ function upload_picture(webcam, data)
 
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
-            var container = document.createElement("DIV");
-            container.className = "ppic";
+            var id_image = ajax.responseText;
 
-            var image = document.createElement("IMG");
-            image.className = "ppic_image";
-            image.src = "data/userpics/" + ajax.responseText + ".jpeg";
-            container.appendChild(image);
+            if (id_image == "error") {
+                alert("Erreur. Le fichier doit etre une image PNG ou JPEG valide.");
+            }
+            else {
+                var container = document.createElement("DIV");
+                container.className = "ppic";
 
-            var c_div = document.getElementById("previous_pics");
-            c_div.insertBefore(container, c_div.firstChild);
+                var image = document.createElement("IMG");
+                image.className = "ppic_image";
+                image.src = "data/userpics/" + id_image + ".jpeg";
+                container.appendChild(image);
+
+                var c_div = document.getElementById("previous_pics");
+                c_div.insertBefore(container, c_div.firstChild);
+            }
         }
     }
 
@@ -71,23 +78,27 @@ function upload_filter()
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var id_filter = ajax.responseText;
+            if (id_filter == "error") {
+                alert("Erreur. Le fichier doit etre une image .png valide.");
+            }
+            else {
+                var container = document.createElement("DIV");
+                container.className = "filter";
+                container.id = "filter-" + id_filter;
 
-            var container = document.createElement("DIV");
-            container.className = "filter";
-            container.id = "filter-" + id_filter;
+                var link = document.createElement("A");
+                link.setAttribute("onclick", "selectFilter(" + id_filter + ")");
+                link.href = "#";
+                container.appendChild(link);
 
-            var link = document.createElement("A");
-            link.setAttribute("onclick", "selectFilter(" + id_filter + ")");
-            link.href = "#";
-            container.appendChild(link);
+                var image = document.createElement("IMG");
+                image.className = "filter_image";
+                image.src = "data/userfilters/" + id_filter + ".png";
+                link.appendChild(image);
 
-            var image = document.createElement("IMG");
-            image.className = "filter_image";
-            image.src = "data/userfilters/" + id_filter + ".png";
-            link.appendChild(image);
-
-            var c_div = document.getElementById("filters");
-            c_div.insertBefore(container, c_div.firstChild);
+                var c_div = document.getElementById("filters");
+                c_div.insertBefore(container, c_div.firstChild);
+            }
         }
     }
 

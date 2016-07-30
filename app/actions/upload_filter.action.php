@@ -21,12 +21,9 @@ if (!isset($error)) {
 }
 
 if (!isset($error)) {
-	$source = imagecreatefrompng($_FILES['filter_file']['tmp_name']);
-
 	$filter = new Filter(0);
 	$parameters = array(
-		"owner_id" => $currentUser->getId(),
-		"source" => $source);
+		"owner_id" => $currentUser->getId());
 	$return = $filter->hydrate($parameters);
 	if ($return !== true) {
 		$error = $return;
@@ -38,4 +35,8 @@ if (!isset($error)) {
 	$filter->setId($fm->add($filter));
 	move_uploaded_file($_FILES["filter_file"]["tmp_name"], "data/userfilters/" . $filter->getId() . ".png");
 	echo $filter->getId();
+}
+
+if (isset($error)) {
+	echo "error";
 }

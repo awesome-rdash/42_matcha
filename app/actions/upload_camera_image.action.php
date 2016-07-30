@@ -40,7 +40,10 @@ if (!isset($error)) {
 		$image->setUpload_source("stock");
 		$image->setFilter_used($action['filter']);
 		$image->setId($imageManager->add($image));
+		echo $image->getId();
 	}
 }
 
-echo $image->getId();
+if (isset($error)) {
+	echo "error";
+}
