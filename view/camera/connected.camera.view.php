@@ -130,7 +130,9 @@ function selectFilter(id) {
         document.getElementById('filter-' + currentFilter).className = "filter";
     } else {
         document.getElementById("take").disabled = false;
-        document.getElementById("upload").disabled = false;
+        if (document.getElementById("image_file").value != "" ) {
+            document.getElementById("upload").disabled = false;
+        }
     }
     document.getElementById('filter-' + id).className = "filter selected";
     document.getElementById('preview').src="data/userfilters/" + id + ".png";
@@ -164,7 +166,7 @@ function selectFilter(id) {
         ?>
         <div id="upload_filter">
             <input type="file" id="filter_file">
-            <button id="upload_filter" disabled onclick="upload_filter()">Upload filter</button><br />
+            <button id="upload_filter_button" disabled onclick="upload_filter()">Upload filter</button><br />
         </div>
     </div>
     <button id="take" onclick="takeCamera()" disabled>Take a photo</button><br />
@@ -204,4 +206,15 @@ function selectFilter(id) {
      
     function videoError(e) {
     }
+
+    document.getElementById("filter_file").onchange = function() {
+        document.getElementById("upload_filter_button").disabled = false;
+    };
+
+    document.getElementById('image_file').onchange = function() {
+        if (currentFilter != 0) {
+            document.getElementById("upload").disabled = false;
+
+        }
+    };
 </script>
