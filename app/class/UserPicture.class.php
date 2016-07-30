@@ -75,7 +75,7 @@ class UserPicture {
 		}
 		$overlay = imagecreatefrompng("assets/img/filters/default/" . $idFilter . ".png");
 
-		$this->_source = imagescale($this->getSource(), 1280, -1, IMG_BICUBIC_FIXED);
+		$this->_source = imagescale($this->getSource(), 1280, 720, IMG_BICUBIC_FIXED);
 
 		$largeur_source = imagesx($overlay);
 		$hauteur_source = imagesy($overlay);
