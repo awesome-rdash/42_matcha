@@ -19,7 +19,16 @@ function upload_picture(webcam, data)
 
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
-            //console.log(ajax.responseText);
+            var container = document.createElement("DIV");
+            container.className = "ppic";
+
+            var image = document.createElement("IMG");
+            image.className = "ppic_image";
+            image.src = "data/userpics/" + ajax.responseText + ".jpeg";
+            container.appendChild(image);
+
+            var c_div = document.getElementById("previous_pics");
+            c_div.insertBefore(container, c_div.firstChild);
         }
     }
 
@@ -97,7 +106,17 @@ function selectFilter(id) {
 </div>
 
 <section id="previous_pics">
-    
+    <?php
+    foreach($lastPictures as $element) {
+        $picture = new UserPicture(0);
+        $picture->hydrate($element);
+        ?>
+        <div class="ppic" id="picture-<?php echo $picture->getId();?>">
+            <img src="data/userpics/<?php echo $picture->getId();?>.jpeg" class="ppic_image" />
+        </div>
+    <?php
+    }
+    ?>
 </section>
 
 <script>

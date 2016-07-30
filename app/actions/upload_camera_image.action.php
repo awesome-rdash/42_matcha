@@ -42,3 +42,5 @@ if (!isset($error)) {
 		$image->setId($imageManager->add($image));
 	}
 }
+
+echo $image->getId();

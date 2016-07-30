@@ -1,3 +1,8 @@
+#upload_box {
+    display: inline-block;
+    vertical-align: top;
+}
+
 #video_container {
     width: 750px;
     height: 422px;
@@ -38,4 +43,22 @@
     max-width: 750px;
     max-height: 422px;
     z-index: 1;
+}
+
+#previous_pics {
+    display: inline-block;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100%;
+    width: 500px;
+}
+
+.ppic {
+    width: 100%;
+    height: auto;
+}
+
+.ppic_image {
+    height: 100%;
+    width: 100%;
 }

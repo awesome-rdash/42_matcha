@@ -64,12 +64,12 @@
 
 			        ajax.onreadystatechange = function() {
 				        if (ajax.readyState == 4 && ajax.status == 200) {
-						var newItem = document.createElement("P");
-						newItem.className = "comment";
-						newItem.appendChild(document.createTextNode(ajax.responseText));
+							var newItem = document.createElement("P");
+							newItem.className = "comment";
+							newItem.appendChild(document.createTextNode(ajax.responseText));
 
-						var c_div = document.getElementById("comments");
-						c_div.appendChild(newItem, c_div.childNodes[0]);
+							var c_div = document.getElementById("comments");
+							c_div.appendChild(newItem, c_div.childNodes[0]);
 				        }
 				    }
 

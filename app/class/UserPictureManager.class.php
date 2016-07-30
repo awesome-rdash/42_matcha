@@ -48,6 +48,16 @@ class UserPictureManager {
 		return ($result);
 	}
 
+	public function getEditedPicturesFromUser( $user_id ) {
+		$q = $this->_db->prepare('
+			SELECT * FROM userpictures WHERE filter_used != 0 AND owner_id = :owner_id ORDER BY upload_time DESC');
+		$q->bindValue(':owner_id', $user_id, PDO::PARAM_INT);
+		$q->execute();
+
+		$result = $q->fetchAll();
+		return ($result);
+	}
+
 	public function delete( $id ) {		
 		$q = $this->_db->prepare('DELETE FROM userpictures WHERE id = :id');
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
