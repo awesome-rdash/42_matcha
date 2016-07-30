@@ -31,7 +31,7 @@ class UserPictureManager {
 		$donnees = $q->fetch();
 
 		if ($q->rowCount() > 0) {
-			$picture = new userPicture($donnees['id']);
+			$picture = new UserPicture($donnees['id']);
 			$picture->hydrate($donnees);
 			return ($picture);
 		} else {
