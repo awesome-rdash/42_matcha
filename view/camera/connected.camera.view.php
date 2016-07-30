@@ -70,13 +70,21 @@ function upload_filter()
 
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
+            var id_filter = ajax.responseText;
+
             var container = document.createElement("DIV");
             container.className = "filter";
+            container.id = "filter-" + id_filter;
+
+            var link = document.createElement("A");
+            link.setAttribute("onclick", "selectFilter(" + id_filter + ")");
+            link.href = "#";
+            container.appendChild(link);
 
             var image = document.createElement("IMG");
             image.className = "filter_image";
-            image.src = "data/userfilters/" + ajax.responseText + ".png";
-            container.appendChild(image);
+            image.src = "data/userfilters/" + id_filter + ".png";
+            link.appendChild(image);
 
             var c_div = document.getElementById("filters");
             c_div.insertBefore(container, c_div.firstChild);

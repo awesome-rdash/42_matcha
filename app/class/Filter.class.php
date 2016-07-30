@@ -11,6 +11,7 @@ class Filter {
 	public function getId() { return $this->_id; }
 	public function getUpload_time() { return $this->_upload_time; }
 	public function getOwner_id() { return $this->_owner_id; }
+	public function getSource() { return $this->_source; }
 
 	public function setId($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {
@@ -41,6 +42,6 @@ class Filter {
 	}
 
 	public function saveToFile() {
-		imagepng($this->getSource(), "data/userfilters/" . $this->getId() . ".png", 75);
+		imagepng($this->getSource(), "data/userfilters/" . $this->getId() . ".png", 9);
 	}
 }

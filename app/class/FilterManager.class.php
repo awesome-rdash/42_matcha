@@ -9,7 +9,7 @@ class FilterManager {
 
 	public function add(Filter $filter) {
 		$q = $this->_db->prepare('
-			INSERT INTO userpictures(owner_id, upload_time)
+			INSERT INTO filters(owner_id, upload_time)
 			VALUES(:owner_id, :upload_time)');
 		$q->bindValue(':owner_id', $filter->getOwner_id(), PDO::PARAM_INT);
 		$q->bindValue(':upload_time', time(), PDO::PARAM_INT);

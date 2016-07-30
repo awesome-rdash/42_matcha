@@ -7,7 +7,8 @@ $valid_logged_actions = array(
 	"upload_camera_image",
 	"comment_picture",
 	"like_picture",
-	"delete_picture");
+	"delete_picture",
+	"upload_filter");
 
 $valid_unlogged_actions = array(
 	"register",
