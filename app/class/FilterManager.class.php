@@ -17,7 +17,6 @@ class FilterManager {
 		$q->execute();
 
 		$filter->setId($this->_db->lastInsertId());
-		$filter->saveToFile();
 		return ($filter->getId());
 	}
 

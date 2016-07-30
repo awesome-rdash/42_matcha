@@ -36,5 +36,6 @@ if (!isset($error)) {
 if (!isset($error)) {
 	$fm = new FilterManager($db);
 	$filter->setId($fm->add($filter));
+	move_uploaded_file($_FILES["filter_file"]["tmp_name"], "data/userfilters/" . $filter->getId() . ".png");
 	echo $filter->getId();
 }
