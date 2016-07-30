@@ -1,6 +1,8 @@
-body {
+body html{
 	background-color: #FBFCFF;
 	font-family: Helvetica, Georgia, Serif;
+	height:100%; 
+	width:100%;
 }
 
 #errormsg {
