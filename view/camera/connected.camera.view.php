@@ -50,6 +50,50 @@ function upload_picture(webcam, data)
 
 }
 
+function upload_filter()
+{
+    var ajax;
+
+    if (window.XMLHttpRequest) {
+        ajax = new XMLHttpRequest();
+    }
+    else if (ActiveXObject("Microsoft.XMLHTTP")) {
+        ajax = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    else if (ActiveXObject("Msxml2.XMLHTTP")) {
+        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    else {
+        alert("Il semble que votre navigateur ne supporte pas AJAX. :(");
+        return false;
+    }
+
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var container = document.createElement("DIV");
+            container.className = "filter";
+
+            var image = document.createElement("IMG");
+            image.className = "filter_image";
+            image.src = "data/userfilters/" + ajax.responseText + ".png";
+            container.appendChild(image);
+
+            var c_div = document.getElementById("filters");
+            c_div.insertBefore(container, c_div.firstChild);
+        }
+    }
+
+    var formData = new FormData();
+    formData.append('action', "upload_filter");
+    formData.append('filter_file', filter_file.files[0]);
+
+    ajax.open('post', "action.php", true);
+    ajax.send(formData);
+
+    return ajax;
+
+}
+
 function takeCamera(){
     var canvas = document.getElementById('canvas');
     canvas.width = videoElement.videoWidth;
@@ -96,6 +140,10 @@ function selectFilter(id) {
         <?php
         }
         ?>
+        <div id="upload_filter">
+            <input type="file" id="filter_file">
+            <button id="upload_filter" onclick="upload_filter()">Upload filter</button><br />
+        </div>
     </div>
     <button id="take" onclick="takeCamera()">Take a photo</button><br />
 
