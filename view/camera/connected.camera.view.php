@@ -26,11 +26,11 @@ function upload_picture(webcam, data)
     if (webcam == true) {
         ajax.open("POST", "action.php", true);
         ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        ajax.send("action=upload_camera_image&filter=" + 1 + "&data=" + data);
+        ajax.send("action=upload_camera_image&filter=" + currentFilter + "&data=" + data);
     }
     else {
         var formData = new FormData();
-        formData.append('filter', 1);
+        formData.append('filter', currentFilter);
         formData.append('action', "upload_file_image");
         formData.append('image_file', image_file.files[0]);
 
@@ -42,18 +42,23 @@ function upload_picture(webcam, data)
 }
 
 function takeCamera(){
-    if (video){
-        var canvas = document.getElementById('canvas');
-        canvas.width = videoElement.videoWidth;
-        canvas.height = videoElement.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
-        var data = canvas.toDataURL('image/jpeg');
-        upload_picture(true, encodeURIComponent(data));
-    }
+    var canvas = document.getElementById('canvas');
+    canvas.width = videoElement.videoWidth;
+    canvas.height = videoElement.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    var data = canvas.toDataURL('image/jpeg');
+    upload_picture(true, encodeURIComponent(data));
+
 }
 
-function selectFilter(id) {
+var currentFilter = 0;
 
+function selectFilter(id) {
+    if (currentFilter != 0) {
+        document.getElementById('filter-' + currentFilter).className = "filter";
+    }
+    document.getElementById('filter-' + id).className = "filter selected";
+    currentFilter = id;
 }
 
 </script>
@@ -74,7 +79,7 @@ function selectFilter(id) {
             $filter = new Filter(0);
             $filter->hydrate($element);
             ?>
-            <div class="filter">
+            <div class="filter" id="filter-<?php echo $filter->getId();?>">
                 <a onclick="selectFilter(<?php echo $filter->getId();?>)" href="#"><img src="data/userfilters/<?php echo $filter->getId();?>.png" class="filter_image" /></a>
             </div>
         <?php
