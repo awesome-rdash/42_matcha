@@ -35,8 +35,12 @@ class UserPicture {
 		$this->_upload_time = $upload_time;
 		return true;
 	}
-	
+
 	public function setSource($source) {
 		$this->_source = $source;
+	}
+
+	public function saveToFile() {
+		imagepng($this->getSource(), "data/userfilters/" . $this->getId() . ".png", 75);
 	}
 }
