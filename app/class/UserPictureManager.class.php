@@ -58,18 +58,31 @@ class UserPictureManager {
 		return ($result);
 	}
 
-	public function getEditedPictures($user_id, $pics_ppage, $order) {
+	public function getEditedPictures($user_id, $pics_ppage, $order, $startAt) {
 		$uid = "";
 		if ($user_id != 0) {
 			$uid = "AND owner_id = $user_id";
 		}
 
-		$query = "SELECT * FROM userpictures WHERE filter_used != 0 $uid ORDER BY upload_time $order LIMIT $pics_ppage";
-
+		$query = "SELECT * FROM userpictures WHERE filter_used != 0 $uid ORDER BY upload_time $order LIMIT $pics_ppage OFFSET $startAt";
 		$q = $this->_db->prepare($query);
 		$q->execute();
 
 		$result = $q->fetchAll();
+		return ($result);
+	}
+
+	public function getEditedPicturesCount($user_id, $pics_ppage) {
+		$uid = "";
+		if ($user_id != 0) {
+			$uid = "AND owner_id = $user_id";
+		}
+
+		$query = "SELECT COUNT(*) FROM userpictures WHERE filter_used != 0 $uid";
+		$q = $this->_db->prepare($query);
+		$q->execute();
+
+		$result = $q->fetch();
 		return ($result);
 	}
 
