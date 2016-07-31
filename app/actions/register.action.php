@@ -1,6 +1,6 @@
 <?php
 
-$toCheck = array("nickname", "email", "password", "password2", "birthdate");
+$toCheck = array("nickname", "email", "password", "password2");
 
 foreach($_POST as $key => $value) {
 	if (empty($_POST[$key])) {
@@ -35,6 +35,7 @@ if (!isset($error)) {
 
 if (!isset($error)) {
 	if ($member->isPasswordConfirmationCorrect()) {
+		$member->setRegister_time(time());
 		$addedId = $manager->add($member);
 		$member->setId($addedId);
 	}

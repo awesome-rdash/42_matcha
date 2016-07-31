@@ -11,12 +11,12 @@ class MemberManager {
 
 	public function add(Member $member) {
 		$q = $this->_db->prepare('
-			INSERT INTO users(nickname, email, password, birthdate, firstname, lastname)
-			VALUES(:nickname, :email, :password, :birthdate, :firstname, :lastname)');
+			INSERT INTO users(nickname, email, password, register_time, firstname, lastname)
+			VALUES(:nickname, :email, :password, :register_time, :firstname, :lastname)');
 		$q->bindValue(':nickname', $member->getNickname(), PDO::PARAM_STR);
 		$q->bindValue(':email', $member->getEmail(), PDO::PARAM_STR);
 		$q->bindValue(':password', $member->getPassword(), PDO::PARAM_STR);
-		$q->bindValue(':birthdate', $member->getBirthdate(), PDO::PARAM_STR);
+		$q->bindValue(':register_time', $member->getRegister_time(), PDO::PARAM_INT);
 		$q->bindValue(':firstname', $member->getFirstname(), PDO::PARAM_STR);
 		$q->bindValue(':lastname', $member->getLastname(), PDO::PARAM_STR);
 
