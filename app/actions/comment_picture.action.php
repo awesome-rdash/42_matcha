@@ -21,7 +21,7 @@ if (!isset($error)) {
 			if ($state === true) {
 				$commentManager = new CommentManager($db);
 				$commentManager->add($comment);
-				$imageLink = Utilities::getAdress() . "picture.php?pic=" . $commentedPic->getId();
+				$imageLink = Utilities::getAddress() . "picture.php?pic=" . $commentedPic->getId();
 				$mm = new MemberManager($db);
 				$pic_owner = $mm->get("id", $commentedPic->getOwner_id());
 				$mail = 

@@ -53,7 +53,7 @@ if (!isset($error)) {
 
 	$manager->add($confirmationToken);
 
-	$message = "Lien : " . Utilities::getAdress() . "index.php?action=useToken&token=" . $confirmationToken->getToken();
+	$message = "Lien : " . Utilities::getAddress() . "index.php?action=useToken&token=" . $confirmationToken->getToken();
 
 	utilities::sendMail($member->getEmail(), "Confirmation d'inscription", $message);
 }
