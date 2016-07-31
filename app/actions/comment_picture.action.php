@@ -25,6 +25,8 @@ if (!isset($error)) {
 				$mm = new MemberManager($db);
 				$pic_owner = $mm->get("id", $commentedPic->getOwner_id());
 				$mail = 
+				ucfirst($currentUser->getNickname()) . " a poste un nouveau commentaire sur votre photo : \"" . $comment->getContent() . "\"\nCliquez ici pour le voir : $imageLink";
+				Utilities::sendMail($pic_owner->getEmail(),
 					"Votre photo a recu un nouveau commentaire",
 					$mail);
 				echo $comment->getContent();
