@@ -2,14 +2,12 @@
     display: inline-block;
     vertical-align: top;
     width: 60%;
-    position: relative;
 }
 
 #camera_box {
     display: inline-block;
     vertical-align: top;
     width: 100%;
-    position: relative;
 }
 
 #video_container {
@@ -25,7 +23,6 @@
     max-width: 750px;
     max-height: 422px;
     background-color: #666;
-    position: absolute;
     z-index: 0;
     object-fit: fill;
 }

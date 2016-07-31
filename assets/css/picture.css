@@ -1,0 +1,13 @@
+#picture {
+	width: 100%;
+}
+
+.userpicture {
+	max-height: 720px;
+	max-width: 1280px;
+	width: 100%;
+}
+
+#comment_content {
+	max-width: 500px;
+}
