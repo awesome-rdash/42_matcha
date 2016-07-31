@@ -35,7 +35,6 @@ class MemberManager {
 		$q = $this->_db->prepare($statement);
 		$q->bindValue(':value', $value, PDO::PARAM_STR);
 		$q->execute();
-
 		$donnees = $q->fetch();
 
 		if ($q->rowCount() > 0) {
@@ -89,6 +88,15 @@ class MemberManager {
 		} else {
 			return false;
 		}
+	}
+
+	public function getAllExistingUsers() {
+		$q = $this->_db->prepare('
+			SELECT * FROM users');
+		$q->execute();
+
+		$result = $q->fetchAll();
+		return ($result);
 	}
 
 	public function isPasswordCorrect($memberID, $passToCheck) {

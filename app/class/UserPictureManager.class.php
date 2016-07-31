@@ -39,7 +39,7 @@ class UserPictureManager {
 		}
 	}
 
-	public function getEditedPictures() {
+	public function getAllEditedPictures() {
 		$q = $this->_db->prepare('
 			SELECT * FROM userpictures WHERE filter_used != 0');
 		$q->execute();
@@ -52,6 +52,21 @@ class UserPictureManager {
 		$q = $this->_db->prepare('
 			SELECT * FROM userpictures WHERE filter_used != 0 AND owner_id = :owner_id ORDER BY upload_time DESC');
 		$q->bindValue(':owner_id', $user_id, PDO::PARAM_INT);
+		$q->execute();
+
+		$result = $q->fetchAll();
+		return ($result);
+	}
+
+	public function getEditedPictures($user_id, $pics_ppage, $order) {
+		$uid = "";
+		if ($user_id != 0) {
+			$uid = "AND owner_id = $user_id";
+		}
+
+		$query = "SELECT * FROM userpictures WHERE filter_used != 0 $uid ORDER BY upload_time $order LIMIT $pics_ppage";
+
+		$q = $this->_db->prepare($query);
 		$q->execute();
 
 		$result = $q->fetchAll();
