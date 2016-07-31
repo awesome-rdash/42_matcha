@@ -99,4 +99,9 @@
     #upload_box {
         width: 100%;
     }
+
+    #preview {
+        width: 200px;
+        height: 113px;
+    }
 }
