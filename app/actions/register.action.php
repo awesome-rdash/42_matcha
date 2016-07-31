@@ -27,6 +27,11 @@ if (!isset($error)) {
 
 if (!isset($error)) {
 	$member = new Member(0);
+	$parameters = array(
+		"nickname" => $_POST['nickname'], 
+		"email" => $_POST['email'],
+		"password" => $_POST['password'],
+		"password2" => $_POST['password2']);
 	$return = $member->hydrate($_POST);
 	if ($return !== true) {
 		$error = $return;

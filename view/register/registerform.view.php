@@ -31,7 +31,7 @@
 			<br />
 
 			<label for="birthdate">Date de naissance : </label>
-			<input type="date" name="birthdate" id="birthdate" required <?php if (isset($_POST['birthdate'])) { echo "value=\"" . $_POST['birthdate'] . "\"" ; } ?> />
+			<input type="date" name="birthdate" id="birthdate" <?php if (isset($_POST['birthdate'])) { echo "value=\"" . $_POST['birthdate'] . "\"" ; } ?> />
 		</fieldset>
 		<center><input type="submit" name="submit" value="S'inscrire">
 	</form>

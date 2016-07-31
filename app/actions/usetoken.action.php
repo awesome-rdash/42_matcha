@@ -39,8 +39,9 @@ if (!isset($error)) {
 			break;
 		case "resetpassword":
 			if (isset($_POST['newpassword']) && !empty($_POST['newpassword'])) {
-				if ($member->setPassword($_POST['newpassword'])) {
-					$member->setPassword(hash("whirlpool", $_POST['newpassword']));
+				$member->setId(0);
+				if ($member->setPassword($_POST['newpassword']) === true) {
+					$member->setId($token->getUser_id());
 					$manager->update($member);
 					$tokenUsed = true;
 				} else {
