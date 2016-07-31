@@ -95,4 +95,8 @@
         width: 200px;
         height: 113px;
     }
+
+    #upload_box {
+        width: 100%;
+    }
 }
