@@ -86,22 +86,22 @@ function upload_filter()
                 alert("Erreur. Le fichier doit etre une image .png valide.");
             }
             else {
-                var container = document.createElement("DIV");
-                container.className = "filter";
-                container.id = "filter-" + id_filter;
-
                 var link = document.createElement("A");
                 link.setAttribute("onclick", "selectFilter(" + id_filter + ")");
                 link.href = "#";
-                container.appendChild(link);
+
+                var container = document.createElement("DIV");
+                container.className = "filter";
+                container.id = "filter-" + id_filter;
+                link.appendChild(container);
 
                 var image = document.createElement("IMG");
                 image.className = "filter_image";
                 image.src = "data/userfilters/" + id_filter + ".png";
-                link.appendChild(image);
+                container.appendChild(image);
 
                 var c_div = document.getElementById("filters");
-                c_div.insertBefore(container, c_div.firstChild);
+                c_div.insertBefore(link, c_div.firstChild);
             }
         }
     }
@@ -145,7 +145,7 @@ function selectFilter(id) {
 
 </script>
 
-
+<div id="page">
 <div id="upload_box">
     <div id="camera_box">
         <div id="video_container">
@@ -162,9 +162,9 @@ function selectFilter(id) {
             $filter = new Filter(0);
             $filter->hydrate($element);
             ?>
-            <div class="filter" id="filter-<?php echo $filter->getId();?>">
-                <a onclick="selectFilter(<?php echo $filter->getId();?>)" href="#"><img src="data/userfilters/<?php echo $filter->getId();?>.png" class="filter_image" /></a>
-            </div>
+            <a onclick="selectFilter(<?php echo $filter->getId();?>)" href="#"><div class="filter" id="filter-<?php echo $filter->getId();?>">
+                <img src="data/userfilters/<?php echo $filter->getId();?>.png" class="filter_image" />
+            </div></a>
         <?php
         }
         ?>
@@ -194,6 +194,7 @@ function selectFilter(id) {
     }
     ?>
 </section>
+</div>
 
 <script>
     var video = document.querySelector("#videoElement");

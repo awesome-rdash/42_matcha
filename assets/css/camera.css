@@ -1,3 +1,7 @@
+#page {
+    display: flex;
+}
+
 #upload_box {
     display: inline-block;
     vertical-align: top;
@@ -27,28 +31,33 @@
     object-fit: fill;
 }
 
-.filter {
-	height: 72px;
-	width: 128px;
-    display: inline-block;
-}
-
-.filter_image {
-	height: 100%;
-	width: 100%;
-}
-
-.selected {
-    border: 1px #333 solid;
-}
-
 #preview {
-	position: absolute;
+    position: absolute;
     max-width: 750px;
     max-height: 422px;
     z-index: 1;
     bottom: 0px;
     right: 0px;
+}
+
+.filter {
+	height: 72px;
+	width: 128px;
+    display: inline-block;
+    position: relative;
+}
+
+.filter_image {
+    position: absolute;
+    max-height: 100%;
+    max-width: 100%;
+    z-index: 1;
+    bottom: 0px;
+    right: 0px;
+}
+
+.selected {
+    border: 1px #333 solid;
 }
 
 #previous_pics {
@@ -60,7 +69,7 @@
 }
 
 .ppic {
-    width: 100%;
+    width: 95%;
     height: auto;
 }
 
