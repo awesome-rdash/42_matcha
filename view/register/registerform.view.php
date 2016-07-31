@@ -20,19 +20,6 @@
 			<label for="password2">Confirmation du mot de passe : </label>
 			<input type="password" name="password2" id="password2" maxlength="16" required />
 		</fieldset>
-		<fieldset>
-			<legend>A propos de vous</legend>
-			<label for="lastname">Nom : </label>
-			<input type="text" name="lastname" id="lastname" maxlength="255" <?php if (isset($_POST['lastname'])) { echo "value=\"" . $_POST['lastname'] . "\"" ; } ?> />
-			<br />
-
-			<label for="firstname">Prénom : </label>
-			<input type="text" name="firstname" id="firstname" maxlength="255" <?php if (isset($_POST['firstname'])) { echo "value=\"" . $_POST['firstname'] . "\"" ; } ?> />
-			<br />
-
-			<label for="birthdate">Date de naissance : </label>
-			<input type="date" name="birthdate" id="birthdate" <?php if (isset($_POST['birthdate'])) { echo "value=\"" . $_POST['birthdate'] . "\"" ; } ?> />
-		</fieldset>
 		<center><input type="submit" name="submit" value="S'inscrire">
 	</form>
 </div>
