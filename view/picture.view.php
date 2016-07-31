@@ -21,6 +21,8 @@
 		<?php } ?>
 		<?php if (isUserLogged() && $currentUser->getId() === $pic->getOwner_id()) { ?>
 			<button id="remove">Remove this picture</button><?php } ?>
+			<a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ;?>">Share on Facebook</a> - <a target="_blank" href="https://twitter.com/home?status=<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ;?>">Tweet about this</a> - <a target="_blank" href="https://pinterest.com/pin/create/button/?url=<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "&media=CAMAGRU&description=" ;?>">Pin this on Pinterest</a><br />
+			<a href="<?php echo Utilities::getAddress();?>data/userpics/<?php echo $pic->getId();?>.jpeg" download="camagru.jpeg">Telecharger l'image</a> <br /><br />
 		<div id="comments">
 			<?php
 			if (isUserLogged()) {
