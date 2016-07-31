@@ -45,6 +45,20 @@
 				<input type="submit" value="Filtrer les images">
 			</form>
 		</div>
+		<div id="page_selector">
+			<p>PAGE : <?php
+			for ($i = 0; $i <= $nbPages; $i++) {
+				$current = "";
+				if ($i == $page) {
+					$current = "class=\"currentPage\"";
+				}
+				echo "<a $current href=\"gallery.php?page=$i\">$i</a>";
+				if ($i < $nbPages) {
+					echo " - ";
+				}
+			}
+			?></p>
+		</div>
 		<div id="pics_page">
 		<?php
 		foreach($pics as $element) {

@@ -5,3 +5,7 @@
 .picture {
 	display: inline-block;
 }
+
+.currentPage {
+	font-weight: bold;
+}
