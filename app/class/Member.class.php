@@ -93,6 +93,7 @@ class Member {
 
 	public function setBirthdate($birthdate) {
 		$this->_birthdate = $birthdate;
+		return true;
 	}
 
 	public function setFirstname($firstname) {
@@ -145,7 +146,7 @@ class Member {
 	}
 
 	public function setMail_confirmed($mail) {
-		if ($mail === false || $mail === true) {
+		if ($mail == 0 || $mail == 1) {
 			$this->_mail_confirmed = $mail;
 			return true;
 		}

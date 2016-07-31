@@ -12,9 +12,13 @@ if (!isset($error)) {
 	$return = $manager->get("nickname", htmlspecialchars($_POST['nickname']));
 	if (is_object($return)) {
 		if ($manager->isPasswordCorrect($return->getId(), htmlspecialchars($_POST['password']))) {
-			$_SESSION['connected'] = true;
-			$_SESSION['userid'] = $return->getId();
-			$redirection = true;
+			if ($return->getMail_confirmed() == 1) {
+				$_SESSION['connected'] = true;
+				$_SESSION['userid'] = $return->getId();
+				$redirection = true;
+			} else {
+			$error = genError("login", "notconfirmed", "mail");
+			}
 		} else {
 			$error = genError("login", "invalid", "password");
 		}
