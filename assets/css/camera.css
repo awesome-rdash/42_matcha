@@ -39,6 +39,15 @@
     right: 0px;
 }
 
+#filters {
+    overflow-y: scroll;
+    width: 100%;
+    height: 90px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
 .filter {
 	height: 72px;
 	width: 128px;
@@ -63,7 +72,7 @@
     display: inline-block;
     overflow-y: scroll;
     height: 750px;
-    width: 400px;
+    width: 35%;
 }
 
 .ppic {
@@ -81,9 +90,7 @@
         display: block;
         width: 100%;
     }
-}
 
-@media (max-width: 1300px) {
     #video_container {
         width: 200px;
         height: 113px;

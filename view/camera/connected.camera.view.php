@@ -168,16 +168,23 @@ function selectFilter(id) {
         <?php
         }
         ?>
-        <div id="upload_filter">
+        
+    </div>
+    <div id="upload_filter">
+            <h1>Uploader votre filtre</h1>
+            <p>Seul les fichiers PNG sont acceptes. Pour le meilleur rendu possible, utilisez une image de 1280x720px avec transparence.</p>
             <input type="file" id="filter_file">
             <button id="upload_filter_button" disabled onclick="upload_filter()">Upload filter</button><br />
         </div>
-    </div>
-    <button id="take" onclick="takeCamera()" disabled>Take a photo</button><br />
+    <div id="upload_picture">
+        <h1>Prendre la photo</h1>
+        <button id="take" onclick="takeCamera()" disabled>Utiliser la webcam</button><br />
 
-    <div id="upload_file">
-        <input type="file" id="image_file">
-        <button id="upload" onclick="upload_picture(false, image_file)" disabled>Upload picture</button><br />
+        <div id="upload_file">
+        <h2>Envoyer un fichier</h2>
+            <input type="file" id="image_file">
+            <button id="upload" onclick="upload_picture(false, image_file)" disabled>Utiliser le fichier</button><br />
+        </div>
     </div>
 </div>
 
