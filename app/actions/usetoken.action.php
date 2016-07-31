@@ -1,12 +1,12 @@
 <?php
 
-if (!isset($_GET['token']) || empty($_GET['token'])) {
+if (!isset($action['token']) || empty($action['token'])) {
 	$error = genError('token', 'missing', 'usetoken');
 }
 
 if (!isset($error)) {
 	$token_manager = new TokenManager($db);
-	$token = $token_manager->getFromToken(htmlspecialchars($_GET['token']));
+	$token = $token_manager->getFromToken(htmlspecialchars($action['token']));
 	if (!is_object($token)) {
 		$error = genError('token', 'invalid', 'usetoken');
 	}
@@ -38,7 +38,17 @@ if (!isset($error)) {
 			$tokenUsed = true;
 			break;
 		case "resetpassword":
-			$custom_module = "reset_password";
+			if (isset($_POST['newpassword']) && !empty($_POST['newpassword'])) {
+				if ($member->setPassword($_POST['newpassword'])) {
+					$member->setPassword(hash("whirlpool", $_POST['newpassword']));
+					$manager->update($member);
+					$tokenUsed = true;
+				} else {
+					$custom_module = "reset_password";
+				}
+			} else {
+				$custom_module = "reset_password";
+			}
 			break;
 	}
 }
