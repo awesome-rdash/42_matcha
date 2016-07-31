@@ -18,7 +18,9 @@ if (!isset($error)) {
 		if ($state === true) {
 			$commentManager = new CommentManager($db);
 			$commentManager->add($comment);
-			$mail = "Un nouveau commentaire a ete poste sur votre photo : " . $comment->getContent();
+			$imageLink = Utilities::getAdress() . "picture.php?pic=" . $action['id_picture'];
+			$mail = 
+			ucfirst($currentUser->getNickname()) . " a poste un nouveau commentaire sur votre photo : \"" . $comment->getContent() . "\"\nCliquez ici pour le voir : $imageLink";
 			Utilities::sendMail($currentUser->getEmail(),
 				"Votre photo a recu un nouveau commentaire",
 				$mail);

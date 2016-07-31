@@ -188,7 +188,7 @@ function selectFilter(id) {
         $picture->hydrate($element);
         ?>
         <div class="ppic" id="picture-<?php echo $picture->getId();?>">
-            <a href="picture.php?pic=<?php echo $picture->getId(); ?>"><img src="data/userpics/<?php echo $picture->getId();?>.jpeg" class="ppic_image" /></a>
+            <a href="picture.php?pic=<?php echo $picture->getId(); ?>"><img src="data/userpics/<?php echo $picture->getId(); ?>.jpeg" class="ppic_image" /></a>
         </div>
     <?php
     }

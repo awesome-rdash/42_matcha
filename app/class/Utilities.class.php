@@ -15,4 +15,8 @@ Class Utilities {
 	static public function isDigits($string) {
 		return !preg_match("/[^0-9]/", $string);
 	}
+
+	static public function getAdress() {
+		return "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/";
+	}
 }
