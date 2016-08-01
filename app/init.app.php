@@ -46,6 +46,8 @@ if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 		} else {
 			$currentUser = $return;
 		}
+	} else {
+		$_SESSION['connected'] = false;
 	}
 } else {
 	$_SESSION['connected'] = false;
