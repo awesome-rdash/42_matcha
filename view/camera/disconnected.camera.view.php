@@ -1,1 +1,1 @@
-<a href="index.php">Se logguer</a>
+<a href="index.php">Vous n'avez pas acces a cette page. Se logguer</a>
