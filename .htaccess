@@ -1,1 +1,9 @@
-ErrorDocument 404 /42_camagru/404.php
+<Files  ~ "\.ini$">
+  Order allow,deny
+  Deny from all
+</Files>
+
+<Files ~ "^\.htaccess">
+  Order allow,deny
+  Deny from all
+</Files>
