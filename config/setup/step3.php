@@ -36,7 +36,7 @@ if (file_exists("cfg.ini")) {
 				<p><a href="../index.php"> Accéder au site</a></p>
 				<?php } else { ?>
 				<p>Votre site est maintenant prêt à l'emploi !</p>
-				<p>Utilisez les identifiants admin/admin pour vous connecter pour la première fois.</p>
+				<p>Utilisez les identifiants admin - kef0x8160JV3|JQ pour vous connecter pour la première fois.</p>
 				<p><a href="../index.php"> Accéder au site</a></p>
 			<?php } ?>
 		</div>
