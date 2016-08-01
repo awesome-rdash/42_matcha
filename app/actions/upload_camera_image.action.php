@@ -31,12 +31,8 @@ if (!isset($error)) {
 }
 
 if (!isset($error)) {
-	$imageManager = new UserPictureManager($db);
-	$image->setId($imageManager->add($image));
-}
-
-if (!isset($error)) {
 	if ($image->addFilter($action['filter'])) {
+		$imageManager = new UserPictureManager($db);
 		$image->setUpload_source("stock");
 		$image->setFilter_used($action['filter']);
 		$image->setId($imageManager->add($image));
