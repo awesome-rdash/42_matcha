@@ -2,10 +2,10 @@
 
 $elementsList = array();
 if (isUserLogged()) {
-	$elementsList[] = array("Upload Picture", "camera.php");
-	$elementsList[] = array("Gallery", "gallery.php");
+	$elementsList[] = array("Envoyer un montage", "camera.php");
+	$elementsList[] = array("Galerie", "gallery.php");
 } else {
-	$elementsList[] = array("Gallery", "gallery.php");
+	$elementsList[] = array("Galerie", "gallery.php");
 }
 echo "<ul>";
 
