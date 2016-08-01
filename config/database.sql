@@ -6,8 +6,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-CREATE DATABASE IF NOT EXISTS `camagru` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `camagru`;
 
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
@@ -18,7 +16,6 @@ CREATE TABLE `comments` (
   `time_posted` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-TRUNCATE TABLE `comments`;
 DROP TABLE IF EXISTS `errors`;
 CREATE TABLE `errors` (
   `id` int(11) NOT NULL,
@@ -28,7 +25,6 @@ CREATE TABLE `errors` (
   `message` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-TRUNCATE TABLE `errors`;
 INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (9, 'register', 'missingfield', 'nickname', 'Vous devez entrer un nom d''utilisateur.'),
 (10, 'register', 'missingfield', 'email', 'Vous devez entrer votre email.'),
@@ -64,7 +60,20 @@ INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (40, 'resetpassword', 'missingfield', 'email', 'Vous devez indiquer votre email.'),
 (41, 'resetpassword', 'missingfield', 'birthdate', 'Vous devez indiquer votre date de naissance.'),
 (42, 'resetpassword', 'notfound', 'email', 'Aucun compte n''est associé à cette adresse.'),
-(43, 'resetpassword', 'invalide', 'birthdate', 'La date de naissance ne correspond pas.');
+(43, 'resetpassword', 'invalide', 'birthdate', 'La date de naissance ne correspond pas.'),
+(44, 'login', 'notconfirmed', 'mail', 'Vous devez cliquer sur le lien envoyé par email pour confirmer votre inscription.');
+
+DROP TABLE IF EXISTS `filters`;
+CREATE TABLE `filters` (
+  `id` int(11) NOT NULL,
+  `upload_time` int(11) NOT NULL,
+  `owner_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `filters` (`id`, `upload_time`, `owner_id`) VALUES
+(1, 1, 1),
+(2, 1, 1),
+(3, 1, 1);
 
 DROP TABLE IF EXISTS `likes`;
 CREATE TABLE `likes` (
@@ -74,7 +83,6 @@ CREATE TABLE `likes` (
   `time_liked` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-TRUNCATE TABLE `likes`;
 DROP TABLE IF EXISTS `tokens`;
 CREATE TABLE `tokens` (
   `id` int(11) NOT NULL,
@@ -85,7 +93,6 @@ CREATE TABLE `tokens` (
   `isused` bit(1) NOT NULL DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-TRUNCATE TABLE `tokens`;
 DROP TABLE IF EXISTS `userpictures`;
 CREATE TABLE `userpictures` (
   `id` int(11) NOT NULL,
@@ -95,15 +102,14 @@ CREATE TABLE `userpictures` (
   `owner_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-TRUNCATE TABLE `userpictures`;
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `nickname` varchar(15) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(128) NOT NULL,
-  `register_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `birthdate` date DEFAULT NULL,
+  `register_time` int(11) NOT NULL,
+  `birthdate` int(11) DEFAULT NULL,
   `firstname` varchar(20) DEFAULT NULL,
   `lastname` varchar(20) DEFAULT NULL,
   `phone` varchar(10) DEFAULT NULL,
@@ -112,12 +118,17 @@ CREATE TABLE `users` (
   `mail_confirmed` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-TRUNCATE TABLE `users`;
+INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`) VALUES
+(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+
 
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `errors`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `filters`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `likes`
@@ -136,7 +147,9 @@ ALTER TABLE `users`
 ALTER TABLE `comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `errors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+ALTER TABLE `filters`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 ALTER TABLE `likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `tokens`
@@ -144,7 +157,7 @@ ALTER TABLE `tokens`
 ALTER TABLE `userpictures`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
