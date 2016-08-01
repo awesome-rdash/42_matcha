@@ -32,7 +32,7 @@ if (!isset($error)) {
 		"email" => $_POST['email'],
 		"password" => $_POST['password'],
 		"password2" => $_POST['password2']);
-	$return = $member->hydrate($_POST);
+	$return = $member->hydrate($parameters);
 	if ($return !== true) {
 		$error = $return;
 	}
