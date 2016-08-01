@@ -6,6 +6,7 @@ Class Utilities {
 		$headers[] = "MIME-Version: 1.0";
 		$headers[] = "Content-type: text/plain; charset=iso-8859-1";
 		$headers[] = "From: Camagru <no-reply@camagru.fr>";
+		$headers[] = "Subject: $subject";
 		$headers[] = "X-Mailer: PHP/".phpversion();
 
 		mail($to, $subject, $message, implode("\r\n", $headers));
@@ -16,6 +17,6 @@ Class Utilities {
 	}
 
 	static public function getAddress() {
-			return "http://" . $_SERVER['HTTP_HOST'] . "/";
+			return "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/";
 	}
 }
