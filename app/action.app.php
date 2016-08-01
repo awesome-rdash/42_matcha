@@ -16,6 +16,8 @@ $valid_unlogged_actions = array(
 	"useToken",
 	"resetpassword");
 
+$valid = false;
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = $_GET;
 } else if(isset($_POST['action']) && !empty($_POST['action'])) {
