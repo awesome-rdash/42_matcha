@@ -61,7 +61,8 @@ INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (41, 'resetpassword', 'missingfield', 'birthdate', 'Vous devez indiquer votre date de naissance.'),
 (42, 'resetpassword', 'notfound', 'email', 'Aucun compte n''est associé à cette adresse.'),
 (43, 'resetpassword', 'invalide', 'birthdate', 'La date de naissance ne correspond pas.'),
-(44, 'login', 'notconfirmed', 'mail', 'Vous devez cliquer sur le lien envoyé par email pour confirmer votre inscription.');
+(44, 'login', 'notconfirmed', 'mail', 'Vous devez cliquer sur le lien envoyé par email pour confirmer votre inscription.'),
+(45, 'member', 'tooshort', 'nickname', 'Le nom d''utilisateur doit être compose d''au moins 3 caractères.');
 
 DROP TABLE IF EXISTS `filters`;
 CREATE TABLE `filters` (
