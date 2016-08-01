@@ -14,8 +14,12 @@ if (!isset($error)) {
 }
 
 if (!isset($error)) {
-	$type = exif_imagetype($_FILES['filter_file']['tmp_name']);
-	if ($type !== IMAGETYPE_PNG) {
+	$type = @getimagesize($_FILES['filter_file']['tmp_name']);
+	if (is_array($type)) {
+		if ($type['mime'] != "image/png") {
+			$error = genError("upload_filter", "invalid_file", "file");
+		}
+	} else {
 		$error = genError("upload_filter", "invalid_file", "file");
 	}
 }

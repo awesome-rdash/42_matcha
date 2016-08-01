@@ -21,16 +21,20 @@ if (!isset($error)) {
 }
 
 if (!isset($error)) {
-	$type = exif_imagetype($_FILES['image_file']['tmp_name']);
-	if ($type !== IMAGETYPE_JPEG  && $type !== IMAGETYPE_PNG) {
+	$type = @getimagesize($_FILES['image_file']['tmp_name']);
+	if (is_array($type)) {
+		if ($type['mime'] != "image/png" && $type['mime'] != "image/jpeg") {
+			$error = genError("upload_camera_image", "invalid_file", "file");
+		}
+	} else {
 		$error = genError("upload_camera_image", "invalid_file", "file");
 	}
 }
 
 if (!isset($error)) {
-	if ($type === IMAGETYPE_JPEG) {
+	if ($type['mime'] == "image/jpeg") {
 		$source = imagecreatefromjpeg($_FILES['image_file']['tmp_name']);
-	} else if ($type === IMAGETYPE_PNG) {
+	} else if ($type['mime'] == "image/png") {
 		$source = imagecreatefrompng($_FILES['image_file']['tmp_name']);
 	}
 
