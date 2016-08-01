@@ -42,6 +42,7 @@ if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 			$error = $return;
 			session_destroy();
 			header("Location: index.php");
+			$_SESSION['connected'] = false;
 		} else {
 			$currentUser = $return;
 		}
