@@ -82,7 +82,7 @@ function upload_filter()
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var id_filter = ajax.responseText;
-            if (id_filter == "error") {
+            if (id_filter == "error" || Number.isInteger(parseInt(id_filter)) != true) {
                 alert("Erreur. Le fichier doit etre une image .png valide.");
             }
             else {
