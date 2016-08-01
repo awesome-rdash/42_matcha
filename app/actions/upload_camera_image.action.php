@@ -10,9 +10,17 @@ foreach($toCheck as $element) {
 if (!isset($error)) {
 	try {
 		$data = base64_decode(substr($action['data'], 22));
-		$source = imagecreatefromstring($data);
+		if ($data === false) {
+			$error = true;
+		} else {
+			@$source = imagecreatefromstring($data);
+			if ($source === false) {
+				$error = true;
+			}
+		}
 	} catch (Exception $e) {
 		unset($e);
+		echo "gros caca";
 		$error = genError("upload_camera_image", "invalid", "image");
 	}
 }
