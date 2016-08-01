@@ -21,7 +21,7 @@ function upload_picture(webcam, data)
         if (ajax.readyState == 4 && ajax.status == 200) {
             var id_image = ajax.responseText;
 
-            if (id_image == "error") {
+            if (id_image == "error" || !Number.isInteger(id_image)) {
                 alert("Erreur. Le fichier doit etre une image PNG ou JPEG valide.");
             }
             else {
