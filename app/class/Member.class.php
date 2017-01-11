@@ -14,6 +14,7 @@ class Member {
 	protected $_sexe;
 	protected $_bio;
 	protected $_mail_confirmed;
+	protected $_sexual_orientation;
 
 	use commonMembers;
 
@@ -29,6 +30,7 @@ class Member {
 	public function getSexe() { return $this->_sexe; }
 	public function getBio() { return $this->_bio; }
 	public function getMail_confirmed() { return $this->_mail_confirmed; }
+	public function getSexualOrientation() { return $this->_sexual_orientation; }
 
 	public function setId($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {
