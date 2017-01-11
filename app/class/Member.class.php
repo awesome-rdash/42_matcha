@@ -30,7 +30,7 @@ class Member {
 	public function getSexe() { return $this->_sexe; }
 	public function getBio() { return $this->_bio; }
 	public function getMail_confirmed() { return $this->_mail_confirmed; }
-	public function getSexualOrientation() { return $this->_sexual_orientation; }
+	public function getSexual_orientation() { return $this->_sexual_orientation; }
 
 	public function setId($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {
@@ -153,6 +153,14 @@ class Member {
 			return true;
 		}
 		return genError("member", "invalid", "mail_confirmed");
+	}
+
+	public function setSexual_orientation($sexual_orientation) {
+		if ($sexual_orientation == "male" || $sexual_orientation == "female" || $sexual_orientation == "both") {
+			$this->_sexual_orientation = $sexual_orientation;
+			return true;
+		}
+		return genError("member", "invalid", "sexual_orientation");
 	}
 
 	public function isPasswordConfirmationCorrect() {
