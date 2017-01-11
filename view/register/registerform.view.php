@@ -36,9 +36,9 @@
 				<br />
 
 				<label for="sex_orientation">Orientation sexuelle : </label>
-				<input type="radio" name="sex_orientation" id="sex_orientation_female" value="sex_orientation_female" required /> <label for="sex_orientation_female">Femmes uniquement</label>
-				<input type="radio" name="sex_orientation" id="sex_orientation_male" value="sex_orientation_male" required /> <label for="sex_orientation_male">Hommes uniquement</label>
-				<input type="radio" name="sex_orientation" id="sex_orientation_both" value="sex_orientation_both" required /> <label for="sex_orientation_both">Hommes et Femmes </label>
+				<input type="radio" name="sex_orientation" id="sex_orientation_female" value="sex_orientation_female" /> <label for="sex_orientation_female">Femmes uniquement</label>
+				<input type="radio" name="sex_orientation" id="sex_orientation_male" value="sex_orientation_male" /> <label for="sex_orientation_male">Hommes uniquement</label>
+				<input type="radio" name="sex_orientation" id="sex_orientation_both" value="sex_orientation_both" /> <label for="sex_orientation_both">Hommes et Femmes </label>
 				<br />
 
 				<label for="bio">Bio : </label>
