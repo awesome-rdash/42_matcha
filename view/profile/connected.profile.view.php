@@ -1,8 +1,9 @@
 <div id="page">
 	<div id="profil_header">
-		<p><?php echo $currentProfil->getLastname(); ?></p>
+		<?php include("view/profile/boxes/header.profile.view.php"); ?>
 	</div>
 	<div id="infos">
+		<?php include("view/profile/boxes/infos.profile.view.php"); ?>
 	</div>
 	<div id="map">
 	</div>
