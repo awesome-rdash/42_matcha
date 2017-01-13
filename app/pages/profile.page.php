@@ -9,7 +9,7 @@ if (isUserLogged()) {
 	$ownProfile = false;
 	if (isset($_GET['member']) && !empty($_GET['member'])) {
 		$memberManager = new MemberManager($db);
-		$currentProfile = $memberManager->get("id", int($_GET['member']));
+		$currentProfile = $memberManager->get("id", (int)$_GET['member']);
 		if ($currentProfile === false) {
 			header ("location: profile.php");
 		}
