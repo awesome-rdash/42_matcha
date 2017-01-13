@@ -170,4 +170,26 @@ class Member {
 			return false;
 		}
 	}
+
+	public function getSexeInString() {
+		if ($this->_sexe === 1) {
+			return "Homme";
+		} else if ($this->_sexe === 2) {
+			return "Femme";
+		} else {
+			return "Non renseigné";
+		}
+	}
+
+	public function getOrientationInString() {
+		if ($this->_sexual_orientation === "male") {
+			return "Hommes uniquement";
+		} else if ($this->_sexual_orientation === "female") {
+			return "Femmes uniquement";
+		} else if ($this->_sexual_orientation === "both" ) {
+			return "Femmes et hommes";
+		} else {
+			return "Non renseigné";
+		}
+	}
 }
