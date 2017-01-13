@@ -172,9 +172,9 @@ class Member {
 	}
 
 	public function getSexeInString() {
-		if ($this->_sexe === 1) {
+		if ($this->_sexe === 0) {
 			return "Homme";
-		} else if ($this->_sexe === 2) {
+		} else if ($this->_sexe === 1) {
 			return "Femme";
 		} else {
 			return "Non renseigné";
