@@ -132,7 +132,7 @@ class Member {
 	}
 
 	public function setSexe($sexe) {
-		if ($sexe == 1 || $sexe == 2) {
+		if ($sexe === 0 || $sexe === 1) {
 			$this->_sexe = $sexe;
 			return true;
 		}
