@@ -40,6 +40,7 @@ class MemberManager {
 		if ($q->rowCount() > 0) {
 			$member = new Member($donnees['id']);
 			$member->hydrate($donnees);
+
 			return ($member);
 		} else {
 			return false;

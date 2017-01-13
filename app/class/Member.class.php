@@ -132,8 +132,8 @@ class Member {
 	}
 
 	public function setSexe($sexe) {
-		if ($sexe === 0 || $sexe === 1) {
-			$this->_sexe = $sexe;
+		if ($sexe == 0 || $sexe == 1) {
+			$this->_sexe = (int)$sexe;
 			return true;
 		}
 		return genError("member", "invalid", "sexe");
@@ -149,7 +149,7 @@ class Member {
 
 	public function setMail_confirmed($mail) {
 		if ($mail == 0 || $mail == 1) {
-			$this->_mail_confirmed = $mail;
+			$this->_mail_confirmed = (int)$mail;
 			return true;
 		}
 		return genError("member", "invalid", "mail_confirmed");
