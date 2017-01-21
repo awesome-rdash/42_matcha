@@ -19,4 +19,16 @@ if ($error === false) {
 
 if ($error === false) {
 	$memberManager->update($currentUser);
+	$json_output = array();
+	foreach ($data as $key => $value) {
+		$method = "get" . ucfirst($key);
+		if (method_exists($currentUser, $method) && isset($value)) {
+			$result = $currentUser->$method();
+			if ($result != NULL) {
+				$json_output[$key] = $result;
+			}
+		}
+	}
+
+	echo json_encode($json_output);
 }
