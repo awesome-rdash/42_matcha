@@ -44,7 +44,7 @@ INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (24, 'member', 'toolong', 'firstname', 'Votre prénom ne doit pas dépasser 20 caractères.'),
 (25, 'member', 'invalid', 'firstname', 'Votre prénom ne peut contenir que des caractères alphanumériques.'),
 (26, 'member', 'invalid', 'lastname', 'Votre nom ne peut contenir que des caractères alphanumériques.'),
-(27, 'member', 'invalid', 'lastname', 'Votre nom ne doit pas dépasser 20 caractères.'),
+(27, 'member', 'toolong', 'lastname', 'Votre nom ne doit pas dépasser 20 caractères.'),
 (28, 'member', 'incorrectsize', 'phone', 'Le numéro de téléphone doit être composé de 10 chiffres. Exemple : 0123456789'),
 (29, 'member', 'invalid', 'phone', 'Le numéro de téléphone doit être composé de 10 chiffres. Exemple : 0123456789'),
 (30, 'member', 'invalid', 'sexe', 'Votre sexe ne peut être que masculin ou féminin.'),
