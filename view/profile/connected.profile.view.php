@@ -14,6 +14,15 @@ function updateNames() {
     updateData(data);
 }
 
+function updateEmail() {
+    var data = {};
+
+    data["email"] = document.getElementById("editEmail").value;
+    data["pageId"] = "email";
+    data["type"] = "static";
+    updateData(data);
+}
+
 function updateData(data)
 {
     var ajax;
