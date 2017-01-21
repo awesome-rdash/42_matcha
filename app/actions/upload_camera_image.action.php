@@ -20,7 +20,6 @@ if (!isset($error)) {
 		}
 	} catch (Exception $e) {
 		unset($e);
-		echo "gros caca";
 		$error = genError("upload_camera_image", "invalid", "image");
 	}
 }

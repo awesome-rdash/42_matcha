@@ -8,7 +8,8 @@ $valid_logged_actions = array(
 	"comment_picture",
 	"like_picture",
 	"delete_picture",
-	"upload_filter");
+	"upload_filter",
+	"updateProfilInformations");
 
 $valid_unlogged_actions = array(
 	"register",

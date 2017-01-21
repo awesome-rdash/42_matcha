@@ -5,7 +5,7 @@ function change_visibility(toShowId, toHideId) {
 }
 
 function updateNames() {
-    var data = new Array();
+    var data = {};
 
     data["lastname"] = document.getElementById("editLastName").value;
     data["firstname"] = document.getElementById("editFirstName").value;
@@ -40,11 +40,9 @@ function updateData(data)
 
 
     var formData = new FormData();
-    formData.append('action', "updateProfilInformations");
 
-    for (i = 0; i < data.length; i++) {
-    	formData.append(data[i][0], data[i][1]);
-    }
+    formData.append('action', "updateProfilInformations");
+    formData.append('data', JSON.stringify(data));
 
     ajax.open('post', "action.php", true);
     ajax.send(formData);

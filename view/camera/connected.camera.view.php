@@ -58,7 +58,6 @@ function upload_picture(webcam, data)
         ajax.send(formData);
     }
     return ajax;
-
 }
 
 function upload_filter()
