@@ -4,6 +4,41 @@ function change_visibility(toShowId, toHideId) {
 	document.getElementById(toShowId).style.display = "block";
 }
 
+function updateData(data)
+{
+    var ajax;
+
+    if (window.XMLHttpRequest) {
+        ajax = new XMLHttpRequest();
+    }
+    else if (ActiveXObject("Microsoft.XMLHTTP")) {
+        ajax = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    else if (ActiveXObject("Msxml2.XMLHTTP")) {
+        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    else {
+        alert("Il semble que votre navigateur ne supporte pas AJAX. :(");
+        return false;
+    }
+
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+        }
+    }
+
+
+    var formData = new FormData();
+    formData.append('action', "updateProfilInformations");
+
+    for (i = 0; i < data.length; i++) {
+    	formData.append(data[i][0], data['i'][1]);
+    }
+
+    ajax.open('post', "action.php", true);
+    ajax.send(formData);
+    return ajax;
+
 </script>
 
 <div id="page">
