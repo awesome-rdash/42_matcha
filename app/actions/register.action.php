@@ -26,28 +26,27 @@ if (!isset($error)) {
 }
 
 if (!isset($error)) {
-	$member = new Member(0);
+	if ($_POST['password'] !== $_POST['password2']) {
+		$error = genError("member", "notthesame", "password");
+	} else {
+		$member = new Member(0);
+		$member->setPassword($_POST['password'], true);
+	}
+}
+
+if (!isset($error)) {
 	$parameters = array(
 		"nickname" => $_POST['nickname'], 
 		"email" => $_POST['email'],
-		"password" => $_POST['password'],
-		"password2" => $_POST['password2'],
 		"firstname" => $_POST['firstname'],
 		"lastname" => $_POST['lastname']);
 	$return = $member->hydrate($parameters);
 	if ($return !== true) {
 		$error = $return;
-	}
-}
-
-if (!isset($error)) {
-	if ($member->isPasswordConfirmationCorrect()) {
+	} else {
 		$member->setRegister_time(time());
 		$addedId = $manager->add($member);
 		$member->setId($addedId);
-	}
-	else {
-		$error = genError("member", "notthesame", "password");
 	}
 }
 
