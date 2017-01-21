@@ -94,7 +94,6 @@ function updateData(data)
             } else {
                 alert(toShow["err_msg"]);
             }
-            
         }
     }
 
