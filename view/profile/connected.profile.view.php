@@ -34,7 +34,15 @@ function updateData(data)
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             change_visibility(data["pageId"] + "_text", data["pageId"] + "_edit");
-            console.log(ajax.responseText);
+            var reply = ajax.responseText;
+
+            if (!reply != "error") {
+                var toShow = JSON.parse(reply);
+                for(var n in toShow) {
+                    
+                    console.log(n+'='+toShow[n]);
+                }
+            }
         }
     }
 

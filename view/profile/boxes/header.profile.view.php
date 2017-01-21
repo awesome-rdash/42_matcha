@@ -1,6 +1,6 @@
 <?php
 
-$nameInfos = $currentProfile->getLastname() . " " . $currentProfile->getFirstname();
+$nameInfos = "<span id=\"lastname\">" . $currentProfile->getLastname() . "</span> <span id=\"firstname\">" . $currentProfile->getFirstname() . "</span>";
 
 	if ($ownProfile) {
 		$nameEdit =	"<input type=\"text\" name=\"editLastName\" id=\"editLastName\" value=\"" . $currentProfile->getLastname() . "\" placeholder=\"Nom\" />

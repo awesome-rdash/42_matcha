@@ -30,5 +30,5 @@ if ($error === false) {
 		}
 	}
 
-	echo json_encode($json_output);
+	echo json_encode($json_output, JSON_PRETTY_PRINT);
 }
