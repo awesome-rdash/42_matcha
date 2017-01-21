@@ -34,19 +34,23 @@ function updateData(data)
 
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
-            change_visibility(data["pageId"] + "_text", data["pageId"] + "_edit");
             var reply = ajax.responseText;
+            var toShow = JSON.parse(reply);
 
-            if (!reply != "error") {
+            if (toShow['output'] == "ok") {
                 if (data["type"] == "static") {
-                    var toShow = JSON.parse(reply);
                     for(var n in toShow) {
                         var element = document.getElementById(n);
-                        element.innerHTML = toShow[n];
-                        console.log(n+'='+toShow[n]);
+                        if (element != null) {
+                            element.innerHTML = toShow[n];
+                        }
                     }
                 }
+                change_visibility(data["pageId"] + "_text", data["pageId"] + "_edit");
+            } else {
+                alert(toShow["err_msg"]);
             }
+            
         }
     }
 
