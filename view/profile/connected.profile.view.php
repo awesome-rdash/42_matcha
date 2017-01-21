@@ -39,7 +39,8 @@ function updateData(data)
             if (!reply != "error") {
                 var toShow = JSON.parse(reply);
                 for(var n in toShow) {
-                    
+                    var element = document.getElementById(n);
+                    element.innerHTML = toShow[n];
                     console.log(n+'='+toShow[n]);
                 }
             }
