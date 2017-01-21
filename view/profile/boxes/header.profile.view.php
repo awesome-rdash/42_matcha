@@ -11,19 +11,19 @@ $passwordInfo = "<a href=\"#\" onclick=\"change_visibility('password')\" /> Modi
 		$mailEdit = "<input type=\"text\" name=\"editEmail\" id=\"editEmail\" value=\"" . $currentProfile->getLastname() . "\" placeholder=\"Email\" /> <input type=\"button\" value=\"Modifier\" onclick=\"updateEmail()\" />";
 
 		$passwordEdit = "<input type=\"password\" name=\"editPassword\" id=\"editPassword\" placeholder=\"Votre nouveau mot de passe\" /> <input type=\"button\" value=\"Modifier\" onclick=\"updatePassword()\" />";
-	?>
-
-	<p>
-		<?php showEditableInfo("names", $nameInfos, $nameEdit) ;?> <br />
-
-		<div id="score">Mon score de popularité : XXX<br /></div>
-
-		<?php showEditableInfo("email", $mailInfo , $mailEdit) ;?> <br />
-		<?php showEditableInfo("password", $passwordInfo , $passwordEdit) ;?> <br />
-	</p>
-<?php
+		echo "<p>";
+		showEditableInfo("names", $nameInfos, $nameEdit);
+		echo "<br />";
+		echo "<div id=\"score\">Mon score de popularité : XXX<br /></div>";
+		showEditableInfo("email", $mailInfo , $mailEdit);
+		echo "<br />";
+		showEditableInfo("password", $passwordInfo , $passwordEdit);
+		echo "<br />";
+		echo "</p>";
 	} else {
-?>
-
-<?php
+		echo "<p>";
+		echo "<div>" . $nameInfos . "</div>";
+		echo "<div id=\"score\">Mon score de popularité : XXX<br /></div>";
+		echo "<br />";
+		echo "</p>";
 }
