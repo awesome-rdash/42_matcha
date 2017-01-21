@@ -1,7 +1,7 @@
 <?php
 
-$nameInfos = "<span id=\"lastname\">" . $currentProfile->getLastname() . "</span> <span id=\"firstname\">" . $currentProfile->getFirstname() . "</span>";
-$mailInfo = "Email : <span id=\"email\">" . $currentProfile->getEmail() . "</span>";
+$nameInfos = "<span id=\"lastname_field\">" . $currentProfile->getLastname() . "</span> <span id=\"firstname_field\">" . $currentProfile->getFirstname() . "</span>";
+$mailInfo = "Email : <span id=\"email_field\">" . $currentProfile->getEmail() . "</span>";
 $passwordInfo = "<a href=\"#\" onclick=\"change_visibility('password')\" /> Modifier mon mot de passe</a>";
 
 	if ($ownProfile) {

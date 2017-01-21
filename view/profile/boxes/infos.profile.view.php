@@ -1,7 +1,7 @@
 <?php
 
-$sexeInfo = "Sexe : <span id=\"sexe\">" . $currentProfile->getSexeInString() . "</span>";
-$orientationInfo = "Orientation sexuelle : <span id=\"orientation\">" . $currentProfile->getOrientationInString() . "</span>";
+$sexeInfo = "Sexe : <span id=\"sexe_field\">" . $currentProfile->getSexeInString() . "</span>";
+$orientationInfo = "Orientation sexuelle : <span id=\"orientation_field\">" . $currentProfile->getOrientationInString() . "</span>";
 $bioInfo = "Bio : <span id=\"bio\">" . $currentProfile->getBio() . "</span>";
 
 	if ($ownProfile) {

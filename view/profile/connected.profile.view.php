@@ -79,7 +79,7 @@ function updateData(data)
             if (toShow['output'] == "ok") {
                 if (data["type"] == "static") {
                     for(var n in toShow) {
-                        var element = document.getElementById(n);
+                        var element = document.getElementById(n + "_field");
                         if (element != null) {
                             element.innerHTML = toShow[n];
                         }

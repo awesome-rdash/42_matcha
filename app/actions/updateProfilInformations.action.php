@@ -1,5 +1,7 @@
 <?php
 
+print_r($_POST);
+
 $error = false;
 $json_output = array("output" => "ok");
 
@@ -23,9 +25,13 @@ if ($error === false) {
 	foreach ($data as $key => $value) {
 		$method = "get" . ucfirst($key);
 		if (method_exists($currentUser, $method) && isset($value)) {
-			$result = $currentUser->$method();
-			if ($result != NULL) {
-				$json_output[$key] = $result;
+			if ($key == "sexe") {
+				$json_output[$key] = $currentUser->getSexeInString($value);
+			} else {
+				$result = $currentUser->$method();
+				if ($result != NULL) {
+					$json_output[$key] = $result;
+				}
 			}
 		}
 	}
