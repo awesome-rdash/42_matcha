@@ -37,6 +37,22 @@ function updatePassword() {
     updateData(data);
 }
 
+function updateSexe() {
+    var data = {};
+
+    var sexe;
+    if (document.getElementById('sexe_homme').checked) {
+        sexe = "0";
+    } else {
+        sexe = "1";
+    }
+
+    data["sexe"] = sexe;
+    data["pageId"] = "sexe";
+    data["type"] = "static";
+    updateData(data);
+}
+
 function updateData(data)
 {
     var ajax;
