@@ -11,8 +11,11 @@ if (isset($_POST['data']) && !empty($_POST['data'])) {
 
 if ($error === false) {
 	$memberManager = new MemberManager($db);
-	$parameters = array();
-	$return = $currentUser->hydrate($data);
+	if ($data['pageId'] == 'password') {
+		$return = $currentUser->setPassword($data['password'], true);
+	} else {
+		$return = $currentUser->hydrate($data);
+	}
 	if ($return !== true) {
 		$error = $return;
 	}
