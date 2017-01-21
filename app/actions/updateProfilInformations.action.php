@@ -1,7 +1,5 @@
 <?php
 
-print_r($_POST);
-
 $error = false;
 $json_output = array("output" => "ok");
 
