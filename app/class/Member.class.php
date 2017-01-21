@@ -68,8 +68,6 @@ class Member {
 
 	public function setPassword($password, $toHash = false) {
 		if ($toHash) {
-			$this->_password = $password;
-		} else {
 			if (strlen($password) < 6) {
 				return (genError("member", "tooshort", "password"));
 			}
@@ -77,6 +75,8 @@ class Member {
 				return (genError("member", "toolong", "password"));
 			}
 			$this->_password = hash("whirlpool", $password);
+		} else {
+			$this->_password = $password;
 		}
 		return true;
 	}
