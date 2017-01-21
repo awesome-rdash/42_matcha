@@ -5,6 +5,7 @@ class Member {
 	protected $_nickname;
 	protected $_email;
 	protected $_password;
+	protected $_isPasswordHash;
 	protected $_password2;
 	protected $_register_time;
 	protected $_birthdate;
@@ -65,8 +66,10 @@ class Member {
 		return true;
 	}
 
-	public function setPassword($password) {
-		if ($this->_id == 0) {
+	public function setPassword($password, $toHash = false) {
+		if ($toHash) {
+			$this->_password = $password;
+		} else {
 			if (strlen($password) < 6) {
 				return (genError("member", "tooshort", "password"));
 			}
@@ -74,8 +77,6 @@ class Member {
 				return (genError("member", "toolong", "password"));
 			}
 			$this->_password = hash("whirlpool", $password);
-		} else {
-			$this->_password = $password;
 		}
 		return true;
 	}
