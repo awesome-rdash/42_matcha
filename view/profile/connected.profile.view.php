@@ -10,6 +10,7 @@ function updateNames() {
     data["lastname"] = document.getElementById("editLastName").value;
     data["firstname"] = document.getElementById("editFirstName").value;
     data["pageId"] = "names";
+    data["type"] = "static";
     updateData(data);
 }
 
@@ -37,11 +38,13 @@ function updateData(data)
             var reply = ajax.responseText;
 
             if (!reply != "error") {
-                var toShow = JSON.parse(reply);
-                for(var n in toShow) {
-                    var element = document.getElementById(n);
-                    element.innerHTML = toShow[n];
-                    console.log(n+'='+toShow[n]);
+                if (data["type"] == "static") {
+                    var toShow = JSON.parse(reply);
+                    for(var n in toShow) {
+                        var element = document.getElementById(n);
+                        element.innerHTML = toShow[n];
+                        console.log(n+'='+toShow[n]);
+                    }
                 }
             }
         }
