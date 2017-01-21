@@ -28,7 +28,8 @@ function showEditableInfo($id, $text, $editForm) {
 			  "</div>" .
 			  "<div id=\"" . $id . "_edit\" style=\"display: None;\" >" .
 			  $editForm .
-			  "<input type=\"button\" value=\"Annuler\" onclick=\"change_visibility('" . $id . "')\" /></div>
+			  "<input type=\"button\" value=\"Modifier\" onclick=\"update" . ucfirst($id) . "()\" />
+			  <input type=\"button\" value=\"Annuler\" onclick=\"change_visibility('" . $id . "')\" /></div>
 			  </div>";
 
 	echo $toShow;

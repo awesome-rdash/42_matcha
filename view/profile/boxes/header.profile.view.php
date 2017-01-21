@@ -6,11 +6,11 @@ $passwordInfo = "<a href=\"#\" onclick=\"change_visibility('password')\" /> Modi
 
 	if ($ownProfile) {
 		$nameEdit =	"<input type=\"text\" name=\"editLastName\" id=\"editLastName\" value=\"" . $currentProfile->getLastname() . "\" placeholder=\"Nom\" />
-		<input type=\"text\" name=\"editFirstName\" id=\"editFirstName\" placeholder=\"Prénom\" value=\"" . $currentProfile->getFirstname() . "\" /> <input type=\"button\" value=\"Modifier\" onclick=\"updateNames()\" />";
+		<input type=\"text\" name=\"editFirstName\" id=\"editFirstName\" placeholder=\"Prénom\" value=\"" . $currentProfile->getFirstname() . "\" />";
 
-		$mailEdit = "<input type=\"text\" name=\"editEmail\" id=\"editEmail\" value=\"" . $currentProfile->getLastname() . "\" placeholder=\"Email\" /> <input type=\"button\" value=\"Modifier\" onclick=\"updateEmail()\" />";
+		$mailEdit = "<input type=\"text\" name=\"editEmail\" id=\"editEmail\" value=\"" . $currentProfile->getLastname() . "\" placeholder=\"Email\" />";
 
-		$passwordEdit = "<input type=\"password\" name=\"editPassword\" id=\"editPassword\" placeholder=\"Votre nouveau mot de passe\" /> <input type=\"button\" value=\"Modifier\" onclick=\"updatePassword()\" />";
+		$passwordEdit = "<input type=\"password\" name=\"editPassword\" id=\"editPassword\" placeholder=\"Votre nouveau mot de passe\" />";
 		echo "<p>";
 		showEditableInfo("names", $nameInfos, $nameEdit);
 		echo "<br />";
@@ -26,4 +26,4 @@ $passwordInfo = "<a href=\"#\" onclick=\"change_visibility('password')\" /> Modi
 		echo "<div id=\"score\">Mon score de popularité : XXX<br /></div>";
 		echo "<br />";
 		echo "</p>";
-}
+	}
