@@ -28,6 +28,15 @@ function updateEmail() {
     updateData(data);
 }
 
+function updatePassword() {
+    var data = {};
+
+    data["password"] = document.getElementById("editPassword").value;
+    data["pageId"] = "password";
+    data["type"] = "no_show";
+    updateData(data);
+}
+
 function updateData(data)
 {
     var ajax;
@@ -59,6 +68,8 @@ function updateData(data)
                             element.innerHTML = toShow[n];
                         }
                     }
+                } else if (data["type"] == "no_show") {
+                    
                 }
                 change_visibility(data["pageId"]);
             } else {
