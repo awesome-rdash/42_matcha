@@ -117,7 +117,7 @@ CREATE TABLE `users` (
   `sexe` bit(2) DEFAULT NULL,
   `bio` text,
   `mail_confirmed` tinyint(1) NOT NULL DEFAULT '0',
-  `sexual_orientation` enum('male','female','both'
+  `sexual_orientation` enum('male','female','both')
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`) VALUES

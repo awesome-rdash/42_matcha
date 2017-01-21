@@ -1,10 +1,16 @@
 <?php
-	if ($ownProfile) {
 
+$nameInfos = $currentProfile->getLastname() . " " . $currentProfile->getFirstname();
+
+	if ($ownProfile) {
+		$nameEdit =	"<input type=\"text\" name=\"editLastName\" id=\"editLastName\" value=\"" . $currentProfile->getLastname() . "\" placeholder=\"Nom\" />
+		<input type=\"text\" name=\"editFirstName\" id=\"editFirstName\" placeholder=\"Prénom\" value=\"" . $currentProfile->getFirstname() . "\" /> <input type=\"button\" value=\"Modifier\" onclick=\"updateNames()\"";
 	?>
+
 	<p>
-		<?php echo $currentProfile->getLastname() . " " . $currentProfile->getFirstname(); ?> <br />
-		Mon score de popularité : XXX<br />
+		<?php showEditableInfo("names", $nameInfos, $nameEdit) ;?> <br />
+
+		<div id="score">Mon score de popularité : XXX<br /></div>
 		Email : <?php echo $currentProfile->getEmail();?><br />
 		Modifier mon mot de passe
 	</p>

@@ -20,16 +20,16 @@ if (isUserLogged()) {
 	}
 }
 
-//Fonction qui permette d'afficher du texte ave l'icone de modification
 function showEditableInfo($id, $text, $editForm) {
 	$toShow = "<div id=\"" . $id . "\">" .
 			  "<div id=\"" . $id . "_text\">" .
 			  $text .
 			  " <a onclick=\"change_visibility('" . $id . "_edit', '" . $id . "_text')\" href=\"#\"><img width=\"11px\" src=\"assets/img/icons/edit.svg\"</img></a>" .
 			  "</div>" .
-			  "<div id=\"" . $id . "_edit\">" .
+			  "<div id=\"" . $id . "_edit\" style=\"display: None;\" >" .
 			  $editForm .
-			  "</div>";
+			  "</div>
+			  </div>";
 
 	echo $toShow;
 }

@@ -4,6 +4,15 @@ function change_visibility(toShowId, toHideId) {
 	document.getElementById(toShowId).style.display = "block";
 }
 
+function updateNames() {
+    var data = new Array();
+
+    data["lastname"] = document.getElementById("editLastName").value;
+    data["firstname"] = document.getElementById("editFirstName").value;
+    data["pageId"] = "names";
+    updateData(data);
+}
+
 function updateData(data)
 {
     var ajax;
@@ -24,6 +33,8 @@ function updateData(data)
 
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
+            change_visibility(data["pageId"] + "_text", data["pageId"] + "_edit");
+            console.log(ajax.responseText);
         }
     }
 
@@ -32,12 +43,13 @@ function updateData(data)
     formData.append('action', "updateProfilInformations");
 
     for (i = 0; i < data.length; i++) {
-    	formData.append(data[i][0], data['i'][1]);
+    	formData.append(data[i][0], data[i][1]);
     }
 
     ajax.open('post', "action.php", true);
     ajax.send(formData);
     return ajax;
+}
 
 </script>
 
@@ -56,4 +68,4 @@ function updateData(data)
 	</div>
 	<div id="likes">
 	</div>
-</div>4
+</div>
