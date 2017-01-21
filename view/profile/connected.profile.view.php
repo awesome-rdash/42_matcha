@@ -69,8 +69,11 @@ function updateData(data)
                         }
                     }
                 } else if (data["type"] == "no_show") {
-                    
+                    if (data["pageId"] == "password") {
+                        alert("Le mot de passe a bien été mis à jour.");
+                    }
                 }
+
                 change_visibility(data["pageId"]);
             } else {
                 alert(toShow["err_msg"]);

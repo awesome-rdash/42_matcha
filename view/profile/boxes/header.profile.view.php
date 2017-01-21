@@ -2,7 +2,7 @@
 
 $nameInfos = "<span id=\"lastname\">" . $currentProfile->getLastname() . "</span> <span id=\"firstname\">" . $currentProfile->getFirstname() . "</span>";
 $mailInfo = "Email : <span id=\"email\">" . $currentProfile->getEmail() . "</span>";
-$passwordInfo = "Modifier mon mot de passe";
+$passwordInfo = "<a href=\"#\" onclick=\"change_visibility('password')\" /> Modifier mon mot de passe</a>";
 
 	if ($ownProfile) {
 		$nameEdit =	"<input type=\"text\" name=\"editLastName\" id=\"editLastName\" value=\"" . $currentProfile->getLastname() . "\" placeholder=\"Nom\" />
@@ -20,7 +20,6 @@ $passwordInfo = "Modifier mon mot de passe";
 
 		<?php showEditableInfo("email", $mailInfo , $mailEdit) ;?> <br />
 		<?php showEditableInfo("password", $passwordInfo , $passwordEdit) ;?> <br />
-		Modifier mon mot de passe
 	</p>
 <?php
 	} else {
