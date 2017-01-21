@@ -1,7 +1,12 @@
 <script>
-function change_visibility(toShowId, toHideId) {
-	document.getElementById(toHideId).style.display = "none";
-	document.getElementById(toShowId).style.display = "block";
+function change_visibility(fieldId) {
+    if (document.getElementById(fieldId + "_edit").style.display == "none") {
+       document.getElementById(fieldId + "_edit").style.display = "block";
+       document.getElementById(fieldId + "_text").style.display = "none";
+    } else {
+       document.getElementById(fieldId + "_edit").style.display = "none";
+       document.getElementById(fieldId + "_text").style.display = "block";
+    }
 }
 
 function updateNames() {
@@ -55,7 +60,7 @@ function updateData(data)
                         }
                     }
                 }
-                change_visibility(data["pageId"] + "_text", data["pageId"] + "_edit");
+                change_visibility(data["pageId"]);
             } else {
                 alert(toShow["err_msg"]);
             }

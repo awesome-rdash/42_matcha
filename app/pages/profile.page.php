@@ -24,11 +24,11 @@ function showEditableInfo($id, $text, $editForm) {
 	$toShow = "<div id=\"" . $id . "\">" .
 			  "<div id=\"" . $id . "_text\">" .
 			  $text .
-			  " <a onclick=\"change_visibility('" . $id . "_edit', '" . $id . "_text')\" href=\"#\"><img width=\"11px\" src=\"assets/img/icons/edit.svg\"</img></a>" .
+			  " <a onclick=\"change_visibility('" . $id . "')\" href=\"#\"><img width=\"11px\" src=\"assets/img/icons/edit.svg\"</img></a>" .
 			  "</div>" .
 			  "<div id=\"" . $id . "_edit\" style=\"display: None;\" >" .
 			  $editForm .
-			  "</div>
+			  "<input type=\"button\" value=\"Annuler\" onclick=\"change_visibility(" . $id . ")\" /></div>
 			  </div>";
 
 	echo $toShow;
