@@ -24,8 +24,11 @@ $bioInfo = "Bio : <span id=\"bio_field\">" . $currentProfile->getBio() . "</span
 		echo "</p>";
 	} else {
 		echo "<p>";
-		echo "<div>" . $nameInfos . "</div>";
-		echo "<div id=\"score\">Mon score de popularité : XXX<br /></div>";
+		echo "Sexe : " . $sexeInfo;
+		echo "<br />";
+		echo "Orientation sexuelle : " . $orientationInfo;
+		echo "<br />";
+		echo "Bio : " . $bioInfo;
 		echo "<br />";
 		echo "</p>";
 	}
