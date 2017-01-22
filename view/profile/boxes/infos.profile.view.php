@@ -7,9 +7,12 @@ $bioInfo = "Bio : <span id=\"bio_field\">" . $currentProfile->getBio() . "</span
 $tagList = $tagManager->getAllTagsFromMemberId($currentProfile->getId());
 $tagsInfo = '<div id="tagList">';
 foreach($tagList as $tag) {
-	$tagsInfo .= '<div id="tag_user_' . $tag->getId() . '" class="user_tag">';
-	$tagsInfo .= '<p>' . $tag->getContent() . '</p>';
-	$tagsInfo .= '</div>';
+	$tagsInfo .= '<div id="user_tag_' . $tag->getId() . '" class="user_tag">';
+	$tagsInfo .= '<p>' . $tag->getContent();
+	if ($ownProfile == true) {
+		$tagsInfo .= " <a onclick=\"deleteTag(" . $tag->getId() . ")\" href=\"#\"><img width=\"11px\" src=\"assets/img/icons/delete.svg\"</img></a>";
+	}
+	$tagsInfo .= '</p></div>';
 }
 $tagsInfo .= '</div>';
 
@@ -32,7 +35,7 @@ $tagsInfo .= '</div>';
 		echo "<br />";
 		showEditableInfo("bio", $bioInfo , $bioEdit);
 		echo "<br />";
-		showEditableInfo("tags", $tagsInfo , $tagsEdit);
+		echo $tagsInfo;
 		echo "</p>";
 	} else {
 		echo "<p>";

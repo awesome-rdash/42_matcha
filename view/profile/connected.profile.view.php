@@ -86,20 +86,49 @@ function updateOrientation() {
     }
 }
 
+function deleteTag(tagId) {
+    var ajax;
+
+    if (window.XMLHttpRequest) {
+        ajax = new XMLHttpRequest();
+    } else {
+        alert("Il semble que votre navigateur ne supporte pas AJAX. :(");
+        return false;
+    }
+
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var reply = ajax.responseText;
+            var toShow = JSON.parse(reply);
+
+            if (toShow['output'] == "ok") {
+                document.getElementById("user_tag_" + tagId).style.display = "none";
+            } else {
+                alert(toShow["err_msg"]);
+            }
+        }
+    }
+    var data = {};
+    data["action"] = "delete";
+    data["id"] = tagId;
+
+    var formData = new FormData();
+
+    formData.append('action', "update_user_tag");
+    formData.append('data', JSON.stringify(data));
+
+    ajax.open('post', "action.php", true);
+    ajax.send(formData);
+    return ajax;
+}
+
 function updateData(data)
 {
     var ajax;
 
     if (window.XMLHttpRequest) {
         ajax = new XMLHttpRequest();
-    }
-    else if (ActiveXObject("Microsoft.XMLHTTP")) {
-        ajax = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    else if (ActiveXObject("Msxml2.XMLHTTP")) {
-        ajax = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    else {
+    } else {
         alert("Il semble que votre navigateur ne supporte pas AJAX. :(");
         return false;
     }
