@@ -110,9 +110,20 @@ class TagManager {
 	}
 
 	public function addLink($idUser, $idTag) {
+		$q = $this->_db->prepare('SELECT count(*) FROM tags_users WHERE id_user = :id_user and id_tag = :id_tag');
+		$q->bindValue(':id_user', $idUser, PDO::PARAM_INT);
+		$q->bindValue(':id_tag', $idTag, PDO::PARAM_INT);
+		$q->execute();
+
+		$result = $q->fetch();
+		if ($result[0] > 0) {
+			return genError("taglink", "alreadyexist", "addlink");
+		}
+
 		$q = $this->_db->prepare('INSERT INTO tags_users(id_user, id_tag) VALUES(:id_user, :id_tag)');
 		$q->bindValue(':id_user', $idUser, PDO::PARAM_INT);
 		$q->bindValue(':id_tag', $idTag, PDO::PARAM_INT);
 		$q->execute();
+		return true;
 	}
 }

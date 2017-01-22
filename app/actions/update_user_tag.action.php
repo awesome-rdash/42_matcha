@@ -26,9 +26,13 @@ if ($error === false) {
 			}
 		}
 		if ($error === false) {
-			$tagManager->addLink($currentUser->getId(), $tag->getId());
-			$json_output["tagId"] = $tag->getId();
-			$json_output["tag_content"] = $tag->getContent();
+			$addReturn = $tagManager->addLink($currentUser->getId(), $tag->getId());
+			if (is_array($addReturn)) {
+				$error = $addReturn;
+			} else {
+				$json_output["tagId"] = $tag->getId();
+				$json_output["tag_content"] = $tag->getContent();
+			}
 		}
 	}
 }
