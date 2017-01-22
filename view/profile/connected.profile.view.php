@@ -122,6 +122,43 @@ function deleteTag(tagId) {
     return ajax;
 }
 
+function addTag() {
+    var ajax;
+
+    if (window.XMLHttpRequest) {
+        ajax = new XMLHttpRequest();
+    } else {
+        alert("Il semble que votre navigateur ne supporte pas AJAX. :(");
+        return false;
+    }
+
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var reply = ajax.responseText;
+            console.log(reply);
+            var toShow = JSON.parse(reply);
+
+            if (toShow['output'] == "ok") {
+                alert("Tag ajoute");
+            } else {
+                alert(toShow["err_msg"]);
+            }
+        }
+    }
+    var data = {};
+    data["action"] = "add";
+    data["content"] = document.getElementById("addTagField").value;
+
+    var formData = new FormData();
+
+    formData.append('action', "update_user_tag");
+    formData.append('data', JSON.stringify(data));
+
+    ajax.open('post', "action.php", true);
+    ajax.send(formData);
+    return ajax;
+}
+
 function updateData(data)
 {
     var ajax;

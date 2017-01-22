@@ -9,14 +9,28 @@ if (isset($_POST['data']) && !empty($_POST['data'])) {
 	$error = "no_data";
 }
 
-
 if ($error === false) {
 	$tagManager = new TagManager($db);
 	if ($data['action'] == 'delete') {
 		$tagManager->deleteTagLink($currentUser->getId(), (int)($data['id']));
-	} else {
-		
+	} else if ($data['action'] == 'add'){
+		$tag = $tagManager->get("content", $data['content']);
+		if ($tag == false) {
+			$newTag = new Tag(0);
+			$return = $newTag->setContent($data['content']);
+			if ($return != true) {
+				$error = $return;
+				print_r($return);
+			} else {
+				$tagId = $tagManager->add($newTag);
+				$tag->setId($tagId);
+			}
+		}
 	}
+}
+
+if ($error === false) {
+	$tagManager->addLink($currentUser->getId(), $tag->getId());
 }
 
 if ($error) {

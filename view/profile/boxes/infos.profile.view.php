@@ -14,6 +14,15 @@ foreach($tagList as $tag) {
 	}
 	$tagsInfo .= '</p></div>';
 }
+
+if ($ownProfile == true) {
+	$tagsInfo .= '<div id="add_tag' . $tag->getId() . '" class="user_tag">
+	<input type="text" name="addTagField" id="addTagField" placeholder="Ajouter un TAG" />
+	<input type="button" value="Ajouter" onclick="addTag()"/>
+	</div>
+	';
+}
+
 $tagsInfo .= '</div>';
 
 	if ($ownProfile) {

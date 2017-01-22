@@ -42,6 +42,25 @@ class TagManager {
 		}
 	}
 
+	public function exist( $field, $value) {
+		$fieldCorrectValues = array("id", "content");
+		if (!in_array($field, $fieldCorrectValues)) {
+			throw new Exception("Invalid field");
+		}
+
+		$statement = 'SELECT COUNT(*) FROM tags WHERE ' . $field . ' = :content';
+		$q = $this->_db->prepare($content);
+		$q->bindValue(':content', $content, PDO::PARAM_STR);
+		$q->execute();
+
+		$result = $q->fetch();
+		if ($result[0] > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function getFromId($id) {
 		return $this->get('id', $id);
 	}
@@ -85,6 +104,13 @@ class TagManager {
 
 	public function deleteTagLink($idUser, $idTag) {
 		$q = $this->_db->prepare('DELETE FROM tags_users WHERE id_user = :id_user and id_tag = :id_tag');
+		$q->bindValue(':id_user', $idUser, PDO::PARAM_INT);
+		$q->bindValue(':id_tag', $idTag, PDO::PARAM_INT);
+		$q->execute();
+	}
+
+	public function addLink($idUser, $idTag) {
+		$q = $this->_db->prepare('INSERT INTO tags_users(id_user, id_tag) VALUES(:id_user, :id_tag)');
 		$q->bindValue(':id_user', $idUser, PDO::PARAM_INT);
 		$q->bindValue(':id_tag', $idTag, PDO::PARAM_INT);
 		$q->execute();
