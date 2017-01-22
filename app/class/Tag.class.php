@@ -18,10 +18,10 @@ class Tag {
 	}
 
 	public function setContent($content) {
-		if (strlen($nickname) > 30) {
+		if (strlen($content) > 30) {
 			return (genError("tag", "toolong", "content"));
 		}
-		if (!ctype_alnum($nickname)) {
+		if (!ctype_alnum($content)) {
 			return (genError("tag", "specialchar", "content"));
 		}
 		$this->_content = $content;

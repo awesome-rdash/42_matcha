@@ -1,8 +1,8 @@
 <?php
 
-require_once("app/class/Tags.class.php");
+require_once("app/class/Tag.class.php");
 
-class tagsManager {
+class TagManager {
 	private $_db;
 
 	public function __construct($db) {
@@ -52,6 +52,34 @@ class tagsManager {
 		$q->execute();
 
 		$result = $q->fetchAll();
+		return ($result);
+	}
+
+	public function getAllTagsFromMemberId($id) {
+		$q = $this->_db->prepare('SELECT * FROM tags_users WHERE id_user = :id_user');
+		$q->bindValue(':id_user', $id, PDO::PARAM_INT);
+		$q->execute();
+
+		$tagsFromId = $q->fetchAll();
+		$tagsToFetch = "";
+		foreach($tagsFromId as $tag) {
+			$tagsToFetch .= $tag['id_tag'] . ",";
+		}
+		$tagsToFetch = rtrim($tagsToFetch, ',');
+
+		$statement = ('SELECT * FROM tags WHERE id IN (' . $tagsToFetch . ')');
+		$q = $this->_db->prepare($statement);
+		$q->execute();
+
+		$tags = $q->fetchAll();
+
+		$result = [];
+		foreach ($tags as $tag) {
+			$newTag = new Tag(0);
+			$newTag->hydrate($tag);
+			$result[] = $newTag;
+		}
+
 		return ($result);
 	}
 }
