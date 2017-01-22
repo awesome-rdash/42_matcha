@@ -15,10 +15,10 @@ if ($error === false) {
 		$tagManager->deleteTagLink($currentUser->getId(), (int)($data['id']));
 	} else if ($data['action'] == 'add'){
 		$tag = $tagManager->get("content", $data['content']);
-		if ($tag == false) {
+		if ($tag == false || empty($tag)) {
 			$tag = new Tag(0);
 			$return = $tag->setContent($data['content']);
-			if ($return != true) {
+			if (is_array($return)) {
 				$error = $return;
 			} else {
 				$tagId = $tagManager->add($tag);
@@ -26,6 +26,7 @@ if ($error === false) {
 			}
 		}
 		if ($error === false) {
+
 			$addReturn = $tagManager->addLink($currentUser->getId(), $tag->getId());
 			if (is_array($addReturn)) {
 				$error = $addReturn;

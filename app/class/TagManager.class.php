@@ -42,7 +42,7 @@ class TagManager {
 		}
 	}
 
-	public function exist( $field, $value) {
+	public function exist($field, $value) {
 		$fieldCorrectValues = array("id", "content");
 		if (!in_array($field, $fieldCorrectValues)) {
 			throw new Exception("Invalid field");
