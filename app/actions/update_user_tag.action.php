@@ -16,22 +16,24 @@ if ($error === false) {
 	} else if ($data['action'] == 'add'){
 		$tag = $tagManager->get("content", $data['content']);
 		if ($tag == false) {
-			$newTag = new Tag(0);
-			$return = $newTag->setContent($data['content']);
+			$tag = new Tag(0);
+			$return = $tag->setContent($data['content']);
 			if ($return != true) {
 				$error = $return;
-				print_r($return);
 			} else {
-				$tagId = $tagManager->add($newTag);
+				$tagId = $tagManager->add($tag);
 				$tag->setId($tagId);
 			}
+		}
+		if ($error === false) {
+			$tagManager->addLink($currentUser->getId(), $tag->getId());
+			$json_output["tagId"] = $tag->getId();
+			$json_output["tag_content"] = $tag->getContent();
 		}
 	}
 }
 
-if ($error === false) {
-	$tagManager->addLink($currentUser->getId(), $tag->getId());
-}
+
 
 if ($error) {
 	if (is_array($error)) {

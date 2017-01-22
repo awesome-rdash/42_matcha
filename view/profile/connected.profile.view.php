@@ -99,6 +99,7 @@ function deleteTag(tagId) {
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var reply = ajax.responseText;
+            console.log(reply);
             var toShow = JSON.parse(reply);
 
             if (toShow['output'] == "ok") {
@@ -139,7 +140,28 @@ function addTag() {
             var toShow = JSON.parse(reply);
 
             if (toShow['output'] == "ok") {
-                alert("Tag ajoute");
+                var container = document.createElement("DIV");
+                container.className = "user_tag";
+                container.setAttribute("id", "user_tag_" + toShow['tagId']);
+
+                var tag_content = document.createElement("P");
+                tag_content.innerText = toShow['tag_content'];
+
+                var tag_delete = document.createElement("A");
+                tag_delete.setAttribute("onclick", "deleteTag(" + toShow['tagId'] + ")");
+                tag_delete.setAttribute("href", "#");
+
+                var tag_delete_img = document.createElement("IMG");
+                tag_delete_img.setAttribute("width", "11px");
+                tag_delete_img.setAttribute("src", "assets/img/icons/delete.svg");
+
+                tag_delete.appendChild(tag_delete_img);
+
+                container.appendChild(tag_content);
+                container.appendChild(tag_delete);
+
+                var c_div = document.getElementById("tagList");
+                c_div.insertBefore(container, document.getElementById("add_tag"));
             } else {
                 alert(toShow["err_msg"]);
             }
