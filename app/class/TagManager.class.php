@@ -87,5 +87,6 @@ class TagManager {
 		$q = $this->_db->prepare('DELETE FROM tags_users WHERE id_user = :id_user and id_tag = :id_tag');
 		$q->bindValue(':id_user', $idUser, PDO::PARAM_INT);
 		$q->bindValue(':id_tag', $idTag, PDO::PARAM_INT);
+		$q->execute();
 	}
 }
