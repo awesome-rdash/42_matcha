@@ -37,6 +37,15 @@ function updatePassword() {
     updateData(data);
 }
 
+function updateBio() {
+    var data = {};
+
+    data["bio"] = document.getElementById("editBio").value;
+    data["pageId"] = "bio";
+    data["type"] = "static";
+    updateData(data);
+}
+
 function updateSexe() {
     var data = {};
 
