@@ -8,7 +8,7 @@ $tagList = $tagManager->getAllTagsFromMemberId($currentProfile->getId());
 $tagsInfo = '<div id="tagList">';
 foreach($tagList as $tag) {
 	$tagsInfo .= '<div id="user_tag_' . $tag->getId() . '" class="user_tag">';
-	$tagsInfo .= '<p>' . $tag->getContent();
+	$tagsInfo .= '<p>#' . $tag->getContent();
 	if ($ownProfile == true) {
 		$tagsInfo .= " <a onclick=\"deleteTag(" . $tag->getId() . ")\" href=\"#\"><img width=\"11px\" src=\"assets/img/icons/delete.svg\"</img></a>";
 	}
