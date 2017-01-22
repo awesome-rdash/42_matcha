@@ -4,6 +4,15 @@ $sexeInfo = "Sexe : <span id=\"sexe_field\">" . $currentProfile->getSexeInString
 $orientationInfo = "Orientation sexuelle : <span id=\"sexual_orientation_field\">" . $currentProfile->getOrientationInString() . "</span>";
 $bioInfo = "Bio : <span id=\"bio_field\">" . $currentProfile->getBio() . "</span>";
 
+$tagList = $tagManager->getAllTagsFromMemberId($currentProfile->getId());
+$tagsInfo = '<div id="tagList">';
+foreach($tagList as $tag) {
+	$tagsInfo .= '<div id="tag_user_' . $tag->getId() . '" class="user_tag">';
+	$tagsInfo .= '<p>' . $tag->getContent() . '</p>';
+	$tagsInfo .= '</div>';
+}
+$tagsInfo .= '</div>';
+
 	if ($ownProfile) {
 		$sexeEdit =	"<input type=\"radio\" " . (($currentProfile->getSexe() == 0) ? "checked " : "") . "name=\"editSexe\" id=\"sexe_homme\" value=\"0\"/> <label for=\"sexe_homme\">Homme</label>
 			<input type=\"radio\" " . (($currentProfile->getSexe() == 1) ? "checked " : "") . "name=\"editSexe\" id=\"sexe_femme\" value=\"1\"/> <label for=\"sexe_femme\">Femme</label>";
@@ -14,6 +23,8 @@ $bioInfo = "Bio : <span id=\"bio_field\">" . $currentProfile->getBio() . "</span
 
 		$bioEdit = "<textarea placeholder=\"Bio\" name=\"editBio\" id=\"editBio\">" . $currentProfile->getBio() . "</textarea>";
 
+		$tagsEdit = "";
+
 		echo "<p>";
 		showEditableInfo("sexe", $sexeInfo, $sexeEdit);
 		echo "<br />";
@@ -21,6 +32,7 @@ $bioInfo = "Bio : <span id=\"bio_field\">" . $currentProfile->getBio() . "</span
 		echo "<br />";
 		showEditableInfo("bio", $bioInfo , $bioEdit);
 		echo "<br />";
+		showEditableInfo("tags", $tagsInfo , $tagsEdit);
 		echo "</p>";
 	} else {
 		echo "<p>";

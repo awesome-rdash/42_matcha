@@ -3,7 +3,7 @@
 include_once("app/init.app.php");
 
 $pageTitle = "Profil";
-$pageStylesheets = array ("main.css", "header.css");
+$pageStylesheets = array ("main.css", "header.css", "profile.css");
 
 if (isUserLogged()) {
 	$ownProfile = false;
@@ -34,3 +34,5 @@ function showEditableInfo($id, $text, $editForm) {
 
 	echo $toShow;
 }
+
+$tagManager = new TagManager($db);
