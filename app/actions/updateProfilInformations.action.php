@@ -24,11 +24,13 @@ if ($error === false) {
 if ($error === false) {
 	$memberManager->update($currentUser);
 	foreach ($data as $key => $value) {
-		$method = "get" . ucfirst($key);
-		if (method_exists($currentUser, $method) && isset($value)) {
-			if ($key == "sexe") {
-				$json_output[$key] = $currentUser->getSexeInString($value);
-			} else {
+		if ($key == "sexe") {
+			$json_output[$key] = $currentUser->getSexeInString();
+		} else if ($key == "sexual_orientation") {
+			$json_output[$key] = $currentUser->getOrientationInString();
+		} else {
+			$method = "get" . ucfirst($key);
+			if (method_exists($currentUser, $method) && isset($value)) {
 				$result = $currentUser->$method();
 				if ($result != NULL) {
 					$json_output[$key] = $result;

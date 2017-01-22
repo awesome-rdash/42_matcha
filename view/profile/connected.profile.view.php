@@ -53,6 +53,30 @@ function updateSexe() {
     updateData(data);
 }
 
+function updateOrientation() {
+    var data = {};
+
+    var orientation;
+    if (document.getElementById('orientation_homme').checked) {
+        orientation = "male";
+    } else if (document.getElementById('orientation_femme').checked) {
+        orientation = "female";
+    } else if (document.getElementById('orientation_both').checked) {
+        orientation = "both";
+    } else {
+        orientation = "notchecked";
+    }
+
+    if (orientation != "notchecked") {
+        data["sexual_orientation"] = orientation;
+        data["pageId"] = "orientation";
+        data["type"] = "static";
+        updateData(data);
+    } else {
+        alert("Veuillez sélectionnez votre orientation sexuelle.");
+    }
+}
+
 function updateData(data)
 {
     var ajax;

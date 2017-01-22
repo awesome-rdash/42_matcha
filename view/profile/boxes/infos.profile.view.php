@@ -1,14 +1,16 @@
 <?php
 
 $sexeInfo = "Sexe : <span id=\"sexe_field\">" . $currentProfile->getSexeInString() . "</span>";
-$orientationInfo = "Orientation sexuelle : <span id=\"orientation_field\">" . $currentProfile->getOrientationInString() . "</span>";
+$orientationInfo = "Orientation sexuelle : <span id=\"sexual_orientation_field\">" . $currentProfile->getOrientationInString() . "</span>";
 $bioInfo = "Bio : <span id=\"bio\">" . $currentProfile->getBio() . "</span>";
 
 	if ($ownProfile) {
 		$sexeEdit =	"<input type=\"radio\" " . (($currentProfile->getSexe() == 0) ? "checked " : "") . "name=\"editSexe\" id=\"sexe_homme\" value=\"0\"/> <label for=\"sexe_homme\">Homme</label>
 			<input type=\"radio\" " . (($currentProfile->getSexe() == 1) ? "checked " : "") . "name=\"editSexe\" id=\"sexe_femme\" value=\"1\"/> <label for=\"sexe_femme\">Femme</label>";
 
-		$orientationEdit = "<input type=\"text\" name=\"editEmail\" id=\"editEmail\" value=\"" . $currentProfile->getLastname() . "\" placeholder=\"Email\" /> <input type=\"button\" value=\"Modifier\" onclick=\"updateEmail()\" />";
+		$orientationEdit = "<input type=\"radio\" " . (($currentProfile->getSexual_orientation() == "male") ? "checked " : "") . "name=\"editOrientation\" id=\"orientation_homme\" value=\"0\"/> <label for=\"orientation_homme\">Homme uniquement</label>
+			<input type=\"radio\" " . (($currentProfile->getSexual_orientation() == "female") ? "checked " : "") . "name=\"editOrientation\" id=\"orientation_femme\" value=\"1\"/> <label for=\"orientation_femme\">Femme uniquement</label>
+			<input type=\"radio\" " . (($currentProfile->getSexual_orientation() == "both") ? "checked " : "") . "name=\"editOrientation\" id=\"orientation_both\" value=\"1\"/> <label for=\"orientation_both\">Les deux</label>";
 
 		$bioEdit = "<input type=\"password\" name=\"editPassword\" id=\"editPassword\" placeholder=\"Votre nouveau mot de passe\" /> <input type=\"button\" value=\"Modifier\" onclick=\"updatePassword()\" />";
 		echo "<p>";
