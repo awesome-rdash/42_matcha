@@ -3,7 +3,7 @@
 include_once("app/init.app.php");
 
 $pageTitle = "Profil";
-$pageStylesheets = array ("main.css", "header.css", "profile.css");
+$pageStylesheets = array ("main.css", "header.css", "profile.css", "awesomplete.css");
 
 if (isUserLogged()) {
 	$ownProfile = false;

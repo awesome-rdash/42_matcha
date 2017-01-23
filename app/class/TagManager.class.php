@@ -70,7 +70,14 @@ class TagManager {
 			SELECT * FROM tags');
 		$q->execute();
 
-		$result = $q->fetchAll();
+		$tags = $q->fetchAll();
+
+		$result = [];
+		foreach ($tags as $tag) {
+			$newTag = new Tag(0);
+			$newTag->hydrate($tag);
+			$result[] = $newTag;
+		}
 		return ($result);
 	}
 

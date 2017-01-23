@@ -16,8 +16,15 @@ foreach($tagList as $tag) {
 }
 
 if ($ownProfile == true) {
+	$tagsAutocomplete = "";
+	$tagList = $tagManager->getAllExistingTags();
+	foreach ($tagList as $tag) {
+		$tagsAutocomplete .= $tag->getContent() . ", ";
+	}
+
+	$tagsAutocomplete = rtrim($tagsAutocomplete, ', ');
 	$tagsInfo .= '<div id="add_tag" class="user_tag">
-	<input type="text" name="addTagField" id="addTagField" placeholder="Ajouter un TAG" />
+	<input type="text" name="addTagField" id="addTagField" placeholder="Ajouter un TAG" class="awesomplete" data-list="' . $tagsAutocomplete . '"/>
 	<input type="button" value="Ajouter" onclick="addTag()"/>
 	</div>
 	';
@@ -35,8 +42,6 @@ $tagsInfo .= '</div>';
 
 		$bioEdit = "<textarea placeholder=\"Bio\" name=\"editBio\" id=\"editBio\">" . $currentProfile->getBio() . "</textarea>";
 
-		$tagsEdit = "";
-
 		echo "<p>";
 		showEditableInfo("sexe", $sexeInfo, $sexeEdit);
 		echo "<br />";
@@ -45,6 +50,7 @@ $tagsInfo .= '</div>';
 		showEditableInfo("bio", $bioInfo , $bioEdit);
 		echo "<br />";
 		echo $tagsInfo;
+		echo "</div>";
 		echo "</p>";
 	} else {
 		echo "<p>";

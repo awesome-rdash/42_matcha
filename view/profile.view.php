@@ -8,6 +8,7 @@
 				echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"assets/css/" . $cssPage . "\">";
 			}
 		?>
+		<script src="assets/js/awesomplete.js" async></script>
 	</head>
 	<body>
 		<?php
