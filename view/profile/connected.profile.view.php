@@ -193,6 +193,7 @@ function updateData(data)
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var reply = ajax.responseText;
+            console.log(reply);
             var toShow = JSON.parse(reply);
 
             if (toShow['output'] == "ok") {

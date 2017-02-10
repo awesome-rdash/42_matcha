@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
 					htmlspecialchars($_POST['dbusername']),
 					$_POST['dbpasswd']);
 				if (empty($db)) {
-					$q = $bdd->exec('CREATE DATABASE IF NOT EXISTS ' . $_POST['dbname'] . ' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
+					$q = $bdd->exec('CREATE DATABASE IF NOT EXISTS ' . htmlspecialchars($_POST['dbname']) . ' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
 				}
 				$tosave = array(
 					'db_host' => htmlspecialchars($_POST['dbsrvname']),
