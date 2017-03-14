@@ -2,7 +2,7 @@
 
 include_once("app/init.app.php");
 
-$pageTitle = "Camagru";
+$pageTitle = "Matcha";
 $pageStylesheets = array ("main.css", "header.css", "camera.css");
 
 $filterManager = new FilterManager($db);
