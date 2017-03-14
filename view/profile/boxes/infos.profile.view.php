@@ -10,7 +10,7 @@ foreach($tagList as $tag) {
 	$tagsInfo .= '<div id="user_tag_' . $tag->getId() . '" class="user_tag">';
 	$tagsInfo .= '<p>#' . $tag->getContent();
 	if ($ownProfile == true) {
-		$tagsInfo .= " <a onclick=\"deleteTag(" . $tag->getId() . ")\" href=\"#\"><img width=\"11px\" src=\"assets/img/icons/delete.svg\"</img></a>";
+		$tagsInfo .= " <a onclick=\"deleteTag(" . $tag->getId() . ")\" href=\"#\"><img width=\"11px\" src=\"assets/img/icons/delete.svg\" ></a>";
 	}
 	$tagsInfo .= '</p></div>';
 }
