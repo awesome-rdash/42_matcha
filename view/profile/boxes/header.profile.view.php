@@ -5,11 +5,9 @@ $mailInfo = "Email : <span id=\"email_field\">" . $currentProfile->getEmail() . 
 $passwordInfo = "<a href=\"#\" onclick=\"change_visibility('password')\" /> Modifier mon mot de passe</a>";
 
 $profilePicturePath = "data/userpics/3.jpeg";
-$PPID = $currentProfile->getProfilPicture();
-echo "test:";
-print_r($PPID);
+$PPID = $currentProfile->getProfilePicture();
+
 if ($PPID > 0) {
-	echo "test";
 	$userPictureManager = new UserPictureManager($bdd);
 	$cProfilePicture = $userPictureManager->get($PPID);
 	if (is_object($cProfilePicture)) {

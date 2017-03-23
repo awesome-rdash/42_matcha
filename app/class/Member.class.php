@@ -166,12 +166,15 @@ class Member {
 		return genError("member", "invalid", "sexual_orientation");
 	}
 
-	public function setProfilePicture($idPicture, $pictureManager) {
-		if (is_int($idPicture)) {
-			$pic = $pictureManager->get($idPicture);
+	public function setProfilePicture($idPicture) {
+		if (is_numeric($idPicture)) {
+			global $db;
+			$upmanager = new UserPictureManager($db);
+			$pic = $upmanager->get($idPicture);
 			if (is_object($pic)) {
 				if ($pic->getOwner_id() === $this->getId()) {
 					$this->_profilePicture = $idPicture;
+					return true;
 				}
 			}
 		}
