@@ -6,6 +6,8 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+CREATE DATABASE IF NOT EXISTS `camagru` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `camagru`;
 
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
@@ -122,11 +124,12 @@ CREATE TABLE `users` (
   `sexe` bit(2) DEFAULT NULL,
   `bio` text,
   `mail_confirmed` tinyint(1) NOT NULL DEFAULT '0',
-  `sexual_orientation` enum('male','female','both') DEFAULT NULL
+  `sexual_orientation` enum('male','female','both') DEFAULT NULL,
+  `profilePicture` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`) VALUES
-(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Eddy', 'Albert', NULL, b'00', 'ceci est ma bio', 1, 'male');
+INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`) VALUES
+(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Eddy', 'Albert', NULL, b'00', 'ceci est ma bio', 1, 'male', NULL);
 
 
 ALTER TABLE `comments`
