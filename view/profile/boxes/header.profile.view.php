@@ -8,7 +8,7 @@ $profilePicturePath = "data/userpics/3.jpeg";
 $PPID = $currentProfile->getProfilePicture();
 
 if ($PPID > 0) {
-	$userPictureManager = new UserPictureManager($bdd);
+	$userPictureManager = new UserPictureManager($db);
 	$cProfilePicture = $userPictureManager->get($PPID);
 	if (is_object($cProfilePicture)) {
 		$profilePicturePath = "data/userpics/" . $cProfilePicture->getId() . ".jpeg";
