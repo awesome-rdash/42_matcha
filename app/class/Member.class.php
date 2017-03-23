@@ -16,7 +16,7 @@ class Member {
 	protected $_bio;
 	protected $_mail_confirmed;
 	protected $_sexual_orientation;
-	protected $_profilPicture;
+	protected $_profilePicture;
 
 	use commonMembers;
 
@@ -33,7 +33,7 @@ class Member {
 	public function getBio() { return $this->_bio; }
 	public function getMail_confirmed() { return $this->_mail_confirmed; }
 	public function getSexual_orientation() { return $this->_sexual_orientation; }
-	public function getProfilPicture() { return $this->_profilPicture; }
+	public function getProfilePicture() { return $this->_profilePicture; }
 
 	public function setId($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {
@@ -166,12 +166,12 @@ class Member {
 		return genError("member", "invalid", "sexual_orientation");
 	}
 
-	public function setProfilPicture($idPicture, $pictureManager) {
+	public function setProfilePicture($idPicture, $pictureManager) {
 		if (is_int($idPicture)) {
 			$pic = $pictureManager->get($idPicture);
 			if (is_object($pic)) {
 				if ($pic->getOwner_id() === $this->getId()) {
-					$this->_profilPicture = $idPicture;
+					$this->_profilePicture = $idPicture;
 				}
 			}
 		}
