@@ -40,10 +40,9 @@ class UserPictureManager {
 	}
 
 	public function ifExist($id) {
-		$statement = 'SELECT COUNT(*) FROM users WHERE id = :id';
+		$statement = 'SELECT COUNT(*) FROM userpictures WHERE id = :id';
 		$q = $this->_db->prepare($statement);
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
-		$q->bindValue(':value', $value, PDO::PARAM_STR);
 		$q->execute();
 
 		$result = $q->fetch();

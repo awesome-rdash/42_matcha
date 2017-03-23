@@ -17,6 +17,7 @@ class Member {
 	protected $_mail_confirmed;
 	protected $_sexual_orientation;
 	protected $_profilePicture;
+	protected $_featuredPictures;
 
 	use commonMembers;
 
@@ -34,6 +35,7 @@ class Member {
 	public function getMail_confirmed() { return $this->_mail_confirmed; }
 	public function getSexual_orientation() { return $this->_sexual_orientation; }
 	public function getProfilePicture() { return $this->_profilePicture; }
+	public function getFeaturedPictures() { return $this->_featuredPictures; }
 
 	public function setId($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {
@@ -170,15 +172,30 @@ class Member {
 		if (is_numeric($idPicture)) {
 			global $db;
 			$upmanager = new UserPictureManager($db);
-			$pic = $upmanager->get($idPicture);
-			if (is_object($pic)) {
-				if ($pic->getOwner_id() === $this->getId()) {
-					$this->_profilePicture = $idPicture;
-					return true;
-				}
+			if ($upmanager->ifExist($idPicture) == true) {
+				$this->_profilePicture = $idPicture;
+				return true;
 			}
 		}
 		return genError("member", "invalid", "profilePicture");
+	}
+
+	public function setFeaturedPictures($pictures) {
+		$featuredPictures = explode(",", $pictures);
+
+		global $db;
+		$upmanager = new UserPictureManager($db);
+
+		foreach($featuredPictures as $picture) {
+			if (is_numeric($picture)) {
+				if (!$upmanager->ifExist($picture)) {
+					return genError("member", "invalid", "featuredPicture");
+				}
+			} else {
+				return genError("member", "invalid", "featuredPicture");
+			}
+		}
+		return true;
 	}
 
 	public function isPasswordConfirmationCorrect() {

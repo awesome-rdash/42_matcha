@@ -6,6 +6,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+DROP DATABASE `camagru`;
 CREATE DATABASE IF NOT EXISTS `camagru` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `camagru`;
 
@@ -75,7 +76,8 @@ CREATE TABLE `filters` (
 INSERT INTO `filters` (`id`, `upload_time`, `owner_id`) VALUES
 (1, 1, 1),
 (2, 1, 1),
-(3, 1, 1);
+(3, 1, 1),
+(4, 1490274541, 1);
 
 CREATE TABLE `likes` (
   `id` int(11) NOT NULL,
@@ -89,10 +91,18 @@ CREATE TABLE `tags` (
   `content` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `tags` (`id`, `content`) VALUES
+(1, 'test'),
+(2, 'php');
+
 CREATE TABLE `tags_users` (
   `id_tag` int(11) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `tags_users` (`id_tag`, `id_user`) VALUES
+(1, 1),
+(2, 1);
 
 CREATE TABLE `tokens` (
   `id` int(11) NOT NULL,
@@ -111,6 +121,18 @@ CREATE TABLE `userpictures` (
   `owner_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `userpictures` (`id`, `upload_source`, `upload_time`, `filter_used`, `owner_id`) VALUES
+(3, 'stock', 1490274544, 1, 1),
+(4, 'stock', 1490274548, 1, 1),
+(5, 'stock', 1490289389, 4, 1),
+(6, 'stock', 1490289389, 4, 1),
+(7, 'stock', 1490289390, 4, 1),
+(8, 'stock', 1490289390, 4, 1),
+(9, 'stock', 1490289390, 4, 1),
+(10, 'stock', 1490289391, 4, 1),
+(11, 'stock', 1490289391, 4, 1),
+(12, 'stock', 1490289391, 4, 1);
+
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `nickname` varchar(15) NOT NULL,
@@ -125,11 +147,12 @@ CREATE TABLE `users` (
   `bio` text,
   `mail_confirmed` tinyint(1) NOT NULL DEFAULT '0',
   `sexual_orientation` enum('male','female','both') DEFAULT NULL,
-  `profilePicture` int(11) DEFAULT NULL
+  `profilePicture` int(11) DEFAULT NULL,
+  `featuredPictures` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`) VALUES
-(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Eddy', 'Albert', NULL, b'00', 'ceci est ma bio', 1, 'male', NULL);
+INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`) VALUES
+(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Eddy', 'Albert', NULL, b'00', 'ceci est ma bio', 1, 'male', 4, '5,6,7,8');
 
 
 ALTER TABLE `comments`
@@ -162,15 +185,15 @@ ALTER TABLE `comments`
 ALTER TABLE `errors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 ALTER TABLE `filters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 ALTER TABLE `tokens`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `userpictures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

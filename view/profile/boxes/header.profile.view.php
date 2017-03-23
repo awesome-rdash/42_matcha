@@ -15,6 +15,10 @@ if ($PPID > 0) {
 	}
 }
 
+$featuredPicturesInfos = "";
+$featuredPictures = explode(",", $currentProfile->getFeaturedPictures());
+print_r($featuredPictures);
+
 $profilePictureInfo = "<img width=\"150px\" src=\"" . $profilePicturePath . "\" />";
 
 	if ($ownProfile) {
