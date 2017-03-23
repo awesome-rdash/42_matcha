@@ -39,6 +39,21 @@ class UserPictureManager {
 		}
 	}
 
+	public function ifExist($id) {
+		$statement = 'SELECT COUNT(*) FROM users WHERE id = :id';
+		$q = $this->_db->prepare($statement);
+		$q->bindValue(':id', $id, PDO::PARAM_INT);
+		$q->bindValue(':value', $value, PDO::PARAM_STR);
+		$q->execute();
+
+		$result = $q->fetch();
+		if ($result[0] > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function getAllEditedPictures() {
 		$q = $this->_db->prepare('
 			SELECT * FROM userpictures WHERE filter_used != 0');
