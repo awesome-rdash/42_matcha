@@ -1,14 +1,30 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.0
+-- http://www.phpmyadmin.net
+--
+-- Client :  localhost
+-- Généré le :  Jeu 23 Mars 2017 à 18:13
+-- Version du serveur :  5.7.11
+-- Version de PHP :  7.0.0
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-DROP DATABASE `camagru`;
-CREATE DATABASE IF NOT EXISTS `camagru` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `camagru`;
+--
+-- Base de données :  `camagru`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `comments`
+--
 
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
@@ -18,6 +34,12 @@ CREATE TABLE `comments` (
   `time_posted` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `errors`
+--
+
 CREATE TABLE `errors` (
   `id` int(11) NOT NULL,
   `module` varchar(20) NOT NULL,
@@ -25,6 +47,10 @@ CREATE TABLE `errors` (
   `element` varchar(20) NOT NULL,
   `message` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `errors`
+--
 
 INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (9, 'register', 'missingfield', 'nickname', 'Vous devez entrer un nom d\'utilisateur.'),
@@ -67,17 +93,33 @@ INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (46, 'tag', 'specialchar', 'content', 'Le TAG ne peut être composé que de caractères alphanumériques.'),
 (48, 'taglink', 'alreadyexist', 'addlink', 'Le TAG est déjà associé.');
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `filters`
+--
+
 CREATE TABLE `filters` (
   `id` int(11) NOT NULL,
   `upload_time` int(11) NOT NULL,
   `owner_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `filters`
+--
+
 INSERT INTO `filters` (`id`, `upload_time`, `owner_id`) VALUES
 (1, 1, 1),
 (2, 1, 1),
 (3, 1, 1),
 (4, 1490274541, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `likes`
+--
 
 CREATE TABLE `likes` (
   `id` int(11) NOT NULL,
@@ -86,23 +128,49 @@ CREATE TABLE `likes` (
   `time_liked` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tags`
+--
+
 CREATE TABLE `tags` (
   `id` int(11) NOT NULL,
   `content` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `tags`
+--
+
 INSERT INTO `tags` (`id`, `content`) VALUES
 (1, 'test'),
 (2, 'php');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tags_users`
+--
 
 CREATE TABLE `tags_users` (
   `id_tag` int(11) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `tags_users`
+--
+
 INSERT INTO `tags_users` (`id_tag`, `id_user`) VALUES
 (1, 1),
 (2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tokens`
+--
 
 CREATE TABLE `tokens` (
   `id` int(11) NOT NULL,
@@ -113,6 +181,12 @@ CREATE TABLE `tokens` (
   `isused` bit(1) NOT NULL DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `userpictures`
+--
+
 CREATE TABLE `userpictures` (
   `id` int(11) NOT NULL,
   `upload_source` varchar(20) NOT NULL,
@@ -120,6 +194,10 @@ CREATE TABLE `userpictures` (
   `filter_used` int(11) NOT NULL,
   `owner_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `userpictures`
+--
 
 INSERT INTO `userpictures` (`id`, `upload_source`, `upload_time`, `filter_used`, `owner_id`) VALUES
 (3, 'stock', 1490274544, 1, 1),
@@ -132,6 +210,12 @@ INSERT INTO `userpictures` (`id`, `upload_source`, `upload_time`, `filter_used`,
 (10, 'stock', 1490289391, 4, 1),
 (11, 'stock', 1490289391, 4, 1),
 (12, 'stock', 1490289391, 4, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
+--
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
@@ -151,51 +235,121 @@ CREATE TABLE `users` (
   `featuredPictures` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `users`
+--
+
 INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`) VALUES
-(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Eddy', 'Albert', NULL, b'00', 'ceci est ma bio', 1, 'male', 4, '5,6,7,8');
+(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Eddy', 'Albert', NULL, b'00', 'ceci est ma bio', 1, 'male', 4, '5,6,7,8'),
+(2, 'test', 'test@test.fr', 'test', 3, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 7, NULL);
 
+-- --------------------------------------------------------
 
+--
+-- Structure de la table `user_likes`
+--
+
+CREATE TABLE `user_likes` (
+  `user_id` int(11) NOT NULL,
+  `user_liked` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `comments`
+--
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Index pour la table `errors`
+--
 ALTER TABLE `errors`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Index pour la table `filters`
+--
 ALTER TABLE `filters`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Index pour la table `likes`
+--
 ALTER TABLE `likes`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Index pour la table `tags`
+--
 ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Index pour la table `tokens`
+--
 ALTER TABLE `tokens`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Index pour la table `userpictures`
+--
 ALTER TABLE `userpictures`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Index pour la table `users`
+--
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
 
+--
+-- AUTO_INCREMENT pour la table `comments`
+--
 ALTER TABLE `comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `errors`
+--
 ALTER TABLE `errors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+--
+-- AUTO_INCREMENT pour la table `filters`
+--
 ALTER TABLE `filters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `likes`
+--
 ALTER TABLE `likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `tags`
+--
 ALTER TABLE `tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `tokens`
+--
 ALTER TABLE `tokens`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `userpictures`
+--
 ALTER TABLE `userpictures`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT pour la table `users`
+--
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

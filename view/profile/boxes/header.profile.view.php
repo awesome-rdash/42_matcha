@@ -4,20 +4,15 @@ $nameInfos = "<span id=\"lastname_field\">" . $currentProfile->getLastname() . "
 $mailInfo = "Email : <span id=\"email_field\">" . $currentProfile->getEmail() . "</span>";
 $passwordInfo = "<a href=\"#\" onclick=\"change_visibility('password')\" /> Modifier mon mot de passe</a>";
 
-$profilePicturePath = "data/userpics/3.jpeg";
+$profilePicturePath = "assets/img/icons/no_picture.jpg";
 $PPID = $currentProfile->getProfilePicture();
 
 if ($PPID > 0) {
-	$userPictureManager = new UserPictureManager($db);
-	$cProfilePicture = $userPictureManager->get($PPID);
-	if (is_object($cProfilePicture)) {
-		$profilePicturePath = "data/userpics/" . $cProfilePicture->getId() . ".jpeg";
-	}
+	$profilePicturePath = "data/userpics/" . $PPID . ".jpeg";
 }
 
 $featuredPicturesInfos = "";
 $featuredPictures = explode(",", $currentProfile->getFeaturedPictures());
-print_r($featuredPictures);
 
 $profilePictureInfo = "<img width=\"150px\" src=\"" . $profilePicturePath . "\" />";
 
@@ -42,7 +37,7 @@ $profilePictureInfo = "<img width=\"150px\" src=\"" . $profilePicturePath . "\" 
 		echo "<p>";
 		echo "<div>" . $nameInfos . "</div>";
 		echo "<div>" . $profilePictureInfo . "</div>";
-		echo "<div id=\"score\">Mon score de popularité : XXX<br /></div>";
+		echo "<div id=\"score\">Score de popularité : XXX<br /></div>";
 		echo "<br />";
 		echo "</p>";
 	}

@@ -30,6 +30,25 @@ if ($ownProfile == true) {
 	';
 }
 
+$fp_from_db = explode(",", $currentProfile->getFeaturedPictures());
+$userPictureManager = new UserPictureManager($db);
+
+$featuredPicturesInfos = "<div id=\"featuredPictures\">";
+$invalidPictureText = "<a href=\"#\"><img class=\"featuredPicture\" src=\"assets/img/icons/no_picture.jpg\" /></a>";
+
+for($i = 0; $i < 4; $i++) {
+	if (isset($fp_from_db[$i]) && !empty($fp_from_db[$i]) && is_numeric($fp_from_db[$i])) {
+		$is_picture_valid = $userPictureManager->ifExist($fp_from_db[$i]);
+		if ($is_picture_valid) {
+			$featuredPicturesInfos .= "<a href=\"#\"><img class=\"featuredPicture\" src=\"data/userpics/" . $fp_from_db[$i] . ".jpeg\" /></a>";
+		} else {
+			$featuredPicturesInfos .= $invalidPictureText;
+		}
+	} else {
+		$featuredPicturesInfos .= $invalidPictureText;
+	}
+}
+
 $tagsInfo .= '</div>';
 
 	if ($ownProfile) {
@@ -50,15 +69,19 @@ $tagsInfo .= '</div>';
 		showEditableInfo("bio", $bioInfo , $bioEdit);
 		echo "<br />";
 		echo $tagsInfo;
+		echo "<br />";
+		echo $featuredPicturesInfos;
 		echo "</div>";
 		echo "</p>";
 	} else {
 		echo "<p>";
-		echo "Sexe : " . $sexeInfo;
+		echo $sexeInfo;
 		echo "<br />";
-		echo "Orientation sexuelle : " . $orientationInfo;
+		echo $orientationInfo;
 		echo "<br />";
-		echo "Bio : " . $bioInfo;
+		echo $bioInfo;
+		echo "<br />";
+		echo $featuredPicturesInfos;
 		echo "<br />";
 		echo "</p>";
 	}
