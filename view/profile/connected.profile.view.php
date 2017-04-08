@@ -86,6 +86,15 @@ function updateOrientation() {
     }
 }
 
+function updateFeaturedPictures() {
+    var data = {};
+
+    data["sexe"] = sexe;
+    data["pageId"] = "featuredPictures";
+    data["type"] = "featuredImages";
+    updateData(data);
+}
+
 function deleteTag(tagId) {
     var ajax;
 

@@ -33,7 +33,7 @@ if ($ownProfile == true) {
 $fp_from_db = explode(",", $currentProfile->getFeaturedPictures());
 $userPictureManager = new UserPictureManager($db);
 
-$featuredPicturesInfos = "<div id=\"featuredPictures\">";
+$featuredPicturesInfos = "";
 $invalidPictureText = "<a href=\"#\"><img class=\"featuredPicture\" src=\"assets/img/icons/no_picture.jpg\" /></a>";
 
 for($i = 0; $i < 4; $i++) {
@@ -61,6 +61,8 @@ $tagsInfo .= '</div>';
 
 		$bioEdit = "<textarea placeholder=\"Bio\" name=\"editBio\" id=\"editBio\">" . $currentProfile->getBio() . "</textarea>";
 
+		$featuredPicturesEdit = '<';
+
 		echo "<p>";
 		showEditableInfo("sexe", $sexeInfo, $sexeEdit);
 		echo "<br />";
@@ -70,7 +72,7 @@ $tagsInfo .= '</div>';
 		echo "<br />";
 		echo $tagsInfo;
 		echo "<br />";
-		echo $featuredPicturesInfos;
+		showEditableInfo("featuredPictures", $featuredPicturesInfos, $featuredPicturesEdit);
 		echo "</div>";
 		echo "</p>";
 	} else {
