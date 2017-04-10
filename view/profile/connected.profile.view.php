@@ -89,9 +89,22 @@ function updateOrientation() {
 function updateFeaturedPictures() {
     var data = {};
 
-    data["sexe"] = sexe;
+    featuredPicsResponse = "";
+
+    for (i = 0; i < 4; i++) {
+        var e = document.getElementById("featuredPicturesSelector" + i);
+        var strUser = e.options[e.selectedIndex].value;
+        featuredPicsResponse += strUser;
+        if (i < 3) {
+            featuredPicsResponse += ";";
+        }
+    }
+
+    data["featuredPictures"] = featuredPicsResponse;
     data["pageId"] = "featuredPictures";
     data["type"] = "featuredImages";
+
+    console.log(data);
     updateData(data);
 }
 

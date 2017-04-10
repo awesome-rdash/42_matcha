@@ -15,6 +15,7 @@ function genError($module, $type, $element) {
 
 	if ($q->rowCount() === 0) {
 		$error['msg'] = "Erreur inconnue. Le problème a eu lieu dans le module  " . $module . " sur l'élément " . $element . " à cause de " . $type . ".";
+		//$error['msg'] = "Il y a eu une erreur. Veuillez nous excuser.";
 	} else {
 		$msg = $q->fetch();
 		$error['msg'] = $msg['message'];
