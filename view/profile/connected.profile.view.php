@@ -107,6 +107,10 @@ function updateFeaturedPictures() {
     updateData(data);
 }
 
+function showNewFeaturedPictures($featuredPictures){
+
+}
+
 function deleteTag(tagId) {
     var ajax;
 
@@ -229,6 +233,8 @@ function updateData(data)
                     if (data["pageId"] == "password") {
                         alert("Le mot de passe a bien été mis à jour.");
                     }
+                } else if (data["type"] == "featuredPictures") {
+                    //showNewFeaturedPictures(toShow(['']))
                 }
 
                 change_visibility(data["pageId"]);

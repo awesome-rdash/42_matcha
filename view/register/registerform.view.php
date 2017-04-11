@@ -6,11 +6,11 @@
 		<fieldset>
 			<legend>Informations de connexion</legend>
 			<label for="nickname">Nom d'utilisateur : </label>
-			<input type="text" name="nickname" id="nickname" maxlength="15" required <?php if (isset($_POST['nickname'])) { echo "value=\"" . $_POST['nickname'] . "\"" ; } ?> />
+			<input type="text" name="nickname" id="nickname" maxlength="15" required <?php if (isset($_POST['nickname'])) { echo "value=\"" . html_special_char($_POST['nickname']) . "\"" ; } ?> />
 			<br />
 
 			<label for="email">Email : </label>
-			<input type="email" name="email" id="email" maxlength="255" required <?php if (isset($_POST['email'])) { echo "value=\"" . $_POST['email'] . "\"" ; } ?> />
+			<input type="email" name="email" id="email" maxlength="255" required <?php if (isset($_POST['email'])) { echo "value=\"" . html_special_char($_POST['email']) . "\"" ; } ?> />
 			<br />
 
 			<label for="password">Mot de passe : </label>
@@ -23,11 +23,11 @@
 			<fieldset>
 				<legend>Identité</legend>
 				<label for="lastname">Nom : </label>
-				<input type="text" name="lastname" id="lastname" maxlength="25" required <?php if (isset($_POST['lastname'])) { echo "value=\"" . $_POST['lastname'] . "\"" ; } ?> />
+				<input type="text" name="lastname" id="lastname" maxlength="25" required <?php if (isset($_POST['lastname'])) { echo "value=\"" . html_special_char($_POST['lastname']) . "\"" ; } ?> />
 				<br />
 
 				<label for="firstname">Prénom : </label>
-				<input type="text" name="firstname" id="firstname" maxlength="25" required <?php if (isset($_POST['firstname'])) { echo "value=\"" . $_POST['firstname'] . "\"" ; } ?> />
+				<input type="text" name="firstname" id="firstname" maxlength="25" required <?php if (isset($_POST['firstname'])) { echo "value=\"" . html_special_char($_POST['firstname']) . "\"" ; } ?> />
 			</fieldset>
 		<center><input type="submit" name="submit" value="S'inscrire">
 	</form>
