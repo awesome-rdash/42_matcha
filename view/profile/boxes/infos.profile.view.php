@@ -2,7 +2,7 @@
 
 $sexeInfo = "Sexe : <span id=\"sexe_field\">" . $currentProfile->getSexeInString() . "</span>";
 $orientationInfo = "Orientation sexuelle : <span id=\"sexual_orientation_field\">" . $currentProfile->getOrientationInString() . "</span>";
-$bioInfo = "Bio : <span id=\"bio_field\">" . $currentProfile->getBio() . "</span>";
+$bioInfo = "Bio : <span id=\"bio_field\">" . htmlspecialchars($currentProfile->getBio()) . "</span>";
 
 $tagList = $tagManager->getAllTagsFromMemberId($currentProfile->getId());
 $tagsInfo = '<div id="tagList">';
@@ -40,7 +40,7 @@ for($i = 0; $i < 4; $i++) {
 	if (isset($fp_from_db[$i]) && !empty($fp_from_db[$i]) && is_numeric($fp_from_db[$i])) {
 		$is_picture_valid = $userPictureManager->ifExist($fp_from_db[$i]);
 		if ($is_picture_valid) {
-			$featuredPicturesInfos .= "<a href=\"#\"><img class=\"featuredPicture\" src=\"data/userpics/" . $fp_from_db[$i] . ".jpeg\" /></a>";
+			$featuredPicturesInfos .= "<a href=\"#\"><img id=\"featuredPicture" . $i . "\" class=\"featuredPicture\" src=\"data/userpics/" . $fp_from_db[$i] . ".jpeg\" /></a>";
 		} else {
 			$featuredPicturesInfos .= $invalidPictureText;
 		}

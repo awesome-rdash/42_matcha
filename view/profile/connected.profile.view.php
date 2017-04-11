@@ -102,13 +102,17 @@ function updateFeaturedPictures() {
 
     data["featuredPictures"] = featuredPicsResponse;
     data["pageId"] = "featuredPictures";
-    data["type"] = "featuredImages";
+    data["type"] = "featuredPictures";
 
     updateData(data);
 }
 
-function showNewFeaturedPictures($featuredPictures){
+function showNewFeaturedPictures(featuredPictures) {
+    var featuredSplitted = featuredPictures.split(",");
 
+    for (i = 0; i < 4; i++) {
+        document.getElementById("featuredPicture" + i).src="data/userpics/" + featuredSplitted[i] + ".jpeg";
+    }
 }
 
 function deleteTag(tagId) {
@@ -218,8 +222,8 @@ function updateData(data)
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var reply = ajax.responseText;
-            console.log(reply);
             var toShow = JSON.parse(reply);
+            console.log(toShow);
 
             if (toShow['output'] == "ok") {
                 if (data["type"] == "static") {
@@ -234,7 +238,7 @@ function updateData(data)
                         alert("Le mot de passe a bien été mis à jour.");
                     }
                 } else if (data["type"] == "featuredPictures") {
-                    //showNewFeaturedPictures(toShow(['']))
+                    showNewFeaturedPictures(toShow["featuredPictures"]);
                 }
 
                 change_visibility(data["pageId"]);
