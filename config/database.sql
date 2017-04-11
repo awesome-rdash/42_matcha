@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 23 Mars 2017 à 18:13
+-- Généré le :  Mar 11 Avril 2017 à 22:00
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.0.0
 
@@ -131,6 +131,29 @@ CREATE TABLE `likes` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL,
+  `timestamp` int(11) NOT NULL,
+  `type` enum('like','visit','mutualLike','message','unLike') NOT NULL,
+  `new` tinyint(1) NOT NULL DEFAULT '0',
+  `toUser` int(11) NOT NULL,
+  `fromUser` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `timestamp`, `type`, `new`, `toUser`, `fromUser`) VALUES
+(3, 12, 'like', 1, 1, 1),
+(4, 10, 'visit', 0, 1, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `tags`
 --
 
@@ -145,7 +168,8 @@ CREATE TABLE `tags` (
 
 INSERT INTO `tags` (`id`, `content`) VALUES
 (1, 'test'),
-(2, 'php');
+(2, 'php'),
+(3, 'camagru');
 
 -- --------------------------------------------------------
 
@@ -164,7 +188,8 @@ CREATE TABLE `tags_users` (
 
 INSERT INTO `tags_users` (`id_tag`, `id_user`) VALUES
 (1, 1),
-(2, 1);
+(2, 1),
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -180,6 +205,16 @@ CREATE TABLE `tokens` (
   `usefor` varchar(20) NOT NULL,
   `isused` bit(1) NOT NULL DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `tokens`
+--
+
+INSERT INTO `tokens` (`id`, `user_id`, `token`, `time_created`, `usefor`, `isused`) VALUES
+(1, 0, '496174e72a1de9371bf71e3bf81d8f06bc64721b', 1491927266, 'mailconfirmation', b'0'),
+(2, 0, '4b9584149393c431c5c8a349b4787b1b9689c165', 1491927353, 'mailconfirmation', b'0'),
+(3, 3, '1bddccaa5f4a41c1583967eae5b9f225df30a913', 1491927428, 'mailconfirmation', b'0'),
+(4, 4, '9e29f3cac1cfe57e9037348d2316756e33d2dc58', 1491927491, 'mailconfirmation', b'0');
 
 -- --------------------------------------------------------
 
@@ -209,7 +244,9 @@ INSERT INTO `userpictures` (`id`, `upload_source`, `upload_time`, `filter_used`,
 (9, 'stock', 1490289390, 4, 1),
 (10, 'stock', 1490289391, 4, 1),
 (11, 'stock', 1490289391, 4, 1),
-(12, 'stock', 1490289391, 4, 1);
+(12, 'stock', 1490289391, 4, 1),
+(13, 'stock', 1491925954, 1, 1),
+(14, 'stock', 1491935176, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -240,8 +277,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`) VALUES
-(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Eddy', 'Albert', NULL, b'00', 'ceci est ma bio', 1, 'male', 4, '5,6,7,8'),
-(2, 'test', 'test@test.fr', 'test', 3, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 7, NULL);
+(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Eddy', 'test', NULL, b'01', 'ts', 1, 'female', 14, '13,13,6,7'),
+(2, 'test', 'test@test.fr', 'test', 3, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 7, NULL),
+(3, 'tameretest2', 'jrouzier@outlook.com', '8d9e2cc2d89dd1b980e302dc530aa2519ae31e6326ef82b25d25d9bf97054b253470a026b8f67ee3c20dc49a8fef73ceca3590f2fac6ff1e8f16d4af175130a9', 1491927428, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 0, NULL, NULL, NULL),
+(4, 'tameretest', 'sebhug@free.fr', '02ec27b3db4131a31bc3446c7b6dfe8ea17a365de5ab0795107540eccb8ac6d5a78c6eaf590e3290bc9d14d533002436247c1826f560df6d069aef3efba67f3e', 1491927491, NULL, 'testhuguenot', 'test', NULL, b'01', '', 1, 'both', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -280,6 +319,12 @@ ALTER TABLE `filters`
 -- Index pour la table `likes`
 --
 ALTER TABLE `likes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `notifications`
+--
+ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -331,25 +376,30 @@ ALTER TABLE `filters`
 ALTER TABLE `likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT pour la table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `userpictures`
 --
 ALTER TABLE `userpictures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
