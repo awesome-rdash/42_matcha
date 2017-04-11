@@ -16,7 +16,7 @@ class Member {
 	protected $_bio;
 	protected $_mail_confirmed;
 	protected $_sexual_orientation;
-	protected $_profilPicture;
+	protected $_profilePicture;
 	protected $_featuredPictures;
 
 	use commonMembers;
@@ -34,7 +34,7 @@ class Member {
 	public function getBio() { return $this->_bio; }
 	public function getMail_confirmed() { return $this->_mail_confirmed; }
 	public function getSexual_orientation() { return $this->_sexual_orientation; }
-	public function getProfilePicture() { return $this->_profilPicture; }
+	public function getProfilePicture() { return $this->_profilePicture; }
 	public function getFeaturedPictures() { return $this->_featuredPictures; }
 
 	public function setId($id) {
@@ -168,12 +168,12 @@ class Member {
 		return genError("member", "invalid", "sexual_orientation");
 	}
 
-	public function setProfilPicture($idPicture) {
+	public function setProfilePicture($idPicture) {
 		if (is_numeric($idPicture)) {
 			global $db;
 			$upmanager = new UserPictureManager($db);
 			if ($upmanager->ifExist($idPicture) == true) {
-				$this->_profilPicture = $idPicture;
+				$this->_profilePicture = $idPicture;
 				return true;
 			}
 		}

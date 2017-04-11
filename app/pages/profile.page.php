@@ -21,7 +21,7 @@ if (isUserLogged()) {
 }
 
 function showEditableInfo($id, $text, $editForm) {
-	$toShow = "<div id=\"" . $id . "\">" .
+	$toShow = "<div id=\"" . $id . "_block\">" .
 			  "<div id=\"" . $id . "_text\">" .
 			  $text .
 			  " <a onclick=\"change_visibility('" . $id . "')\" href=\"#\"><img width=\"11px\" src=\"assets/img/icons/edit.svg\"</img></a>" .

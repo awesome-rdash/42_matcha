@@ -54,7 +54,7 @@ class MemberManager {
 	public function update(Member $member) {
 		$q = $this->_db->prepare('
 			UPDATE users
-			SET nickname = :nickname, email = :email, password = :password, register_time = :register_time, birthdate = :birthdate, lastname = :lastname, firstname  = :firstname, phone = :phone, sexe = :sexe, bio = :bio, mail_confirmed = :mail_confirmed, sexual_orientation = :sexual_orientation, featuredPictures = :featuredPictures
+			SET nickname = :nickname, email = :email, password = :password, register_time = :register_time, birthdate = :birthdate, lastname = :lastname, firstname  = :firstname, phone = :phone, sexe = :sexe, bio = :bio, mail_confirmed = :mail_confirmed, sexual_orientation = :sexual_orientation, featuredPictures = :featuredPictures, profilePicture = :profilePicture
 			WHERE id = :id');
 		$q->bindValue(':id', $member->getId(), PDO::PARAM_INT);
 		$q->bindValue(':nickname', $member->getNickname(), PDO::PARAM_STR);
@@ -70,6 +70,7 @@ class MemberManager {
 		$q->bindValue(':mail_confirmed', $member->getMail_confirmed(), PDO::PARAM_INT);
 		$q->bindValue(':sexual_orientation', $member->getSexual_orientation(), PDO::PARAM_STR);
 		$q->bindValue(':featuredPictures', $member->getFeaturedPictures(), PDO::PARAM_STR);
+		$q->bindValue(':profilePicture', $member->getProfilePicture(), PDO::PARAM_STR);
 
 		$q->execute();
 	}

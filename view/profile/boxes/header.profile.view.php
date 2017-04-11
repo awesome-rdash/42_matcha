@@ -14,7 +14,7 @@ if ($PPID > 0) {
 $featuredPicturesInfos = "";
 $featuredPictures = explode(",", $currentProfile->getFeaturedPictures());
 
-$profilePictureInfo = "<img width=\"150px\" src=\"" . $profilePicturePath . "\" />";
+$profilePictureInfo = "<img id=\"profilePicture\" width=\"150px\" src=\"" . $profilePicturePath . "\" />";
 
 	if ($ownProfile) {
 		$nameEdit =	"<input type=\"text\" name=\"editLastName\" id=\"editLastName\" value=\"" . $currentProfile->getLastname() . "\" placeholder=\"Nom\" />
@@ -23,9 +23,20 @@ $profilePictureInfo = "<img width=\"150px\" src=\"" . $profilePicturePath . "\" 
 		$mailEdit = "<input type=\"text\" name=\"editEmail\" id=\"editEmail\" value=\"" . $currentProfile->getEmail() . "\" placeholder=\"Email\" />";
 
 		$passwordEdit = "<input type=\"password\" name=\"editPassword\" id=\"editPassword\" placeholder=\"Votre nouveau mot de passe\" />";
+
+		$userPictureManager = new UserPictureManager($db);
+		$profilePictureEdit = '<ul>';
+		$profilePictureEdit .= '<li>Utiliser une image existante : <select name="profilePictureSelector" id="profilePictureSelector">';
+		$picturesFromUser = $userPictureManager->getEditedPicturesFromUser($currentProfile->getId());
+		foreach($picturesFromUser as $pic) {
+			$profilePictureEdit .= '<option' . (($currentProfile->getProfilePicture() == $pic['id']) ? ' selected=\"selected\" ' : '') . ' value="' . $pic['id'] . '">Image no ' . $pic['id'] . '</option>';
+		}
+		$profilePictureEdit .= '</select></ul>';
+
 		echo "<p>";
 		showEditableInfo("names", $nameInfos, $nameEdit);
-		echo "<div>" . $profilePictureInfo . "</div>";
+		echo "<br />";
+		showEditableInfo("profilePicture", $profilePictureInfo, $profilePictureEdit);
 		echo "<br />";
 		echo "<div id=\"score\">Mon score de popularité : XXX<br /></div>";
 		showEditableInfo("email", $mailInfo , $mailEdit);

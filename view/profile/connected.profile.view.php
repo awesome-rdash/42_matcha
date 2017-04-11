@@ -86,6 +86,22 @@ function updateOrientation() {
     }
 }
 
+function updateProfilePicture() {
+    var data = {};
+
+    var e = document.getElementById("profilePictureSelector");
+    var response = e.options[e.selectedIndex].value;
+
+    data["profilePicture"] = response;
+    data["pageId"] = "profilePicture";
+    data["type"] = "profilePicture";
+    updateData(data);
+}
+
+function showNewProfilePicture(picture) {
+    document.getElementById("profilePicture").src="data/userpics/" + picture + ".jpeg";
+}
+
 function updateFeaturedPictures() {
     var data = {};
 
@@ -223,7 +239,7 @@ function updateData(data)
         if (ajax.readyState == 4 && ajax.status == 200) {
             var reply = ajax.responseText;
             var toShow = JSON.parse(reply);
-            console.log(toShow);
+            console.log("JSON: " + reply);
 
             if (toShow['output'] == "ok") {
                 if (data["type"] == "static") {
@@ -239,8 +255,9 @@ function updateData(data)
                     }
                 } else if (data["type"] == "featuredPictures") {
                     showNewFeaturedPictures(toShow["featuredPictures"]);
+                } else if (data["type"] == "profilePicture") {
+                    showNewProfilePicture(toShow["profilePicture"]);
                 }
-
                 change_visibility(data["pageId"]);
             } else {
                 alert(toShow["err_msg"]);
@@ -253,7 +270,6 @@ function updateData(data)
 
     formData.append('action', "updateProfilInformations");
     formData.append('data', JSON.stringify(data));
-
     ajax.open('post', "action.php", true);
     ajax.send(formData);
     return ajax;

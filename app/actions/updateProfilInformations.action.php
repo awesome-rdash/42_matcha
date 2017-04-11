@@ -2,7 +2,6 @@
 
 $error = false;
 $json_output = array("output" => "ok");
-
 if (isset($_POST['data']) && !empty($_POST['data'])) {
 	$data = json_decode($_POST['data'], true);
 } else {
