@@ -62,12 +62,12 @@ $tagsInfo .= '</div>';
 		$bioEdit = "<textarea placeholder=\"Bio\" name=\"editBio\" id=\"editBio\">" . $currentProfile->getBio() . "</textarea>";
 
 		$featuredPicturesEdit = '<ul>';
-
+		$explodedPictures = explode(',', $currentProfile->getFeaturedPictures());
 		for($i = 0; $i < 4; $i++) {
 			$featuredPicturesEdit .= '<li>Utiliser une image existante : <select name="featuredPicturesSelector' . $i . '" id="featuredPicturesSelector' . $i . '">';
 			$picturesFromUser = $userPictureManager->getEditedPicturesFromUser($currentProfile->getId());
 			foreach($picturesFromUser as $pic) {
-				$featuredPicturesEdit .= '<option value="' . $pic['id'] . '">Image no ' . $pic['id'] . '</option>';
+				$featuredPicturesEdit .= '<option' . (($explodedPictures[$i] == $pic['id']) ? ' selected=\"selected\" ' : '') . ' value="' . $pic['id'] . '">Image no ' . $pic['id'] . '</option>';
 			}
 			$featuredPicturesEdit .= '</select></li>';
 		}
