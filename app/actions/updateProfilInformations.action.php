@@ -10,7 +10,6 @@ if (isset($_POST['data']) && !empty($_POST['data'])) {
 }
 
 if ($error === false) {
-	$memberManager = new MemberManager($db);
 	if ($data['pageId'] == 'password') {
 		$return = $currentUser->setPassword($data['password'], true);
 	} else {
@@ -22,7 +21,9 @@ if ($error === false) {
 }
 
 if ($error === false) {
+	$memberManager = new MemberManager($db);
 	$memberManager->update($currentUser);
+
 	foreach ($data as $key => $value) {
 		if ($key == "sexe") {
 			$json_output[$key] = $currentUser->getSexeInString();

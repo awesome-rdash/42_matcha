@@ -96,7 +96,7 @@ function updateFeaturedPictures() {
         var strUser = e.options[e.selectedIndex].value;
         featuredPicsResponse += strUser;
         if (i < 3) {
-            featuredPicsResponse += ";";
+            featuredPicsResponse += ",";
         }
     }
 
@@ -104,7 +104,7 @@ function updateFeaturedPictures() {
     data["pageId"] = "featuredPictures";
     data["type"] = "featuredImages";
 
-    console.log(data);
+    console.log("Donnees envoye au serveur : " + featuredPicsResponse);
     updateData(data);
 }
 

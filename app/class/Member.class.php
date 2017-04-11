@@ -182,7 +182,6 @@ class Member {
 
 	public function setFeaturedPictures($pictures) {
 		$featuredPictures = explode(",", $pictures);
-		print_r($pictures);
 		if ($featuredPictures === FALSE) {
 			return genError("member", "explodefail", "featuredPicture");
 		}
@@ -191,7 +190,6 @@ class Member {
 		$upmanager = new UserPictureManager($db);
 
 		foreach($featuredPictures as $picture) {
-
 			if (is_numeric($picture)) {
 				if (!$upmanager->ifExist($picture)) {
 					return genError("member", "unknow", "featuredPicture");
