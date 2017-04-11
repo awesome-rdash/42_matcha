@@ -7,14 +7,15 @@ class NotificationManager {
 		$this->_db = $db;
 	}
 
-	public function add(Notification $notification) {
+	public function new(Notification $notification) {
 		$q = $this->_db->prepare('
 			INSERT INTO notifications(id, timestamp, type, new, user)
 			VALUES(:id, :timestamp, :type, :new, :user)');
-		$q->bindValue(':upload_source', $userPicture->getUpload_source(), PDO::PARAM_STR);
-		$q->bindValue(':filter_used', $userPicture->getFilter_used(), PDO::PARAM_INT);
-		$q->bindValue(':owner_id', $userPicture->getOwner_id(), PDO::PARAM_INT);
-		$q->bindValue(':upload_time', time(), PDO::PARAM_INT);
+		$q->bindValue(':id', $notification->getId(), PDO::PARAM_STR);
+		$q->bindValue(':timestamp', $notification->getTimestamp(), PDO::PARAM_INT);
+		$q->bindValue(':type', $notification->getType(), PDO::PARAM_STR);
+		$q->bindValue(':new', $notification->hasBeenRead(), PDO::PARAM_INT);
+		$q->bindValue(':user', $notification->getUser(), PDO::PARAM_INT);
 
 		$q->execute();
 
