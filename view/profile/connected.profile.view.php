@@ -239,7 +239,6 @@ function updateData(data)
         if (ajax.readyState == 4 && ajax.status == 200) {
             var reply = ajax.responseText;
             var toShow = JSON.parse(reply);
-            console.log("JSON: " + reply);
 
             if (toShow['output'] == "ok") {
                 if (data["type"] == "static") {
