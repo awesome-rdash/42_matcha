@@ -5,7 +5,8 @@ class Notification {
 	protected $_timestamp;
 	protected $_type;
 	protected $_new;
-	protected $_user;
+	protected $_transmitter;
+	protected $_fromUser;
 
 	use commonMembers;
 
@@ -13,7 +14,8 @@ class Notification {
 	public function getTimestamp() { return $this->_timestamp; }
 	public function getType() { return $this->_type; }
 	public function hasBeenRead() { return $this->_new; }
-	public function getUser() { return $this->_user; }
+	public function getTransmitter() { return $this->_fromUser; }
+	public function getReceiver() { return $this->_toUser; }
 
 	public function setId($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {
@@ -23,11 +25,19 @@ class Notification {
 		return true;
 	}
 
-	public function setUser($user) {
-		if (!Utilities::isDigits($user) || $user <= 0) {
+	public function setToUser($receiver) {
+		if (!Utilities::isDigits($receiver) || $receiver <= 0) {
 			trigger_error("Invalid user ID", E_USER_WARNING);
 		}
-		$this->_user = $user;
+		$this->_receiver = $receiver;
+		return true;
+	}
+
+	public function setFromUser($transmitter) {
+		if (!Utilities::isDigits($transmitter) || $transmitter <= 0) {
+			trigger_error("Invalid user ID", E_USER_WARNING);
+		}
+		$this->_transmitter = $transmitter;
 		return true;
 	}
 
@@ -36,7 +46,7 @@ class Notification {
 		if (!in_array($type, $valid_sources)) {
 			trigger_error("Invalid id", E_USER_WARNING);
 		}
-		$this->_type = $_type;
+		$this->_type = $type;
 		return true;
 	}
 
@@ -49,10 +59,10 @@ class Notification {
 	}
 
 	public function setNew($new) {
-		if (!is_bool($new)) {
-			trigger_error("Invalid read statement", E_USER_WARNING);
+		if ($new == 1 || $new == 0) {
+			$this->new = $new;
+			return true;
 		}
-		$this->new = $new;
-		return true;
+		trigger_error("Invalid read statement", E_USER_WARNING);
 	}
 }

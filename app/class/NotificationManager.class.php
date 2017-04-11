@@ -9,13 +9,14 @@ class NotificationManager {
 
 	public function new(Notification $notification) {
 		$q = $this->_db->prepare('
-			INSERT INTO notifications(id, timestamp, type, new, user)
-			VALUES(:id, :timestamp, :type, :new, :user)');
+			INSERT INTO notifications(id, timestamp, type, new, user, fromUser)
+			VALUES(:id, :timestamp, :type, :new, :toUser, :fromUser)');
 		$q->bindValue(':id', $notification->getId(), PDO::PARAM_STR);
 		$q->bindValue(':timestamp', $notification->getTimestamp(), PDO::PARAM_INT);
 		$q->bindValue(':type', $notification->getType(), PDO::PARAM_STR);
 		$q->bindValue(':new', $notification->hasBeenRead(), PDO::PARAM_INT);
-		$q->bindValue(':user', $notification->getUser(), PDO::PARAM_INT);
+		$q->bindValue(':fromUser', $notification->getTransmitter(), PDO::PARAM_INT);
+		$q->bindValue(':toUser', $notification->getRecipient(), PDO::PARAM_INT);
 
 		$q->execute();
 
@@ -39,26 +40,29 @@ class NotificationManager {
 		}
 	}
 
-	public function getUnreadNotificationsFromUser($user_id) {
-		$query = "SELECT * FROM notifications WHERE new = 1 AND id = :id";
-		$q->bindValue(':id', $user_id, PDO::PARAM_INT);
+	public function getUnreadNotificationsToUser($toUser) {
+		$query = "SELECT * FROM notifications WHERE new = 1 AND toUser = :toUser";
 		$q = $this->_db->prepare($query);
+		$q->bindValue(':toUser', $toUser, PDO::PARAM_INT);
 		$q->execute();
 
-		foreach($q->fetch as $data) {
-			$result[] = new Notification($data);
+		$result = array();
+		while($data = $q->fetch()) {
+			$notification = new Notification(0);
+			$notification->hydrate($data);
+			$result[] = $notification;
 		}
 		return ($result);
 	}
 
-	public function getUnreadNotificationCount($user_id) {
-		$query = "SELECT COUNT(*) FROM notifications WHERE new = 1 AND id = :id";
-		$q->bindValue(':id', $user_id, PDO::PARAM_INT);
+	public function getUnreadNotificationsCount($toUser) {
+		$query = "SELECT COUNT(*) FROM notifications WHERE new = 1 AND toUser = :toUser";
 		$q = $this->_db->prepare($query);
+		$q->bindValue(':toUser', $toUser, PDO::PARAM_INT);
 		$q->execute();
 
 		$result = $q->fetch();
-		return ($result);
+		return ($result[0]);
 	}
 
 	public function delete( $id ) {		
