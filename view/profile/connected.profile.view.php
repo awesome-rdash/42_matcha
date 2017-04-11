@@ -104,7 +104,6 @@ function updateFeaturedPictures() {
     data["pageId"] = "featuredPictures";
     data["type"] = "featuredImages";
 
-    console.log("Donnees envoye au serveur : " + featuredPicsResponse);
     updateData(data);
 }
 
