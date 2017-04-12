@@ -65,4 +65,30 @@ class Notification {
 		}
 		trigger_error("Invalid read statement", E_USER_WARNING);
 	}
+
+	public function getStringFromNotification($db) {
+		$memberManager = new MemberManager($db);
+		$fromUser = $memberManager->getFromId($this->_transmitter);
+		$end = "";
+
+		switch ($this->_type) {
+			case "like":
+				$end = "a aimé votre profil";
+				break;
+			case "visit":
+				$end = "a visité votre profil";
+				break;
+			case "mutualLike":
+				$end = "a aimé votre profil en retour";
+				break;
+			case "message":
+				$end = "vous a envoyé un message";
+				break;
+			case "unLike":
+				$end = "n'aime plus votre profil";
+				break;
+		}
+		$return = $fromUser->getFirstName() . " " . $fromUser->getLastName() . " " . $end . ".";
+		return ($return);
+	}
 }

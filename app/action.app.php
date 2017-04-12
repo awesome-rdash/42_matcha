@@ -10,7 +10,8 @@ $valid_logged_actions = array(
 	"delete_picture",
 	"upload_filter",
 	"updateProfilInformations",
-	"update_user_tag");
+	"update_user_tag",
+	"notification");
 
 $valid_unlogged_actions = array(
 	"register",

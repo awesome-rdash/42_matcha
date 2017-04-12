@@ -11,8 +11,8 @@ class NotificationManager {
 		$q = $this->_db->prepare('
 			INSERT INTO notifications(id, timestamp, type, new, user, fromUser)
 			VALUES(:id, :timestamp, :type, :new, :toUser, :fromUser)');
-		$q->bindValue(':id', $notification->getId(), PDO::PARAM_STR);
-		$q->bindValue(':timestamp', $notification->getTimestamp(), PDO::PARAM_INT);
+		$q->bindValue(':id', $notification->getId(), PDO::PARAM_INT);
+		$q->bindValue(':timestamp', time(), PDO::PARAM_INT);
 		$q->bindValue(':type', $notification->getType(), PDO::PARAM_STR);
 		$q->bindValue(':new', $notification->hasBeenRead(), PDO::PARAM_INT);
 		$q->bindValue(':fromUser', $notification->getTransmitter(), PDO::PARAM_INT);
@@ -63,6 +63,22 @@ class NotificationManager {
 
 		$result = $q->fetch();
 		return ($result[0]);
+	}
+
+	public function notificationsBetweenTwoTimestamp($toUser, $time1, $time2) {
+		$query = "SELECT * FROM notifications WHERE new = 1 AND toUser = :toUser AND timestamp > :time1 AND timestamp < :time2";
+		$q = $this->_db->prepare($query);
+		$q->bindValue(':toUser', $toUser, PDO::PARAM_INT);
+		$q->bindValue(':time1', $time1, PDO::PARAM_INT);
+		$q->bindValue(':time2', $time2, PDO::PARAM_INT);
+		$q->execute();
+
+		while($data = $q->fetch()) {
+			$notification = new Notification(0);
+			$notification->hydrate($data);
+			$result[] = $notification;
+		}
+		return ($result);
 	}
 
 	public function delete( $id ) {		
