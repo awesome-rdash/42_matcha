@@ -7,7 +7,7 @@ class ProfileLikeManager {
 		$this->_db = $db;
 	}
 
-	public function new(ProfileLike $profile) {
+	public function create(ProfileLike $profile) {
 		$q = $this->_db->prepare('
 			INSERT INTO user_likes(id, idUser, idProfileLiked, time)
 			VALUES(:id, :idUser, :idProfileLiked, :time)');
@@ -75,8 +75,16 @@ class ProfileLikeManager {
 	}
 
 	public function delete( $id ) {		
-		$q = $this->_db->prepare('DELETE FROM idProfileLiked WHERE id = :id');
+		$q = $this->_db->prepare('DELETE FROM user_likes WHERE id = :id');
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
+		$q->execute();
+
+		return true;
+	}
+	public function deleteWithoutId($profileLiked, $byUser) {		
+		$q = $this->_db->prepare('DELETE FROM user_likes WHERE idProfileLiked = :idProfileLiked AND idUser = :idUser');
+		$q->bindValue(':idProfileLiked', $profileLiked, PDO::PARAM_INT);
+		$q->bindValue(':idUser', $byUser, PDO::PARAM_INT);
 		$q->execute();
 
 		return true;

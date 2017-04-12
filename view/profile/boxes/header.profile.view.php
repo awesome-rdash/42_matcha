@@ -1,3 +1,45 @@
+<script>
+function like()
+{
+    var ajax;
+
+    if (window.XMLHttpRequest) {
+        ajax = new XMLHttpRequest();
+    }
+    else if (ActiveXObject("Microsoft.XMLHTTP")) {
+        ajax = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    else if (ActiveXObject("Msxml2.XMLHTTP")) {
+        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    else {
+        alert("Il semble que votre navigateur ne supporte pas AJAX. :(");
+        return false;
+    }
+
+    var formData = new FormData();
+    formData.append('id_user', <?php echo $currentProfile->getId();?>);
+    
+	formData.append('action', "likeUser");
+
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            if (document.getElementById("likeProfileButton").innerHTML == "Like") {
+            	document.getElementById("likeProfileButton").innerHTML = "Dislike"
+            } else {
+            	document.getElementById("likeProfileButton").innerHTML = "Like"
+            }
+        }
+    }
+
+    ajax.open("POST", "action.php", true);
+    ajax.send(formData);
+    
+    return ajax;
+}
+
+</script>
+
 <?php
 
 $nameInfos = "<span id=\"lastname_field\">" . $currentProfile->getLastname() . "</span> <span id=\"firstname_field\">" . $currentProfile->getFirstname() . "</span>";
@@ -10,6 +52,8 @@ $PPID = $currentProfile->getProfilePicture();
 if ($PPID > 0) {
 	$profilePicturePath = "data/userpics/" . $PPID . ".jpeg";
 }
+
+$profileLikeManager = new profileLikeManager($db);
 
 $featuredPicturesInfos = "";
 $featuredPictures = explode(",", $currentProfile->getFeaturedPictures());
@@ -50,5 +94,7 @@ $profilePictureInfo = "<img id=\"profilePicture\" width=\"150px\" src=\"" . $pro
 		echo "<div>" . $profilePictureInfo . "</div>";
 		echo "<div id=\"score\">Score de popularité : XXX<br /></div>";
 		echo "<br />";
+		if ($currentUser->getProfilePicture() != NULL) { ?><button onClick="like()" id="likeProfileButton"><?php if ($profileLikeManager->ifProfileIsLikedByUser($currentProfile->getId(), $currentUser->getId())) { ?>Dislike<?php } else { ?>Like<?php } ?></button><?php
+		}
 		echo "</p>";
 	}

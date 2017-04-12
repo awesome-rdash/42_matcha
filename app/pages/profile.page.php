@@ -7,13 +7,12 @@ $pageStylesheets = array ("main.css", "header.css", "profile.css", "awesomplete.
 
 if (isUserLogged()) {
 	$ownProfile = false;
-	if (isset($_GET['member']) && !empty($_GET['member'])) {
+	if (isset($_GET['member']) && !empty($_GET['member']) && (int)$_GET['member'] != $currentUser->getId()) {
 		$memberManager = new MemberManager($db);
 		$currentProfile = $memberManager->get("id", (int)$_GET['member']);
 		if ($currentProfile === false) {
 			header ("location: profile.php");
 		}
-
 	} else {
 		$ownProfile = true;
 		$currentProfile = $currentUser;
