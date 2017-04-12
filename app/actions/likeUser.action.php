@@ -10,6 +10,7 @@ foreach($toCheck as $element) {
 if (!isset($error)) {
 	if (isUserLogged() && $currentUser->getProfilePicture() != NULL) {
 		$profileLikeManager = new ProfileLikeManager($db);
+		$action['id_user'] = (int)$action['id_user'];
 		if (!($profileLikeManager->ifProfileIsLikedByUser($action['id_user'], $currentUser->getId()))) {
 			$parameters = array(
 				"idUser" => $currentUser->getId(),
@@ -18,7 +19,8 @@ if (!isset($error)) {
 			$state = $profileLike->hydrate($parameters);
 			if ($state === true) {
 				$profileLikeManager->create($profileLike);
-
+				$notificationManager = new notificationManager($db);
+				$notificationManager->generateNotification("like", $action['id_user'], $currentUser->getId());
 			} else {
 				$error = $state;
 			}

@@ -115,6 +115,8 @@ class NotificationManager {
 		if ($notification != FALSE) {
 			$return = $this->create($notification);
 			return $return;
+		} else {
+			return $notification;
 		}
 	}
 

@@ -23,7 +23,7 @@ function like()
 	formData.append('action', "likeUser");
 
     ajax.onreadystatechange = function() {
-        if (ajax.readyState == 4 && ajax.status == 200) {
+        if (ajax.readyState == 4 && ajax.status == 200) {\
             if (document.getElementById("likeProfileButton").innerHTML == "Like") {
             	document.getElementById("likeProfileButton").innerHTML = "Dislike"
             } else {
