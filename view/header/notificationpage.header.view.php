@@ -9,8 +9,25 @@
 function changeNotificationsVisibility() {
     if (document.getElementById("headerNotifications").style.display == "none") {
        document.getElementById("headerNotifications").style.display = "block";
+       document.getElementById("showNotifsText").innerHTML = "Masquer";
+        var ajax;
+
+        if (window.XMLHttpRequest) {
+            ajax = new XMLHttpRequest();
+        } else {
+            alert("Il semble que votre navigateur ne supporte pas AJAX. :(");
+            return false;
+        }
+        var data = {};
+        data["info"] = "markAllAsRead";
+        var formData = new FormData();
+        formData.append('action', "notification");
+        formData.append('data', JSON.stringify(data));
+        ajax.open('post', "action.php", true);
+        ajax.send(formData);
     } else {
        document.getElementById("headerNotifications").style.display = "none";
+       document.getElementById("showNotifsText").innerHTML = "Afficher";
     }
 }
 
@@ -46,6 +63,11 @@ setInterval(function() {
                 if (toShow["info"] == "count") {
                 	document.getElementById("unreadNotificationsCounter").innerHTML = toShow['count'].toString();
                 	data['lastCall'] = toShow['time'];
+                    if (toShow['count'] == 0 && document.getElementById("headerNotifications").style.display != "block") {
+                        document.getElementById("notificationButton").style.display = "none";
+                    } else {
+                        document.getElementById("notificationButton").style.display = "block";
+                    }
                 }
             } else {
                 alert(toShow["err_msg"]);
@@ -57,7 +79,8 @@ setInterval(function() {
 
 </script>
 <div id="notificationButton">
-<p><a href="#" onClick="changeNotificationsVisibility()">Afficher les notifications</a></p>
+<?php if ($unreadCount > 0) { ?>
+<p id="showNotifs"><a href="#" onClick="changeNotificationsVisibility()"><span id="showNotifsText">Afficher</span> les notifications</a></p><?php } ?>
 </div>
 
 <p>Notifications non lues : <span id="unreadNotificationsCounter"><?php echo $unreadCount; ?></span></p>

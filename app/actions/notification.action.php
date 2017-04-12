@@ -18,6 +18,8 @@ if ($error === false) {
 		if ($data['lastCallTime'] != 0) {
 			$newNotifs = $notificationManager->notificationsBetweenTwoTimestamp($currentUser->getId());
 		}
+	} else if ($data['info'] == "markAllAsRead") {
+		$notificationManager->markAllAsReadForUser($currentUser->getId());
 	}
 }
 

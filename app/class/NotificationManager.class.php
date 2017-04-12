@@ -9,7 +9,7 @@ class NotificationManager {
 
 	public function new(Notification $notification) {
 		$q = $this->_db->prepare('
-			INSERT INTO notifications(id, timestamp, type, new, user, fromUser)
+			INSERT INTO notifications(id, timestamp, type, new, toUser, fromUser)
 			VALUES(:id, :timestamp, :type, :new, :toUser, :fromUser)');
 		$q->bindValue(':id', $notification->getId(), PDO::PARAM_INT);
 		$q->bindValue(':timestamp', time(), PDO::PARAM_INT);
@@ -22,6 +22,21 @@ class NotificationManager {
 
 		$notification->setId($this->_db->lastInsertId());
 		return ($notification->getId());
+	}
+
+	public function update(Notification $notification) {
+		$q = $this->_db->prepare('
+			UPDATE notifications
+			SET timestamp = :timestamp, type = :type, new = :new, toUser = :toUser, fromUser = :fromUser
+			WHERE id = :id');
+		$q->bindValue(':timestamp', time(), PDO::PARAM_INT);
+		$q->bindValue(':type', $notification->getType(), PDO::PARAM_STR);
+		$q->bindValue(':new', $notification->hasBeenRead(), PDO::PARAM_INT);
+		$q->bindValue(':fromUser', $notification->getTransmitter(), PDO::PARAM_INT);
+		$q->bindValue(':toUser', $notification->getRecipient(), PDO::PARAM_INT);
+		$q->bindValue(':id', $notification->getId(), PDO::PARAM_INT);
+
+		$q->execute();
 	}
 
 	public function get( $id ) {
@@ -79,6 +94,14 @@ class NotificationManager {
 			$result[] = $notification;
 		}
 		return ($result);
+	}
+
+	public function markAllAsReadForUser($userId) {
+		$unread = $this->getUnreadNotificationsToUser($userId);
+		foreach ($unread as $notification) {
+			$notification->setNew(0);
+			$this->update($notification);
+		}
 	}
 
 	public function delete( $id ) {		

@@ -11,7 +11,8 @@ $valid_logged_actions = array(
 	"upload_filter",
 	"updateProfilInformations",
 	"update_user_tag",
-	"notification");
+	"notification",
+	"likeUser");
 
 $valid_unlogged_actions = array(
 	"register",

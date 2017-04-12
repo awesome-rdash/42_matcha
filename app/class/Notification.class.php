@@ -6,7 +6,7 @@ class Notification {
 	protected $_type;
 	protected $_new;
 	protected $_transmitter;
-	protected $_fromUser;
+	protected $_receiver;
 
 	use commonMembers;
 
@@ -14,8 +14,8 @@ class Notification {
 	public function getTimestamp() { return $this->_timestamp; }
 	public function getType() { return $this->_type; }
 	public function hasBeenRead() { return $this->_new; }
-	public function getTransmitter() { return $this->_fromUser; }
-	public function getReceiver() { return $this->_toUser; }
+	public function getTransmitter() { return $this->_transmitter; }
+	public function getRecipient() { return $this->_receiver; }
 
 	public function setId($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {
@@ -60,7 +60,7 @@ class Notification {
 
 	public function setNew($new) {
 		if ($new == 1 || $new == 0) {
-			$this->new = $new;
+			$this->_new = $new;
 			return true;
 		}
 		trigger_error("Invalid read statement", E_USER_WARNING);
