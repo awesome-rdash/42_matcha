@@ -7,7 +7,7 @@ class NotificationManager {
 		$this->_db = $db;
 	}
 
-	public function new(Notification $notification) {
+	public function create(Notification $notification) {
 		$q = $this->_db->prepare('
 			INSERT INTO notifications(id, timestamp, type, new, toUser, fromUser)
 			VALUES(:id, :timestamp, :type, :new, :toUser, :fromUser)');
@@ -101,6 +101,20 @@ class NotificationManager {
 		foreach ($unread as $notification) {
 			$notification->setNew(0);
 			$this->update($notification);
+		}
+	}
+
+	public function generateNotification($type, $toUser, $fromUser) {
+		$notificationParameters = array (
+			"type" => $type,
+			"toUser" => $toUser,
+			"fromUser" => $fromUser,
+			"new" => 1);
+		$notification = new Notification(0);
+		$notification->hydrate($notificationParameters);
+		if ($notification != FALSE) {
+			$return = $this->create($notification);
+			return $return;
 		}
 	}
 

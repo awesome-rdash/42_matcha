@@ -18,6 +18,7 @@ if (!isset($error)) {
 			$state = $profileLike->hydrate($parameters);
 			if ($state === true) {
 				$profileLikeManager->create($profileLike);
+
 			} else {
 				$error = $state;
 			}

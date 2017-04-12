@@ -67,7 +67,11 @@ $tagsInfo .= '</div>';
 			$featuredPicturesEdit .= '<li>Utiliser une image existante : <select name="featuredPicturesSelector' . $i . '" id="featuredPicturesSelector' . $i . '">';
 			$picturesFromUser = $userPictureManager->getEditedPicturesFromUser($currentProfile->getId());
 			foreach($picturesFromUser as $pic) {
-				$featuredPicturesEdit .= '<option' . (($explodedPictures[$i] == $pic['id']) ? ' selected=\"selected\" ' : '') . ' value="' . $pic['id'] . '">Image no ' . $pic['id'] . '</option>';
+				$selected = false;
+				if (isset($explodedPictures[$i]) && $explodedPictures[$i] == $pic['id']) {
+					$selected = true;
+				}
+				$featuredPicturesEdit .= '<option' . (($selected) ? ' selected=\"selected\" ' : '') . ' value="' . $pic['id'] . '">Image no ' . $pic['id'] . '</option>';
 			}
 			$featuredPicturesEdit .= '</select></li>';
 		}
