@@ -7,6 +7,8 @@ foreach($toCheck as $element) {
 	}
 }
 
+$notificationManager = new notificationManager($db);
+
 if (!isset($error)) {
 	if (isUserLogged() && $currentUser->getProfilePicture() != NULL) {
 		$profileLikeManager = new ProfileLikeManager($db);
@@ -19,13 +21,13 @@ if (!isset($error)) {
 			$state = $profileLike->hydrate($parameters);
 			if ($state === true) {
 				$profileLikeManager->create($profileLike);
-				$notificationManager = new notificationManager($db);
 				$notificationManager->generateNotification("like", $action['id_user'], $currentUser->getId());
 			} else {
 				$error = $state;
 			}
 		} else {
 			$profileLikeManager->deleteWithoutId($action['id_user'], $currentUser->getId());
+			$notificationManager->generateNotification("unLike", $action['id_user'], $currentUser->getId());
 		}
 	} else {
 		$error = genError("profileLike", "notlogged", "login");
