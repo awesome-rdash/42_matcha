@@ -101,17 +101,40 @@ $tagsInfo .= '</div>';
 		echo "</p>";
 	}
 
-$profileLikeManager = new $ProfileLikeManager($db);
-$userManager = new $MemberManager($db);
+$userManager = new MemberManager($db);
+
+$profileLikeManager = new ProfileLikeManager($db);
 $likedUsers = $profileLikeManager->getListOfUserLikes($currentProfile->getId());
-print_r($likedUsers);
 $total_count = count($likedUsers);
-echo "Votre profil est aimé par : ";
+if ($total_count == 0) {
+	echo "Votre profil n'a pas encore été aimé.";
+} else {
+	echo "Votre profil est aimé par : ";
+}
 $count = 0;
 foreach($likedUsers as $like) {
-	$currentUser = $userManager->getfromId($like->getIdUser);
-	echo "<a href=\"#\">". $currentUser->getFirstname() . " " . $currentUser->getLastname() . "</a>";
-	if ($count < $total_count) {
+	$likeUser = $userManager->getFromId($like->getIdUser());
+	echo "<a href=\"" . Utilities::getAddress() . "profile.php?member=" . $likeUser->getId() . "\">". $likeUser->getFirstname() . " " . $likeUser->getLastname() . "</a>";
+	if ($count < $total_count - 1) {
+		echo (" - ");
+	} else {
+		echo ".";
+	}
+}
+
+$profileVisitsManager = new ProfileVisitManager($db);
+$visitedUsers = $profileVisitsManager->getListOfUserVisits($currentProfile->getId());
+$total_count = count($visitedUsers);
+if ($total_count == 0) {
+	echo "Votre profil n'a pas encore été visité.";
+} else {
+	echo "Votre profil a été récemment visité par : ";
+}
+$count = 0;
+foreach($visitedUsers as $visit) {
+	$VisitUser = $visitedUser->getFromId($visit->getIdUser());
+	echo "<a href=\"" . Utilities::getAddress() . "profile.php?member=" . $visitUser->getId() . "\">". $visitUser->getFirstname() . " " . $visitUser->getLastname() . "</a>";
+	if ($count < $total_count - 1) {
 		echo (" - ");
 	} else {
 		echo ".";

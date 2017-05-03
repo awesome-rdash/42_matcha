@@ -23,7 +23,7 @@ class ProfileVisitManager {
 	}
 
 	public function addVisit($fromUser, $toUser) {
-		$return = $this->get($)
+		//$return = $this->get();
 	}
 
 	public function get( $id ) {
@@ -51,7 +51,7 @@ class ProfileVisitManager {
 
 	}
 
-	public function getListOfUserVisited($user) {
+	public function getListOfUserVisits($user) {
 		$query = "SELECT * FROM user_visits WHERE idProfileVisited = :idProfileVisited";
 		$q = $this->_db->prepare($query);
 		$q->bindValue(':idProfileVisited', $user, PDO::PARAM_INT);
