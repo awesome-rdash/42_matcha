@@ -7,9 +7,9 @@ class ProfileVisitManager {
 		$this->_db = $db;
 	}
 
-	public function create(ProfileVisit $profile) {
+	private function create(ProfileVisit $profile) {
 		$q = $this->_db->prepare('
-			INSERT INTO user_visit(id, idUser, idProfileVisited, time)
+			INSERT INTO user_visits(id, idUser, idProfileVisited, time)
 			VALUES(:id, :idUser, :idProfileVisited, :time)');
 		$q->bindValue(':id', $profile->getId(), PDO::PARAM_INT);
 		$q->bindValue(':idUser', $profile->getIdUser(), PDO::PARAM_INT);
@@ -22,8 +22,12 @@ class ProfileVisitManager {
 		return ($profile->getId());
 	}
 
+	public function addVisit($fromUser, $toUser) {
+		$return = $this->get($)
+	}
+
 	public function get( $id ) {
-		$q = $this->_db->prepare('SELECT * FROM user_visited WHERE id = :id');
+		$q = $this->_db->prepare('SELECT * FROM user_visits WHERE id = :id');
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
 		$q->execute();
 
@@ -38,8 +42,17 @@ class ProfileVisitManager {
 		}
 	}
 
-	public function getListOfUserLikes($user) {
-		$query = "SELECT * FROM user_visited WHERE idProfileVisited = :idProfileVisited";
+	public function getNotFromId($fromUser, $toUser) {
+		$query = "SELECT * FROM user_visits WHERE idProfileVisited = :idProfileVisited AND idUser = :idUser";
+		$q = $this->_db->prepare($query);
+		$q->bindValue(':idProfileVisited', $toUser, PDO::PARAM_INT);
+		$q->bindValue(':idUser', $fromUser, PDO::PARAM_INT);
+		$q->execute();
+
+	}
+
+	public function getListOfUserVisited($user) {
+		$query = "SELECT * FROM user_visits WHERE idProfileVisited = :idProfileVisited";
 		$q = $this->_db->prepare($query);
 		$q->bindValue(':idProfileVisited', $user, PDO::PARAM_INT);
 		$q->execute();
@@ -54,7 +67,7 @@ class ProfileVisitManager {
 	}
 
 	public function getNumberOfLikes($user) {
-		$query = "SELECT COUNT(*) FROM user_visited WHERE idProfileVisited = :idProfileVisited";
+		$query = "SELECT COUNT(*) FROM user_visits WHERE idProfileVisited = :idProfileVisited";
 		$q = $this->_db->prepare($query);
 		$q->bindValue(':idProfileVisited', $user, PDO::PARAM_INT);
 		$q->execute();
@@ -63,10 +76,10 @@ class ProfileVisitManager {
 		return ($result[0]);
 	}
 
-	public function ifProfileIsLikedByUser($profileLiked, $byUser) {
-		$query = "SELECT COUNT(*) FROM user_visited WHERE idProfileVisited = :idProfileVisited AND idUser = :idUser";
+	public function ifProfileIsLikedByUser($profileVisited, $byUser) {
+		$query = "SELECT COUNT(*) FROM user_visits WHERE idProfileVisited = :idProfileVisited AND idUser = :idUser";
 		$q = $this->_db->prepare($query);
-		$q->bindValue(':idProfileVisited', $profileLiked, PDO::PARAM_INT);
+		$q->bindValue(':idProfileVisited', $profileVisited, PDO::PARAM_INT);
 		$q->bindValue(':idUser', $byUser, PDO::PARAM_INT);
 		$q->execute();
 
@@ -75,15 +88,15 @@ class ProfileVisitManager {
 	}
 
 	public function delete( $id ) {		
-		$q = $this->_db->prepare('DELETE FROM user_visited WHERE id = :id');
+		$q = $this->_db->prepare('DELETE FROM user_visits WHERE id = :id');
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
 		$q->execute();
 
 		return true;
 	}
-	public function deleteWithoutId($profileLiked, $byUser) {		
-		$q = $this->_db->prepare('DELETE FROM user_visited WHERE idProfileVisited = :idProfileVisited AND idUser = :idUser');
-		$q->bindValue(':idProfileVisited', $profileLiked, PDO::PARAM_INT);
+	public function deleteWithoutId($profileVisited, $byUser) {		
+		$q = $this->_db->prepare('DELETE FROM user_visits WHERE idProfileVisited = :idProfileVisited AND idUser = :idUser');
+		$q->bindValue(':idProfileVisited', $profileVisited, PDO::PARAM_INT);
 		$q->bindValue(':idUser', $byUser, PDO::PARAM_INT);
 		$q->execute();
 
