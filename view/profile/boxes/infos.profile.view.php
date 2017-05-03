@@ -100,3 +100,11 @@ $tagsInfo .= '</div>';
 		echo "<br />";
 		echo "</p>";
 	}
+
+$profileLikeManager = new $profileLikeManager($db);
+$likedUsers = $profileLikeManager->getListOfUserLikes($currentProfile->getId());
+print_r($likedUsers);
+echo "Votre profil est aimé par : ";
+foreach($likedUsers as $like) {
+
+}

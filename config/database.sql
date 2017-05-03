@@ -2,10 +2,10 @@
 -- version 4.6.0
 -- http://www.phpmyadmin.net
 --
--- Client :  localhost
--- Généré le :  Mar 11 Avril 2017 à 22:00
--- Version du serveur :  5.7.11
--- Version de PHP :  7.0.0
+-- Host: localhost
+-- Generation Time: Apr 13, 2017 at 09:52 AM
+-- Server version: 5.7.11
+-- PHP Version: 7.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `camagru`
+-- Database: `camagru`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `comments`
+-- Table structure for table `comments`
 --
 
 CREATE TABLE `comments` (
@@ -37,7 +37,7 @@ CREATE TABLE `comments` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `errors`
+-- Table structure for table `errors`
 --
 
 CREATE TABLE `errors` (
@@ -49,7 +49,7 @@ CREATE TABLE `errors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `errors`
+-- Dumping data for table `errors`
 --
 
 INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
@@ -96,7 +96,7 @@ INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `filters`
+-- Table structure for table `filters`
 --
 
 CREATE TABLE `filters` (
@@ -106,7 +106,7 @@ CREATE TABLE `filters` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `filters`
+-- Dumping data for table `filters`
 --
 
 INSERT INTO `filters` (`id`, `upload_time`, `owner_id`) VALUES
@@ -118,7 +118,7 @@ INSERT INTO `filters` (`id`, `upload_time`, `owner_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `likes`
+-- Table structure for table `likes`
 --
 
 CREATE TABLE `likes` (
@@ -131,7 +131,7 @@ CREATE TABLE `likes` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `notifications`
+-- Table structure for table `notifications`
 --
 
 CREATE TABLE `notifications` (
@@ -144,17 +144,18 @@ CREATE TABLE `notifications` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `notifications`
+-- Dumping data for table `notifications`
 --
 
 INSERT INTO `notifications` (`id`, `timestamp`, `type`, `new`, `toUser`, `fromUser`) VALUES
-(3, 12, 'like', 1, 1, 1),
-(4, 10, 'visit', 0, 1, 2);
+(3, 1492027297, 'like', 0, 1, 4),
+(4, 1492027270, 'visit', 0, 1, 3),
+(5, 1492034134, 'like', 0, 5, 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `tags`
+-- Table structure for table `tags`
 --
 
 CREATE TABLE `tags` (
@@ -163,7 +164,7 @@ CREATE TABLE `tags` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `tags`
+-- Dumping data for table `tags`
 --
 
 INSERT INTO `tags` (`id`, `content`) VALUES
@@ -174,7 +175,7 @@ INSERT INTO `tags` (`id`, `content`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `tags_users`
+-- Table structure for table `tags_users`
 --
 
 CREATE TABLE `tags_users` (
@@ -183,7 +184,7 @@ CREATE TABLE `tags_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `tags_users`
+-- Dumping data for table `tags_users`
 --
 
 INSERT INTO `tags_users` (`id_tag`, `id_user`) VALUES
@@ -194,7 +195,7 @@ INSERT INTO `tags_users` (`id_tag`, `id_user`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `tokens`
+-- Table structure for table `tokens`
 --
 
 CREATE TABLE `tokens` (
@@ -207,19 +208,20 @@ CREATE TABLE `tokens` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `tokens`
+-- Dumping data for table `tokens`
 --
 
 INSERT INTO `tokens` (`id`, `user_id`, `token`, `time_created`, `usefor`, `isused`) VALUES
 (1, 0, '496174e72a1de9371bf71e3bf81d8f06bc64721b', 1491927266, 'mailconfirmation', b'0'),
 (2, 0, '4b9584149393c431c5c8a349b4787b1b9689c165', 1491927353, 'mailconfirmation', b'0'),
 (3, 3, '1bddccaa5f4a41c1583967eae5b9f225df30a913', 1491927428, 'mailconfirmation', b'0'),
-(4, 4, '9e29f3cac1cfe57e9037348d2316756e33d2dc58', 1491927491, 'mailconfirmation', b'0');
+(4, 4, '9e29f3cac1cfe57e9037348d2316756e33d2dc58', 1491927491, 'mailconfirmation', b'0'),
+(5, 5, '72ccea702b2da462c9d27e0c2a1ace7f9de248c1', 1492032388, 'mailconfirmation', b'0');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `userpictures`
+-- Table structure for table `userpictures`
 --
 
 CREATE TABLE `userpictures` (
@@ -231,7 +233,7 @@ CREATE TABLE `userpictures` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `userpictures`
+-- Dumping data for table `userpictures`
 --
 
 INSERT INTO `userpictures` (`id`, `upload_source`, `upload_time`, `filter_used`, `owner_id`) VALUES
@@ -246,12 +248,13 @@ INSERT INTO `userpictures` (`id`, `upload_source`, `upload_time`, `filter_used`,
 (11, 'stock', 1490289391, 4, 1),
 (12, 'stock', 1490289391, 4, 1),
 (13, 'stock', 1491925954, 1, 1),
-(14, 'stock', 1491935176, 2, 1);
+(14, 'stock', 1491935176, 2, 1),
+(15, 'stock', 1492009462, 2, 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -273,133 +276,155 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`) VALUES
-(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Eddy', 'test', NULL, b'01', 'ts', 1, 'female', 14, '13,13,6,7'),
+(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'caca', 'test', NULL, b'00', 'ts', 1, 'female', 10, '13,13,6,7'),
 (2, 'test', 'test@test.fr', 'test', 3, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 7, NULL),
 (3, 'tameretest2', 'jrouzier@outlook.com', '8d9e2cc2d89dd1b980e302dc530aa2519ae31e6326ef82b25d25d9bf97054b253470a026b8f67ee3c20dc49a8fef73ceca3590f2fac6ff1e8f16d4af175130a9', 1491927428, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 0, NULL, NULL, NULL),
-(4, 'tameretest', 'sebhug@free.fr', '02ec27b3db4131a31bc3446c7b6dfe8ea17a365de5ab0795107540eccb8ac6d5a78c6eaf590e3290bc9d14d533002436247c1826f560df6d069aef3efba67f3e', 1491927491, NULL, 'testhuguenot', 'test', NULL, b'01', '', 1, 'both', NULL, NULL);
+(4, 'tameretest', 'sebhug@free.fr', '02ec27b3db4131a31bc3446c7b6dfe8ea17a365de5ab0795107540eccb8ac6d5a78c6eaf590e3290bc9d14d533002436247c1826f560df6d069aef3efba67f3e', 1491927491, NULL, 'testhuguenot', 'test', NULL, b'01', '', 1, 'both', NULL, NULL),
+(5, 'root', 'root@outlook.com', '2ae79f9bb91a6c53b1d17ecc533926203630d734006775004ae8086d7558d02b50d1afca5f270336d21a60bc11ffd1f5a14bbfbcf9d2d78d9fadb29fe87d00e2', 1492032388, NULL, 'root', 'root', NULL, NULL, NULL, 1, NULL, 16, '16,16,16,16');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user_likes`
+-- Table structure for table `user_likes`
 --
 
 CREATE TABLE `user_likes` (
-  `user_id` int(11) NOT NULL,
-  `user_liked` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `idProfileLiked` int(11) NOT NULL,
+  `time` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Index pour les tables exportées
+-- Dumping data for table `user_likes`
+--
+
+INSERT INTO `user_likes` (`id`, `idUser`, `idProfileLiked`, `time`) VALUES
+(5, 1, 1, 1492031914),
+(11, 1, 5, 1492034125);
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `comments`
+-- Indexes for table `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `errors`
+-- Indexes for table `errors`
 --
 ALTER TABLE `errors`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `filters`
+-- Indexes for table `filters`
 --
 ALTER TABLE `filters`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `likes`
+-- Indexes for table `likes`
 --
 ALTER TABLE `likes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `notifications`
+-- Indexes for table `notifications`
 --
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `tags`
+-- Indexes for table `tags`
 --
 ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `tokens`
+-- Indexes for table `tokens`
 --
 ALTER TABLE `tokens`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `userpictures`
+-- Indexes for table `userpictures`
 --
 ALTER TABLE `userpictures`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- Indexes for table `user_likes`
+--
+ALTER TABLE `user_likes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `comments`
+-- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `errors`
+-- AUTO_INCREMENT for table `errors`
 --
 ALTER TABLE `errors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
--- AUTO_INCREMENT pour la table `filters`
+-- AUTO_INCREMENT for table `filters`
 --
 ALTER TABLE `filters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT pour la table `likes`
+-- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `notifications`
+-- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT pour la table `tags`
+-- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT pour la table `tokens`
+-- AUTO_INCREMENT for table `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT pour la table `userpictures`
+-- AUTO_INCREMENT for table `userpictures`
 --
 ALTER TABLE `userpictures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
--- AUTO_INCREMENT pour la table `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `user_likes`
+--
+ALTER TABLE `user_likes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
