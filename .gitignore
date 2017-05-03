@@ -7,3 +7,4 @@ userfiles/*
 data/*/*.jpeg
 data/*/*.webp
 *.png
+.tocheck
