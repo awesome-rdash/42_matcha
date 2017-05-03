@@ -101,10 +101,19 @@ $tagsInfo .= '</div>';
 		echo "</p>";
 	}
 
-$profileLikeManager = new $profileLikeManager($db);
+$profileLikeManager = new $ProfileLikeManager($db);
+$userManager = new $MemberManager($db);
 $likedUsers = $profileLikeManager->getListOfUserLikes($currentProfile->getId());
 print_r($likedUsers);
+$total_count = count($likedUsers);
 echo "Votre profil est aimé par : ";
+$count = 0;
 foreach($likedUsers as $like) {
-
+	$currentUser = $userManager->getfromId($like->getIdUser);
+	echo "<a href=\"#\">". $currentUser->getFirstname() . " " . $currentUser->getLastname() . "</a>";
+	if ($count < $total_count) {
+		echo (" - ");
+	} else {
+		echo ".";
+	}
 }
