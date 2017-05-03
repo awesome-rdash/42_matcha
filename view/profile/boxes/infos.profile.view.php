@@ -117,3 +117,4 @@ foreach($likedUsers as $like) {
 		echo ".";
 	}
 }
+
