@@ -31,12 +31,25 @@ class ProfileVisitManager {
 			$visitObject = new ProfileVisit(0);
 			$visitObject->hydrate($visit);
 			$this->create($visitObject);
-			echo "new visit";
 		} else {
 			$visitObject = $this->getWithoutId($fromUser, $toUser);
 			
-			print_r($visitObject);
+			$visitObject->setTime(time());
+			$this->update($visitObject);
 		}
+	}
+
+	public function update(ProfileVisit $profile) {
+		$q = $this->_db->prepare('
+			UPDATE user_visits
+			SET idUser = :idUser, id = :id, idProfileVisited = :idProfileVisited, time = :time
+			WHERE id = :id');
+		$q->bindValue(':id', $profile->getId(), PDO::PARAM_INT);
+		$q->bindValue(':idUser', $profile->getIdUser(), PDO::PARAM_INT);
+		$q->bindValue(':idProfileVisited', $profile->getIdProfileVisited(), PDO::PARAM_INT);
+		$q->bindValue(':time', $profile->getTime(), PDO::PARAM_INT);
+
+		$q->execute();
 	}
 
 	public function get( $id ) {
@@ -63,7 +76,7 @@ class ProfileVisitManager {
 		$q->execute();
 
 		$data = $q->fetch();
-		$profile = new ProfileLike(0);
+		$profile = new ProfileVisit(0);
 		$profile->hydrate($data);
 
 		return ($profile);
