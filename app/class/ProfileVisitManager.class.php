@@ -23,9 +23,7 @@ class ProfileVisitManager {
 	}
 
 	public function addVisit($fromUser, $toUser) {
-		$visitObject = new ProfileVisit(0);
-
-		if (!$this->ifProfileIsVisitedByUser($fromUser, $toUser)) {
+		if (!$this->ifProfileIsVisitedByUser($toUser, $fromUser)) {
 			$visit = [];
 			$visit["IdUser"] = $fromUser;
 			$visit["IdProfileVisited"] = $toUser;
@@ -34,6 +32,10 @@ class ProfileVisitManager {
 			$visitObject->hydrate($visit);
 			$this->create($visitObject);
 			echo "new visit";
+		} else {
+			$visitObject = $this->getWithoutId($fromUser, $toUser);
+			
+			print_r($visitObject);
 		}
 	}
 
@@ -51,6 +53,20 @@ class ProfileVisitManager {
 		} else {
 			return false;
 		}
+	}
+
+	public function getWithoutId($fromUser, $toUser) {
+		$query = "SELECT * FROM user_visits WHERE idProfileVisited = :idProfileVisited AND idUser = :idUser";
+		$q = $this->_db->prepare($query);
+		$q->bindValue(':idProfileVisited', $toUser, PDO::PARAM_INT);
+		$q->bindValue(':idUser', $fromUser, PDO::PARAM_INT);
+		$q->execute();
+
+		$data = $q->fetch();
+		$profile = new ProfileLike(0);
+		$profile->hydrate($data);
+
+		return ($profile);
 	}
 
 	public function getListOfUserVisits($user) {
