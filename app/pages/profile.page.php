@@ -13,6 +13,8 @@ if (isUserLogged()) {
 		if ($currentProfile === false) {
 			header ("location: profile.php");
 		}
+		$profileVisitManager = new ProfileVisitManager($db);
+		$profileVisitManager->addVisit($currentUser->getId(), $currentProfile->getId());
 	} else {
 		$ownProfile = true;
 		$currentProfile = $currentUser;

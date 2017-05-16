@@ -23,7 +23,18 @@ class ProfileVisitManager {
 	}
 
 	public function addVisit($fromUser, $toUser) {
-		//$return = $this->get();
+		$visitObject = new ProfileVisit(0);
+
+		if (!$this->ifProfileIsVisitedByUser($fromUser, $toUser)) {
+			$visit = [];
+			$visit["IdUser"] = $fromUser;
+			$visit["IdProfileVisited"] = $toUser;
+
+			$visitObject = new ProfileVisit(0);
+			$visitObject->hydrate($visit);
+			$this->create($visitObject);
+			echo "new visit";
+		}
 	}
 
 	public function get( $id ) {
@@ -34,7 +45,7 @@ class ProfileVisitManager {
 		$donnees = $q->fetch();
 
 		if ($q->rowCount() > 0) {
-			$profile = new ProfileLike($donnees['id']);
+			$profile = new ProfileVisit($donnees['id']);
 			$profile->hydrate($donnees);
 			return ($profile);
 		} else {
@@ -42,17 +53,8 @@ class ProfileVisitManager {
 		}
 	}
 
-	public function getNotFromId($fromUser, $toUser) {
-		$query = "SELECT * FROM user_visits WHERE idProfileVisited = :idProfileVisited AND idUser = :idUser";
-		$q = $this->_db->prepare($query);
-		$q->bindValue(':idProfileVisited', $toUser, PDO::PARAM_INT);
-		$q->bindValue(':idUser', $fromUser, PDO::PARAM_INT);
-		$q->execute();
-
-	}
-
 	public function getListOfUserVisits($user) {
-		$query = "SELECT * FROM user_visits WHERE idProfileVisited = :idProfileVisited";
+		$query = "SELECT * FROM user_visits WHERE idProfileVisited = :idProfileVisited ORDER BY time DESC";
 		$q = $this->_db->prepare($query);
 		$q->bindValue(':idProfileVisited', $user, PDO::PARAM_INT);
 		$q->execute();
@@ -66,7 +68,7 @@ class ProfileVisitManager {
 		return ($result);
 	}
 
-	public function getNumberOfLikes($user) {
+	public function getNumberOfVisits($user) {
 		$query = "SELECT COUNT(*) FROM user_visits WHERE idProfileVisited = :idProfileVisited";
 		$q = $this->_db->prepare($query);
 		$q->bindValue(':idProfileVisited', $user, PDO::PARAM_INT);
@@ -76,7 +78,7 @@ class ProfileVisitManager {
 		return ($result[0]);
 	}
 
-	public function ifProfileIsLikedByUser($profileVisited, $byUser) {
+	public function ifProfileIsVisitedByUser($profileVisited, $byUser) {
 		$query = "SELECT COUNT(*) FROM user_visits WHERE idProfileVisited = :idProfileVisited AND idUser = :idUser";
 		$q = $this->_db->prepare($query);
 		$q->bindValue(':idProfileVisited', $profileVisited, PDO::PARAM_INT);
