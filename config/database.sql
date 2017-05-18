@@ -1,20 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.0
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 13, 2017 at 09:52 AM
--- Server version: 5.7.11
--- PHP Version: 7.0.0
+-- Host: localhost:8889
+-- Generation Time: May 18, 2017 at 02:57 PM
+-- Server version: 5.6.35
+-- PHP Version: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `camagru`
@@ -92,6 +86,19 @@ INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (45, 'member', 'tooshort', 'nickname', 'Le nom d\'utilisateur doit être compose d\'au moins 3 caractères.'),
 (46, 'tag', 'specialchar', 'content', 'Le TAG ne peut être composé que de caractères alphanumériques.'),
 (48, 'taglink', 'alreadyexist', 'addlink', 'Le TAG est déjà associé.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fakeaccounts_reports`
+--
+
+CREATE TABLE `fakeaccounts_reports` (
+  `id` int(11) NOT NULL,
+  `fromUser` int(11) NOT NULL,
+  `toUserReported` int(11) NOT NULL,
+  `time` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -216,7 +223,8 @@ INSERT INTO `tokens` (`id`, `user_id`, `token`, `time_created`, `usefor`, `isuse
 (2, 0, '4b9584149393c431c5c8a349b4787b1b9689c165', 1491927353, 'mailconfirmation', b'0'),
 (3, 3, '1bddccaa5f4a41c1583967eae5b9f225df30a913', 1491927428, 'mailconfirmation', b'0'),
 (4, 4, '9e29f3cac1cfe57e9037348d2316756e33d2dc58', 1491927491, 'mailconfirmation', b'0'),
-(5, 5, '72ccea702b2da462c9d27e0c2a1ace7f9de248c1', 1492032388, 'mailconfirmation', b'0');
+(5, 5, '72ccea702b2da462c9d27e0c2a1ace7f9de248c1', 1492032388, 'mailconfirmation', b'0'),
+(6, 6, 'bfa8518902baba2c3b1c133bb4abbad588489d54', 1494840771, 'mailconfirmation', b'0');
 
 -- --------------------------------------------------------
 
@@ -249,7 +257,8 @@ INSERT INTO `userpictures` (`id`, `upload_source`, `upload_time`, `filter_used`,
 (12, 'stock', 1490289391, 4, 1),
 (13, 'stock', 1491925954, 1, 1),
 (14, 'stock', 1491935176, 2, 1),
-(15, 'stock', 1492009462, 2, 1);
+(15, 'stock', 1492009462, 2, 1),
+(16, 'stock', 1494840917, 2, 6);
 
 -- --------------------------------------------------------
 
@@ -280,11 +289,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`) VALUES
-(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'caca', 'test', NULL, b'00', 'ts', 1, 'female', 10, '13,13,6,7'),
+(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Prenom', 'Nom', NULL, b'00', 'ts', 1, 'female', 9, '13,13,6,7'),
 (2, 'test', 'test@test.fr', 'test', 3, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 7, NULL),
 (3, 'tameretest2', 'jrouzier@outlook.com', '8d9e2cc2d89dd1b980e302dc530aa2519ae31e6326ef82b25d25d9bf97054b253470a026b8f67ee3c20dc49a8fef73ceca3590f2fac6ff1e8f16d4af175130a9', 1491927428, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 0, NULL, NULL, NULL),
 (4, 'tameretest', 'sebhug@free.fr', '02ec27b3db4131a31bc3446c7b6dfe8ea17a365de5ab0795107540eccb8ac6d5a78c6eaf590e3290bc9d14d533002436247c1826f560df6d069aef3efba67f3e', 1491927491, NULL, 'testhuguenot', 'test', NULL, b'01', '', 1, 'both', NULL, NULL),
-(5, 'root', 'root@outlook.com', '2ae79f9bb91a6c53b1d17ecc533926203630d734006775004ae8086d7558d02b50d1afca5f270336d21a60bc11ffd1f5a14bbfbcf9d2d78d9fadb29fe87d00e2', 1492032388, NULL, 'root', 'root', NULL, NULL, NULL, 1, NULL, 16, '16,16,16,16');
+(5, 'root', 'root@outlook.com', '2ae79f9bb91a6c53b1d17ecc533926203630d734006775004ae8086d7558d02b50d1afca5f270336d21a60bc11ffd1f5a14bbfbcf9d2d78d9fadb29fe87d00e2', 1492032388, NULL, 'root', 'root', NULL, NULL, NULL, 1, NULL, 16, '16,16,16,16'),
+(6, 'jrouzier', 'jrouzier@esport42.fr', '839f24ff0037376f636613cbf49f6e60320073bf29bfe0f0c842eedfa25b3ce37aa9edca128bbc0ca28d2930270234abc1c0776434055c95a297afa69713582f', 1494840771, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -307,6 +317,27 @@ INSERT INTO `user_likes` (`id`, `idUser`, `idProfileLiked`, `time`) VALUES
 (5, 1, 1, 1492031914),
 (11, 1, 5, 1492034125);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_visits`
+--
+
+CREATE TABLE `user_visits` (
+  `id` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `idProfileVisited` int(11) NOT NULL,
+  `time` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_visits`
+--
+
+INSERT INTO `user_visits` (`id`, `idUser`, `idProfileVisited`, `time`) VALUES
+(22, 1, 6, 1494955689),
+(23, 1, 2, 1494928941);
+
 --
 -- Indexes for dumped tables
 --
@@ -321,6 +352,12 @@ ALTER TABLE `comments`
 -- Indexes for table `errors`
 --
 ALTER TABLE `errors`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fakeaccounts_reports`
+--
+ALTER TABLE `fakeaccounts_reports`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -372,6 +409,12 @@ ALTER TABLE `user_likes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_visits`
+--
+ALTER TABLE `user_visits`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -385,6 +428,11 @@ ALTER TABLE `comments`
 --
 ALTER TABLE `errors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+--
+-- AUTO_INCREMENT for table `fakeaccounts_reports`
+--
+ALTER TABLE `fakeaccounts_reports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `filters`
 --
@@ -409,22 +457,24 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT for table `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `userpictures`
 --
 ALTER TABLE `userpictures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `user_likes`
 --
 ALTER TABLE `user_likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+--
+-- AUTO_INCREMENT for table `user_visits`
+--
+ALTER TABLE `user_visits`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
