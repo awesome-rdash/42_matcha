@@ -142,4 +142,5 @@ $tagsInfo .= '</div>';
 		echo $featuredPicturesInfos;
 		echo "<br />";
 		echo "</p>";
+		echo "<p><a href=><";
 	}
