@@ -18,6 +18,7 @@ class Member {
 	protected $_sexual_orientation;
 	protected $_profilePicture;
 	protected $_featuredPictures;
+	protected $_lastLogin;
 
 	use commonMembers;
 
@@ -36,6 +37,7 @@ class Member {
 	public function getSexual_orientation() { return $this->_sexual_orientation; }
 	public function getProfilePicture() { return $this->_profilePicture; }
 	public function getFeaturedPictures() { return $this->_featuredPictures; }
+	public function getLastLogin() { return $this->_lastLogin; }
 
 	public function setId($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {
@@ -199,6 +201,14 @@ class Member {
 			}
 		}
 		$this->_featuredPictures = $pictures;
+		return true;
+	}
+
+	public function setLastLogin($lastLogin) {
+		if (!Utilities::isDigits($lastLogin) || $lastLogin <= 0) {
+			return genError("member", "invalid", "lastlogin");
+		}
+		$this->_lastLogin = $lastLogin;
 		return true;
 	}
 

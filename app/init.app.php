@@ -2,6 +2,7 @@
 
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
+session_start();
 
 require_once("app/error.app.php");
 
@@ -32,7 +33,6 @@ spl_autoload_register(function($class) {
     require_once 'app/class/'. $class .'.class.php';
 });
 
-session_start();
 
 if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 	if (isset($_SESSION['userid'])) {
@@ -45,6 +45,8 @@ if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 			$_SESSION['connected'] = false;
 		} else {
 			$currentUser = $return;
+			$currentUser->setLastLogin(time());
+			$manager->update($currentUser);
 		}
 	} else {
 		$_SESSION['connected'] = false;
