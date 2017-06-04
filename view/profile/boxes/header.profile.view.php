@@ -124,6 +124,13 @@ $profilePictureInfo = "<img id=\"profilePicture\" width=\"150px\" src=\"" . $pro
             echo "Utilisateur déconnecté.";
         }
         echo "</div>";
+        echo "<div id=\"isLikeBack\">";
+        if ($profileLikeManager->ifProfileIsLikedByUser($currentUser->getId(), $currentProfile->getId())) {
+            echo "L'utilisateur a aimé votre profil.";
+        } else {
+            echo "L'utilisateur n'a pas aimé votre profil.";
+        }
+        echo "</div>";
 		echo "<br />";
 		if ($currentUser->getProfilePicture() != NULL) { ?><button onClick="like()" id="likeProfileButton"><?php if ($profileLikeManager->ifProfileIsLikedByUser($currentProfile->getId(), $currentUser->getId())) { ?>Dislike<?php } else { ?>Like<?php } ?></button><?php
 		}
