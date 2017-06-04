@@ -9,8 +9,8 @@ class UserReport {
 	use CommonMembers;
 
 	public function getId() { return $this->_id; }
-	public function getIdUser() { return $this->_FromUser; }
-	public function getIdProfileLiked() { return $this->_ToUserReported; }
+	public function getFromUser() { return $this->_FromUser; }
+	public function getToUserReported() { return $this->_ToUserReported; }
 	public function getTime() { return $this->_time; }
 
 	public function setId($id) {

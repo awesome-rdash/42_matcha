@@ -5,14 +5,7 @@ function like()
 
     if (window.XMLHttpRequest) {
         ajax = new XMLHttpRequest();
-    }
-    else if (ActiveXObject("Microsoft.XMLHTTP")) {
-        ajax = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    else if (ActiveXObject("Msxml2.XMLHTTP")) {
-        ajax = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    else {
+    } else {
         alert("Il semble que votre navigateur ne supporte pas AJAX. :(");
         return false;
     }
@@ -23,12 +16,42 @@ function like()
 	formData.append('action', "likeUser");
 
     ajax.onreadystatechange = function() {
-        if (ajax.readyState == 4 && ajax.status == 200) {\
+        if (ajax.readyState == 4 && ajax.status == 200) {
             if (document.getElementById("likeProfileButton").innerHTML == "Like") {
             	document.getElementById("likeProfileButton").innerHTML = "Dislike"
             } else {
             	document.getElementById("likeProfileButton").innerHTML = "Like"
             }
+        }
+    }
+
+    ajax.open("POST", "action.php", true);
+    ajax.send(formData);
+    
+    return ajax;
+}
+
+function reportUser()
+{
+    var ajax;
+
+    if (window.XMLHttpRequest) {
+        ajax = new XMLHttpRequest();
+    } else {
+        alert("Il semble que votre navigateur ne supporte pas AJAX. :(");
+        return false;
+    }
+
+    var formData = new FormData();
+    formData.append('id_user', <?php echo $currentProfile->getId();?>);
+    
+	formData.append('action', "reportUser");
+
+    ajax.onreadystatechange = function() {
+    	console.log(ajax.responseText);
+        if (ajax.readyState == 4 && ajax.status == 200) {
+        	alert("Le profil a bien été marqué comme faux.");
+            document.getElementById("reportUserButton").style.visibility = "hidden";
         }
     }
 
@@ -53,7 +76,8 @@ if ($PPID > 0) {
 	$profilePicturePath = "data/userpics/" . $PPID . ".jpeg";
 }
 
-$profileLikeManager = new profileLikeManager($db);
+$profileLikeManager = new ProfileLikeManager($db);
+$userReportManager = new UserReportManager($db);
 
 $featuredPicturesInfos = "";
 $featuredPictures = explode(",", $currentProfile->getFeaturedPictures());
@@ -96,5 +120,7 @@ $profilePictureInfo = "<img id=\"profilePicture\" width=\"150px\" src=\"" . $pro
 		echo "<br />";
 		if ($currentUser->getProfilePicture() != NULL) { ?><button onClick="like()" id="likeProfileButton"><?php if ($profileLikeManager->ifProfileIsLikedByUser($currentProfile->getId(), $currentUser->getId())) { ?>Dislike<?php } else { ?>Like<?php } ?></button><?php
 		}
+		if ($userReportManager->ifProfileIsAlreadyReportedByUser($currentProfile->getId(), $currentUser->getId()) != TRUE) { ?><button onClick="reportUser()" id="reportUserButton">Report User</button><?php
+			}
 		echo "</p>";
 	}
