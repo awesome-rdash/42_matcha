@@ -116,7 +116,14 @@ $profilePictureInfo = "<img id=\"profilePicture\" width=\"150px\" src=\"" . $pro
 		echo "<p>";
 		echo "<div>" . $nameInfos . "</div>";
 		echo "<div>" . $profilePictureInfo . "</div>";
-		echo "<div id=\"score\">Score de popularité : XXX<br /></div>";
+        echo "<div id=\"score\">Score de popularité : XXX<br /></div>";
+        echo "<div id=\"isConnected\">";
+        if ((time() -  $currentProfile->getLastLogin()) < 1440) {
+            echo "Utilisateur connecté.";
+        } else {
+            echo "Utilisateur déconnecté.";
+        }
+        echo "</div>";
 		echo "<br />";
 		if ($currentUser->getProfilePicture() != NULL) { ?><button onClick="like()" id="likeProfileButton"><?php if ($profileLikeManager->ifProfileIsLikedByUser($currentProfile->getId(), $currentUser->getId())) { ?>Dislike<?php } else { ?>Like<?php } ?></button><?php
 		}
