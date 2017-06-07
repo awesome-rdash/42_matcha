@@ -78,9 +78,9 @@ setInterval(function() {
 }, 5000)
 
 </script>
-<div id="notificationButton">
-<?php if ($unreadCount > 0) { ?>
-<p id="showNotifs"><a href="#" onClick="changeNotificationsVisibility()"><span id="showNotifsText">Afficher</span> les notifications</a></p><?php } ?>
+<div id="notificationButton" <?php if ($unreadCount = 0) { echo "style=\"display: none\""; } ?> >
+
+<p id="showNotifs"><a href="#" onClick="changeNotificationsVisibility()"><span id="showNotifsText">Afficher</span> les notifications</a></p>
 </div>
 
 <p>Notifications non lues : <span id="unreadNotificationsCounter"><?php echo $unreadCount; ?></span></p>

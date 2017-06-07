@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 06 Juin 2017 à 11:37
+-- Généré le :  Mer 07 Juin 2017 à 14:50
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.0.0
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `camagru`
+-- Base de données :  `matcha`
 --
 
 -- --------------------------------------------------------
@@ -28,10 +28,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `blocked_users` (
   `id` int(11) NOT NULL,
-  `idUser` int(11) NOT NULL,
-  `idBlockedUser` int(11) NOT NULL,
+  `fromUser` int(11) NOT NULL,
+  `toUserBlocked` int(11) NOT NULL,
   `time` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `blocked_users`
+--
+
+INSERT INTO `blocked_users` (`id`, `fromUser`, `toUserBlocked`, `time`) VALUES
+(1, 1, 2, 1496844364);
 
 -- --------------------------------------------------------
 
@@ -119,6 +126,13 @@ CREATE TABLE `fakeaccounts_reports` (
   `time` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `fakeaccounts_reports`
+--
+
+INSERT INTO `fakeaccounts_reports` (`id`, `fromUser`, `toUserReported`, `time`) VALUES
+(1, 1, 2, 1496827061);
+
 -- --------------------------------------------------------
 
 --
@@ -176,7 +190,8 @@ CREATE TABLE `notifications` (
 INSERT INTO `notifications` (`id`, `timestamp`, `type`, `new`, `toUser`, `fromUser`) VALUES
 (3, 1492027297, 'like', 0, 1, 4),
 (4, 1492027270, 'visit', 0, 1, 3),
-(5, 1492034134, 'like', 0, 5, 1);
+(5, 1492034134, 'like', 1, 5, 1),
+(6, 1496845028, 'like', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -309,7 +324,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`) VALUES
 (1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Prenom', 'Nom', NULL, b'00', 'ts', 1, 'female', 9, '13,13,6,7'),
-(2, 'test', 'test@test.fr', 'test', 3, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 7, NULL),
+(2, 'test', 'test@test.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 3, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 7, NULL),
 (3, 'tameretest2', 'jrouzier@outlook.com', '8d9e2cc2d89dd1b980e302dc530aa2519ae31e6326ef82b25d25d9bf97054b253470a026b8f67ee3c20dc49a8fef73ceca3590f2fac6ff1e8f16d4af175130a9', 1491927428, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 0, NULL, NULL, NULL),
 (4, 'tameretest', 'sebhug@free.fr', '02ec27b3db4131a31bc3446c7b6dfe8ea17a365de5ab0795107540eccb8ac6d5a78c6eaf590e3290bc9d14d533002436247c1826f560df6d069aef3efba67f3e', 1491927491, NULL, 'testhuguenot', 'test', NULL, b'01', '', 1, 'both', NULL, NULL),
 (5, 'root', 'root@outlook.com', '2ae79f9bb91a6c53b1d17ecc533926203630d734006775004ae8086d7558d02b50d1afca5f270336d21a60bc11ffd1f5a14bbfbcf9d2d78d9fadb29fe87d00e2', 1492032388, NULL, 'root', 'root', NULL, NULL, NULL, 1, NULL, 16, '16,16,16,16'),
@@ -355,7 +370,10 @@ CREATE TABLE `user_visits` (
 
 INSERT INTO `user_visits` (`id`, `idUser`, `idProfileVisited`, `time`) VALUES
 (22, 1, 6, 1494955689),
-(23, 1, 2, 1494928941);
+(23, 1, 2, 1496844367),
+(24, 2, 1, 1496829340),
+(25, 1, 3, 1496844372),
+(26, 1, 4, 1496845653);
 
 --
 -- Index pour les tables exportées
@@ -447,7 +465,7 @@ ALTER TABLE `user_visits`
 -- AUTO_INCREMENT pour la table `blocked_users`
 --
 ALTER TABLE `blocked_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `comments`
 --
@@ -462,7 +480,7 @@ ALTER TABLE `errors`
 -- AUTO_INCREMENT pour la table `fakeaccounts_reports`
 --
 ALTER TABLE `fakeaccounts_reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `filters`
 --
@@ -477,7 +495,7 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT pour la table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `tags`
 --
@@ -507,7 +525,7 @@ ALTER TABLE `user_likes`
 -- AUTO_INCREMENT pour la table `user_visits`
 --
 ALTER TABLE `user_visits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
