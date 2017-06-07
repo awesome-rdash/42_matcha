@@ -13,7 +13,8 @@ $valid_logged_actions = array(
 	"update_user_tag",
 	"notification",
 	"likeUser",
-	"reportUser");
+	"reportUser",
+	"blockUser");
 
 $valid_unlogged_actions = array(
 	"register",

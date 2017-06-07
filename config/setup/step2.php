@@ -59,7 +59,7 @@ if (isset($_POST['submit'])) {
 					<input type="text" name="dbsrvname" id="dbsrvname" value="localhost">
 					<br />
 					<label for="dbname">Nom de la base de données : </label>
-					<input type="text" name="dbname" id="dbname" value="camagru">
+					<input type="text" name="dbname" id="dbname" value="matcha">
 					<br />
 					<label for="createdb">Créer la base de donnée si elle n'existe pas (recommandé)</label>
 					<input type="checkbox" name="createdb" value="createdb" checked>

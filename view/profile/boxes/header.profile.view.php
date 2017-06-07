@@ -45,13 +45,43 @@ function reportUser()
     var formData = new FormData();
     formData.append('id_user', <?php echo $currentProfile->getId();?>);
     
-	formData.append('action', "reportUser");
+    formData.append('action', "reportUser");
 
     ajax.onreadystatechange = function() {
-    	console.log(ajax.responseText);
+        console.log(ajax.responseText);
         if (ajax.readyState == 4 && ajax.status == 200) {
-        	alert("Le profil a bien été marqué comme faux.");
+            alert("Le profil a bien été marqué comme faux.");
             document.getElementById("reportUserButton").style.visibility = "hidden";
+        }
+    }
+
+    ajax.open("POST", "action.php", true);
+    ajax.send(formData);
+    
+    return ajax;
+}
+
+function blockUser()
+{
+    var ajax;
+
+    if (window.XMLHttpRequest) {
+        ajax = new XMLHttpRequest();
+    } else {
+        alert("Il semble que votre navigateur ne supporte pas AJAX. :(");
+        return false;
+    }
+
+    var formData = new FormData();
+    formData.append('id_user', <?php echo $currentProfile->getId();?>);
+    
+    formData.append('action', "blockUser");
+
+    ajax.onreadystatechange = function() {
+        console.log("Block response: " + ajax.responseText);
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            alert("Le profil a bien été bloqué.");
+            document.getElementById("blockUserButton").style.visibility = "hidden";
         }
     }
 
@@ -78,6 +108,7 @@ if ($PPID > 0) {
 
 $profileLikeManager = new ProfileLikeManager($db);
 $userReportManager = new UserReportManager($db);
+$userBlockManager = new UserBlockManager($db);
 
 $featuredPicturesInfos = "";
 $featuredPictures = explode(",", $currentProfile->getFeaturedPictures());
@@ -136,5 +167,7 @@ $profilePictureInfo = "<img id=\"profilePicture\" width=\"150px\" src=\"" . $pro
 		}
 		if ($userReportManager->ifProfileIsAlreadyReportedByUser($currentProfile->getId(), $currentUser->getId()) != TRUE) { ?><button onClick="reportUser()" id="reportUserButton">Report User</button><?php
 			}
+        if ($userBlockManager->ifProfileIsAlreadyBlockedByUser($currentProfile->getId(), $currentUser->getId()) != TRUE) { ?><button onClick="blockUser()" id="blockUserButton">Block User</button><?php
+            }
 		echo "</p>";
 	}

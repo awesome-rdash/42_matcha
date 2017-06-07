@@ -1,23 +1,42 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.6.0
+-- http://www.phpmyadmin.net
 --
--- Host: localhost:8889
--- Generation Time: Jun 03, 2017 at 03:46 PM
--- Server version: 5.6.35
--- PHP Version: 7.1.1
+-- Client :  localhost
+-- Généré le :  Mar 06 Juin 2017 à 11:37
+-- Version du serveur :  5.7.11
+-- Version de PHP :  7.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Database: `camagru`
+-- Base de données :  `camagru`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- Structure de la table `blocked_users`
+--
+
+CREATE TABLE `blocked_users` (
+  `id` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `idBlockedUser` int(11) NOT NULL,
+  `time` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `comments`
 --
 
 CREATE TABLE `comments` (
@@ -31,7 +50,7 @@ CREATE TABLE `comments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `errors`
+-- Structure de la table `errors`
 --
 
 CREATE TABLE `errors` (
@@ -43,7 +62,7 @@ CREATE TABLE `errors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `errors`
+-- Contenu de la table `errors`
 --
 
 INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
@@ -90,7 +109,7 @@ INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fakeaccounts_reports`
+-- Structure de la table `fakeaccounts_reports`
 --
 
 CREATE TABLE `fakeaccounts_reports` (
@@ -103,7 +122,7 @@ CREATE TABLE `fakeaccounts_reports` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `filters`
+-- Structure de la table `filters`
 --
 
 CREATE TABLE `filters` (
@@ -113,7 +132,7 @@ CREATE TABLE `filters` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `filters`
+-- Contenu de la table `filters`
 --
 
 INSERT INTO `filters` (`id`, `upload_time`, `owner_id`) VALUES
@@ -125,7 +144,7 @@ INSERT INTO `filters` (`id`, `upload_time`, `owner_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `likes`
+-- Structure de la table `likes`
 --
 
 CREATE TABLE `likes` (
@@ -138,7 +157,7 @@ CREATE TABLE `likes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notifications`
+-- Structure de la table `notifications`
 --
 
 CREATE TABLE `notifications` (
@@ -151,7 +170,7 @@ CREATE TABLE `notifications` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `notifications`
+-- Contenu de la table `notifications`
 --
 
 INSERT INTO `notifications` (`id`, `timestamp`, `type`, `new`, `toUser`, `fromUser`) VALUES
@@ -162,7 +181,7 @@ INSERT INTO `notifications` (`id`, `timestamp`, `type`, `new`, `toUser`, `fromUs
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tags`
+-- Structure de la table `tags`
 --
 
 CREATE TABLE `tags` (
@@ -171,7 +190,7 @@ CREATE TABLE `tags` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tags`
+-- Contenu de la table `tags`
 --
 
 INSERT INTO `tags` (`id`, `content`) VALUES
@@ -182,7 +201,7 @@ INSERT INTO `tags` (`id`, `content`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tags_users`
+-- Structure de la table `tags_users`
 --
 
 CREATE TABLE `tags_users` (
@@ -191,7 +210,7 @@ CREATE TABLE `tags_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tags_users`
+-- Contenu de la table `tags_users`
 --
 
 INSERT INTO `tags_users` (`id_tag`, `id_user`) VALUES
@@ -202,7 +221,7 @@ INSERT INTO `tags_users` (`id_tag`, `id_user`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tokens`
+-- Structure de la table `tokens`
 --
 
 CREATE TABLE `tokens` (
@@ -215,7 +234,7 @@ CREATE TABLE `tokens` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tokens`
+-- Contenu de la table `tokens`
 --
 
 INSERT INTO `tokens` (`id`, `user_id`, `token`, `time_created`, `usefor`, `isused`) VALUES
@@ -229,7 +248,7 @@ INSERT INTO `tokens` (`id`, `user_id`, `token`, `time_created`, `usefor`, `isuse
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userpictures`
+-- Structure de la table `userpictures`
 --
 
 CREATE TABLE `userpictures` (
@@ -241,7 +260,7 @@ CREATE TABLE `userpictures` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `userpictures`
+-- Contenu de la table `userpictures`
 --
 
 INSERT INTO `userpictures` (`id`, `upload_source`, `upload_time`, `filter_used`, `owner_id`) VALUES
@@ -263,7 +282,7 @@ INSERT INTO `userpictures` (`id`, `upload_source`, `upload_time`, `filter_used`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Structure de la table `users`
 --
 
 CREATE TABLE `users` (
@@ -285,7 +304,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
+-- Contenu de la table `users`
 --
 
 INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`) VALUES
@@ -299,7 +318,7 @@ INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `bi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_likes`
+-- Structure de la table `user_likes`
 --
 
 CREATE TABLE `user_likes` (
@@ -310,7 +329,7 @@ CREATE TABLE `user_likes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user_likes`
+-- Contenu de la table `user_likes`
 --
 
 INSERT INTO `user_likes` (`id`, `idUser`, `idProfileLiked`, `time`) VALUES
@@ -320,7 +339,7 @@ INSERT INTO `user_likes` (`id`, `idUser`, `idProfileLiked`, `time`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_visits`
+-- Structure de la table `user_visits`
 --
 
 CREATE TABLE `user_visits` (
@@ -331,7 +350,7 @@ CREATE TABLE `user_visits` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user_visits`
+-- Contenu de la table `user_visits`
 --
 
 INSERT INTO `user_visits` (`id`, `idUser`, `idProfileVisited`, `time`) VALUES
@@ -339,142 +358,156 @@ INSERT INTO `user_visits` (`id`, `idUser`, `idProfileVisited`, `time`) VALUES
 (23, 1, 2, 1494928941);
 
 --
--- Indexes for dumped tables
+-- Index pour les tables exportées
 --
 
 --
--- Indexes for table `comments`
+-- Index pour la table `blocked_users`
+--
+ALTER TABLE `blocked_users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `errors`
+-- Index pour la table `errors`
 --
 ALTER TABLE `errors`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `fakeaccounts_reports`
+-- Index pour la table `fakeaccounts_reports`
 --
 ALTER TABLE `fakeaccounts_reports`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `filters`
+-- Index pour la table `filters`
 --
 ALTER TABLE `filters`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `likes`
+-- Index pour la table `likes`
 --
 ALTER TABLE `likes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `notifications`
+-- Index pour la table `notifications`
 --
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tags`
+-- Index pour la table `tags`
 --
 ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tokens`
+-- Index pour la table `tokens`
 --
 ALTER TABLE `tokens`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `userpictures`
+-- Index pour la table `userpictures`
 --
 ALTER TABLE `userpictures`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Index pour la table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_likes`
+-- Index pour la table `user_likes`
 --
 ALTER TABLE `user_likes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_visits`
+-- Index pour la table `user_visits`
 --
 ALTER TABLE `user_visits`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables exportées
 --
 
 --
--- AUTO_INCREMENT for table `comments`
+-- AUTO_INCREMENT pour la table `blocked_users`
+--
+ALTER TABLE `blocked_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `errors`
+-- AUTO_INCREMENT pour la table `errors`
 --
 ALTER TABLE `errors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
--- AUTO_INCREMENT for table `fakeaccounts_reports`
+-- AUTO_INCREMENT pour la table `fakeaccounts_reports`
 --
 ALTER TABLE `fakeaccounts_reports`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `filters`
+-- AUTO_INCREMENT pour la table `filters`
 --
 ALTER TABLE `filters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `likes`
+-- AUTO_INCREMENT pour la table `likes`
 --
 ALTER TABLE `likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `notifications`
+-- AUTO_INCREMENT pour la table `notifications`
 --
 ALTER TABLE `notifications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `tags`
+-- AUTO_INCREMENT pour la table `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `tokens`
+-- AUTO_INCREMENT pour la table `tokens`
 --
 ALTER TABLE `tokens`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `userpictures`
+-- AUTO_INCREMENT pour la table `userpictures`
 --
 ALTER TABLE `userpictures`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `user_likes`
+-- AUTO_INCREMENT pour la table `user_likes`
 --
 ALTER TABLE `user_likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
--- AUTO_INCREMENT for table `user_visits`
+-- AUTO_INCREMENT pour la table `user_visits`
 --
 ALTER TABLE `user_visits`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

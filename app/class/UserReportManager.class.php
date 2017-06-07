@@ -8,7 +8,6 @@ class UserReportManager {
 	}
 
 	public function create(UserReport $report) {
-		print_r($report);
 		$q = $this->_db->prepare('
 			INSERT INTO fakeaccounts_reports(id, fromUser, toUserReported, time)
 			VALUES(:id, :fromUser, :toUserReported, :time)');
