@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mer 07 Juin 2017 à 14:50
+-- Généré le :  Lun 12 Juin 2017 à 09:57
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.0.0
 
@@ -38,7 +38,8 @@ CREATE TABLE `blocked_users` (
 --
 
 INSERT INTO `blocked_users` (`id`, `fromUser`, `toUserBlocked`, `time`) VALUES
-(1, 1, 2, 1496844364);
+(1, 1, 2, 1496844364),
+(2, 1, 3, 1497257933);
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,8 @@ CREATE TABLE `fakeaccounts_reports` (
 --
 
 INSERT INTO `fakeaccounts_reports` (`id`, `fromUser`, `toUserReported`, `time`) VALUES
-(1, 1, 2, 1496827061);
+(1, 1, 2, 1496827061),
+(2, 1, 3, 1497257904);
 
 -- --------------------------------------------------------
 
@@ -171,6 +173,21 @@ CREATE TABLE `likes` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `fromUser` int(11) NOT NULL,
+  `toUser` int(11) NOT NULL,
+  `content` tinytext NOT NULL,
+  `time` int(11) NOT NULL,
+  `new` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `notifications`
 --
 
@@ -191,7 +208,12 @@ INSERT INTO `notifications` (`id`, `timestamp`, `type`, `new`, `toUser`, `fromUs
 (3, 1492027297, 'like', 0, 1, 4),
 (4, 1492027270, 'visit', 0, 1, 3),
 (5, 1492034134, 'like', 1, 5, 1),
-(6, 1496845028, 'like', 0, 1, 1);
+(6, 1496845028, 'like', 0, 1, 1),
+(7, 1497257899, 'like', 1, 2, 1),
+(8, 1497257900, 'unLike', 1, 2, 1),
+(9, 1497258324, 'like', 1, 2, 1),
+(10, 1497258326, 'unLike', 1, 2, 1),
+(11, 1497258328, 'like', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -230,8 +252,7 @@ CREATE TABLE `tags_users` (
 
 INSERT INTO `tags_users` (`id_tag`, `id_user`) VALUES
 (1, 1),
-(2, 1),
-(3, 1);
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -315,20 +336,21 @@ CREATE TABLE `users` (
   `mail_confirmed` tinyint(1) NOT NULL DEFAULT '0',
   `sexual_orientation` enum('male','female','both') DEFAULT NULL,
   `profilePicture` int(11) DEFAULT NULL,
-  `featuredPictures` text
+  `featuredPictures` text,
+  `lastLogin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`) VALUES
-(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Prenom', 'Nom', NULL, b'00', 'ts', 1, 'female', 9, '13,13,6,7'),
-(2, 'test', 'test@test.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 3, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 7, NULL),
-(3, 'tameretest2', 'jrouzier@outlook.com', '8d9e2cc2d89dd1b980e302dc530aa2519ae31e6326ef82b25d25d9bf97054b253470a026b8f67ee3c20dc49a8fef73ceca3590f2fac6ff1e8f16d4af175130a9', 1491927428, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 0, NULL, NULL, NULL),
-(4, 'tameretest', 'sebhug@free.fr', '02ec27b3db4131a31bc3446c7b6dfe8ea17a365de5ab0795107540eccb8ac6d5a78c6eaf590e3290bc9d14d533002436247c1826f560df6d069aef3efba67f3e', 1491927491, NULL, 'testhuguenot', 'test', NULL, b'01', '', 1, 'both', NULL, NULL),
-(5, 'root', 'root@outlook.com', '2ae79f9bb91a6c53b1d17ecc533926203630d734006775004ae8086d7558d02b50d1afca5f270336d21a60bc11ffd1f5a14bbfbcf9d2d78d9fadb29fe87d00e2', 1492032388, NULL, 'root', 'root', NULL, NULL, NULL, 1, NULL, 16, '16,16,16,16'),
-(6, 'jrouzier', 'jrouzier@esport42.fr', '839f24ff0037376f636613cbf49f6e60320073bf29bfe0f0c842eedfa25b3ce37aa9edca128bbc0ca28d2930270234abc1c0776434055c95a297afa69713582f', 1494840771, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 1, NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`, `lastLogin`) VALUES
+(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Prenom', 'test', NULL, b'00', 'ts', 1, 'female', 9, '13,13,6,7', 1497261420),
+(2, 'test', 'test@test.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 3, NULL, 'test', NULL, NULL, NULL, NULL, 1, NULL, 7, NULL, 0),
+(3, 'tameretest2', 'jrouzier@outlook.com', '8d9e2cc2d89dd1b980e302dc530aa2519ae31e6326ef82b25d25d9bf97054b253470a026b8f67ee3c20dc49a8fef73ceca3590f2fac6ff1e8f16d4af175130a9', 1491927428, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 0, NULL, NULL, NULL, 0),
+(4, 'tameretest', 'sebhug@free.fr', '02ec27b3db4131a31bc3446c7b6dfe8ea17a365de5ab0795107540eccb8ac6d5a78c6eaf590e3290bc9d14d533002436247c1826f560df6d069aef3efba67f3e', 1491927491, NULL, 'testhuguenot', 'test', NULL, b'01', '', 1, 'both', NULL, NULL, 0),
+(5, 'root', 'root@outlook.com', '2ae79f9bb91a6c53b1d17ecc533926203630d734006775004ae8086d7558d02b50d1afca5f270336d21a60bc11ffd1f5a14bbfbcf9d2d78d9fadb29fe87d00e2', 1492032388, NULL, 'root', 'root', NULL, NULL, NULL, 1, NULL, 16, '16,16,16,16', 0),
+(6, 'jrouzier', 'jrouzier@esport42.fr', '839f24ff0037376f636613cbf49f6e60320073bf29bfe0f0c842eedfa25b3ce37aa9edca128bbc0ca28d2930270234abc1c0776434055c95a297afa69713582f', 1494840771, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 1, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -349,7 +371,8 @@ CREATE TABLE `user_likes` (
 
 INSERT INTO `user_likes` (`id`, `idUser`, `idProfileLiked`, `time`) VALUES
 (5, 1, 1, 1492031914),
-(11, 1, 5, 1492034125);
+(11, 1, 5, 1492034125),
+(14, 1, 2, 1497258328);
 
 -- --------------------------------------------------------
 
@@ -370,9 +393,9 @@ CREATE TABLE `user_visits` (
 
 INSERT INTO `user_visits` (`id`, `idUser`, `idProfileVisited`, `time`) VALUES
 (22, 1, 6, 1494955689),
-(23, 1, 2, 1496844367),
+(23, 1, 2, 1497258328),
 (24, 2, 1, 1496829340),
-(25, 1, 3, 1496844372),
+(25, 1, 3, 1497257938),
 (26, 1, 4, 1496845653);
 
 --
@@ -413,6 +436,12 @@ ALTER TABLE `filters`
 -- Index pour la table `likes`
 --
 ALTER TABLE `likes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `messages`
+--
+ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -465,7 +494,7 @@ ALTER TABLE `user_visits`
 -- AUTO_INCREMENT pour la table `blocked_users`
 --
 ALTER TABLE `blocked_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `comments`
 --
@@ -480,7 +509,7 @@ ALTER TABLE `errors`
 -- AUTO_INCREMENT pour la table `fakeaccounts_reports`
 --
 ALTER TABLE `fakeaccounts_reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `filters`
 --
@@ -492,10 +521,15 @@ ALTER TABLE `filters`
 ALTER TABLE `likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT pour la table `tags`
 --
@@ -520,7 +554,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `user_likes`
 --
 ALTER TABLE `user_likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT pour la table `user_visits`
 --

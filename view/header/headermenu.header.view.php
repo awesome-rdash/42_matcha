@@ -4,6 +4,7 @@ $elementsList = array();
 if (isUserLogged()) {
 	$elementsList[] = array("Envoyer un montage", "camera.php");
 	$elementsList[] = array("Galerie", "gallery.php");
+	$elementsList[] = array("Chat", "chat.php");
 	$elementsList[] = array("Mon profil", "profile.php");
 } else {
 	$elementsList[] = array("Galerie", "gallery.php");

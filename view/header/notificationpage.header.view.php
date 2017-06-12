@@ -61,7 +61,7 @@ setInterval(function() {
 
             if (toShow['output'] == "ok") {
                 if (toShow["info"] == "count") {
-                	document.getElementById("unreadNotificationsCounter").innerHTML = toShow['count'].toString();
+                    document.getElementById("unreadNotificationsCounter").innerHTML = toShow['count'].toString();
                 	data['lastCall'] = toShow['time'];
                     if (toShow['count'] == 0 && document.getElementById("headerNotifications").style.display != "block") {
                         document.getElementById("notificationButton").style.display = "none";
@@ -78,7 +78,7 @@ setInterval(function() {
 }, 5000)
 
 </script>
-<div id="notificationButton" <?php if ($unreadCount = 0) { echo "style=\"display: none\""; } ?> >
+<div id="notificationButton" <?php if ($unreadCount == 0) { echo "style=\"display: none\""; } ?> >
 
 <p id="showNotifs"><a href="#" onClick="changeNotificationsVisibility()"><span id="showNotifsText">Afficher</span> les notifications</a></p>
 </div>
