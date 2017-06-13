@@ -81,48 +81,49 @@ class MessageManager {
 		return ($result[0]);
 	}
 
-	public function notificationsBetweenTwoTimestamp($toUser, $time1, $time2) {
-		$query = "SELECT * FROM messages WHERE new = 1 AND toUser = :toUser AND timestamp > :time1 AND timestamp < :time2";
+	public function messagesBetweenTwoTimestamp($toUser, $fromUser, $time1, $time2) {
+		$query = "SELECT * FROM messages WHERE new = 1 AND toUser = :toUser AND fromUser = :fromUser AND timestamp > :time1 AND timestamp < :time2";
 		$q = $this->_db->prepare($query);
 		$q->bindValue(':toUser', $toUser, PDO::PARAM_INT);
+		$q->bindValue(':fromUser', $fromUser, PDO::PARAM_INT);
 		$q->bindValue(':time1', $time1, PDO::PARAM_INT);
 		$q->bindValue(':time2', $time2, PDO::PARAM_INT);
 		$q->execute();
 
 		while($data = $q->fetch()) {
-			$notification = new Notification(0);
-			$notification->hydrate($data);
-			$result[] = $notification;
+			$message = new Notification(0);
+			$message->hydrate($data);
+			$result[] = $message;
 		}
 		return ($result);
 	}
 
 	public function markAllAsReadForUser($userId) {
 		$unread = $this->getUnreadNotificationsToUser($userId);
-		foreach ($unread as $notification) {
-			$notification->setNew(0);
-			$this->update($notification);
+		foreach ($unread as $message) {
+			$message->setNew(0);
+			$this->update($message);
 		}
 	}
 
-	public function generateNotification($type, $toUser, $fromUser) {
-		$notificationParameters = array (
-			"type" => $type,
+	public function generateMessage($content, $toUser, $fromUser) {
+		$messageP = array (
+			"content" => htmlspecialchars($content),
 			"toUser" => $toUser,
 			"fromUser" => $fromUser,
 			"new" => 1);
-		$notification = new Notification(0);
-		$notification->hydrate($notificationParameters);
-		if ($notification != FALSE) {
-			$return = $this->create($notification);
+		$message = new Message(0);
+		$message->hydrate($messageP);
+		if ($message != FALSE) {
+			$return = $this->create($message);
 			return $return;
 		} else {
-			return $notification;
+			return $message;
 		}
 	}
 
 	public function delete( $id ) {		
-		$q = $this->_db->prepare('DELETE FROM notifications WHERE id = :id');
+		$q = $this->_db->prepare('DELETE FROM message WHERE id = :id');
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
 		$q->execute();
 
