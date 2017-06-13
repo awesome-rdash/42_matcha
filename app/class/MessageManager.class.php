@@ -7,34 +7,34 @@ class MessageManager {
 		$this->_db = $db;
 	}
 
-	public function create(Notification $notification) {
+	public function create(Message $message) {
 		$q = $this->_db->prepare('
-			INSERT INTO messages(id, timestamp, content, new, toUser, fromUser)
-			VALUES(:id, :timestamp, :content, :new, :toUser, :fromUser)');
-		$q->bindValue(':id', $notification->getId(), PDO::PARAM_INT);
-		$q->bindValue(':timestamp', time(), PDO::PARAM_INT);
-		$q->bindValue(':content', $notification->getContent(), PDO::PARAM_STR);
-		$q->bindValue(':new', $notification->hasBeenRead(), PDO::PARAM_INT);
-		$q->bindValue(':fromUser', $notification->getFromUser(), PDO::PARAM_INT);
-		$q->bindValue(':toUser', $notification->getToUser(), PDO::PARAM_INT);
+			INSERT INTO messages(id, time, content, new, toUser, fromUser)
+			VALUES(:id, :time, :content, :new, :toUser, :fromUser)');
+		$q->bindValue(':id', $message->getId(), PDO::PARAM_INT);
+		$q->bindValue(':time', time(), PDO::PARAM_INT);
+		$q->bindValue(':content', $message->getContent(), PDO::PARAM_STR);
+		$q->bindValue(':new', $message->hasBeenRead(), PDO::PARAM_INT);
+		$q->bindValue(':fromUser', $message->getFromUser(), PDO::PARAM_INT);
+		$q->bindValue(':toUser', $message->getToUser(), PDO::PARAM_INT);
 
 		$q->execute();
 
-		$notification->setId($this->_db->lastInsertId());
-		return ($notification->getId());
+		$message->setId($this->_db->lastInsertId());
+		return ($message->getId());
 	}
 
-	public function update(Notification $notification) {
+	public function update(Message $message) {
 		$q = $this->_db->prepare('
 			UPDATE messages
 			SET timestamp = :timestamp, content = :content, new = :new, toUser = :toUser, fromUser = :fromUser
 			WHERE id = :id');
 		$q->bindValue(':timestamp', time(), PDO::PARAM_INT);
-		$q->bindValue(':content', $notification->getContent(), PDO::PARAM_STR);
-		$q->bindValue(':new', $notification->hasBeenRead(), PDO::PARAM_INT);
-		$q->bindValue(':fromUser', $notification->getTransmitter(), PDO::PARAM_INT);
-		$q->bindValue(':toUser', $notification->getRecipient(), PDO::PARAM_INT);
-		$q->bindValue(':id', $notification->getId(), PDO::PARAM_INT);
+		$q->bindValue(':content', $message->getContent(), PDO::PARAM_STR);
+		$q->bindValue(':new', $message->hasBeenRead(), PDO::PARAM_INT);
+		$q->bindValue(':fromUser', $message->getTransmitter(), PDO::PARAM_INT);
+		$q->bindValue(':toUser', $message->getRecipient(), PDO::PARAM_INT);
+		$q->bindValue(':id', $message->getId(), PDO::PARAM_INT);
 
 		$q->execute();
 	}
@@ -47,9 +47,9 @@ class MessageManager {
 		$donnees = $q->fetch();
 
 		if ($q->rowCount() > 0) {
-			$notification = new Notification($donnees['id']);
-			$notification->hydrate($donnees);
-			return ($notification);
+			$message = new Message($donnees['id']);
+			$message->hydrate($donnees);
+			return ($message);
 		} else {
 			return false;
 		}
@@ -82,7 +82,7 @@ class MessageManager {
 	}
 
 	public function messagesBetweenTwoTimestamp($toUser, $fromUser, $time1, $time2) {
-		$query = "SELECT * FROM messages WHERE new = 1 AND toUser = :toUser AND fromUser = :fromUser AND timestamp > :time1 AND timestamp < :time2";
+		$query = "SELECT * FROM messages WHERE toUser = :toUser AND fromUser = :fromUser AND timestamp > :time1 AND timestamp < :time2";
 		$q = $this->_db->prepare($query);
 		$q->bindValue(':toUser', $toUser, PDO::PARAM_INT);
 		$q->bindValue(':fromUser', $fromUser, PDO::PARAM_INT);
@@ -91,7 +91,7 @@ class MessageManager {
 		$q->execute();
 
 		while($data = $q->fetch()) {
-			$message = new Notification(0);
+			$message = new Message(0);
 			$message->hydrate($data);
 			$result[] = $message;
 		}

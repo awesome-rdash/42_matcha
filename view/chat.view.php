@@ -10,8 +10,12 @@
 		?>
 	</head>
 	<body>
-		<?php 
+		<?php
 			include("view/header.view.php");
-			?>
+			if (isUserLogged()) {
+				include("view/chat/connected.chat.view.php");
+			} else {
+				include("view/chat/disconnected.chat.view.php");
+			}?>
 	</body>
 </html>
