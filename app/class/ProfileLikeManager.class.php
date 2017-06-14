@@ -74,6 +74,14 @@ class ProfileLikeManager {
 		return ($result[0]);
 	}
 
+	public function isThereAMutualLike($user1, $user2) {
+		if ($this->ifProfileIsLikedByUser($user1, $user2) > 0 || $this->ifProfileIsLikedByUser($user2, $user1) > 0 ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function delete( $id ) {		
 		$q = $this->_db->prepare('DELETE FROM user_likes WHERE id = :id');
 		$q->bindValue(':id', $id, PDO::PARAM_INT);

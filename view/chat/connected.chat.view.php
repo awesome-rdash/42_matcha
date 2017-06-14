@@ -1,4 +1,9 @@
 <div id="chatMainWindow">
-	<div id="ChatMessages">
-	</div>
+	<?php
+	if (isset($currentProfile)) {
+		include("view/chat/messages.chat.view.php");
+	} else {
+		include("view/chat/userlist.chat.view.php");
+	}
+	?>
 </div>
