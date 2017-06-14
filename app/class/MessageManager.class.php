@@ -81,15 +81,13 @@ class MessageManager {
 		return ($result[0]);
 	}
 
-	public function messagesBetweenTwoTimestamp($toUser, $fromUser, $time1, $time2) {
-		$query = "SELECT * FROM messages WHERE toUser = :toUser AND fromUser = :fromUser AND timestamp > :time1 AND timestamp < :time2";
+	public function getAllMessagesBetweenTwoUsers($fromUser, $toUser) {
+		$query = "SELECT * FROM messages WHERE (toUser = :toUser OR toUser = :fromUser) AND (fromUser = :fromUser OR fromUser = :toUser) ORDER BY time DESC";
 		$q = $this->_db->prepare($query);
 		$q->bindValue(':toUser', $toUser, PDO::PARAM_INT);
 		$q->bindValue(':fromUser', $fromUser, PDO::PARAM_INT);
-		$q->bindValue(':time1', $time1, PDO::PARAM_INT);
-		$q->bindValue(':time2', $time2, PDO::PARAM_INT);
 		$q->execute();
-
+		$result = array();
 		while($data = $q->fetch()) {
 			$message = new Message(0);
 			$message->hydrate($data);
@@ -98,12 +96,22 @@ class MessageManager {
 		return ($result);
 	}
 
-	public function markAllAsReadForUser($userId) {
-		$unread = $this->getUnreadNotificationsToUser($userId);
-		foreach ($unread as $message) {
-			$message->setNew(0);
-			$this->update($message);
+	public function getMessagesBetweenTwoTimestamp($toUser, $fromUser, $time1, $time2) {
+		$query = "SELECT * FROM messages WHERE toUser = :toUser AND fromUser = :fromUser AND time > :time1 AND time < :time2 ORDER BY time DESC";
+		$q = $this->_db->prepare($query);
+		$q->bindValue(':toUser', $toUser, PDO::PARAM_INT);
+		$q->bindValue(':fromUser', $fromUser, PDO::PARAM_INT);
+		$q->bindValue(':time1', $time1, PDO::PARAM_INT);
+		$q->bindValue(':time2', $time2, PDO::PARAM_INT);
+		$q->execute();
+
+		$result = array();
+		while($data = $q->fetch()) {
+			$message = new Message(0);
+			$message->hydrate($data);
+			$result[] = $message;
 		}
+		return ($result);
 	}
 
 	public function generateMessage($content, $toUser, $fromUser) {

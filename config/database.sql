@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Lun 12 Juin 2017 à 09:57
+-- Généré le :  Mer 14 Juin 2017 à 12:34
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.0.0
 
@@ -185,6 +185,15 @@ CREATE TABLE `messages` (
   `new` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `messages`
+--
+
+INSERT INTO `messages` (`id`, `fromUser`, `toUser`, `content`, `time`, `new`) VALUES
+(1, 2, 1, 'test test test', 4561, 1),
+(2, 1, 2, 'user1 to user2', 5, 1),
+(3, 2, 1, 'test test', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -345,7 +354,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`, `lastLogin`) VALUES
-(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Prenom', 'test', NULL, b'00', 'ts', 1, 'female', 9, '13,13,6,7', 1497261420),
+(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Prenom', 'test', NULL, b'00', 'ts', 1, 'female', 9, '13,13,6,7', 1497443641),
 (2, 'test', 'test@test.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 3, NULL, 'test', NULL, NULL, NULL, NULL, 1, NULL, 7, NULL, 0),
 (3, 'tameretest2', 'jrouzier@outlook.com', '8d9e2cc2d89dd1b980e302dc530aa2519ae31e6326ef82b25d25d9bf97054b253470a026b8f67ee3c20dc49a8fef73ceca3590f2fac6ff1e8f16d4af175130a9', 1491927428, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 0, NULL, NULL, NULL, 0),
 (4, 'tameretest', 'sebhug@free.fr', '02ec27b3db4131a31bc3446c7b6dfe8ea17a365de5ab0795107540eccb8ac6d5a78c6eaf590e3290bc9d14d533002436247c1826f560df6d069aef3efba67f3e', 1491927491, NULL, 'testhuguenot', 'test', NULL, b'01', '', 1, 'both', NULL, NULL, 0),
@@ -393,7 +402,7 @@ CREATE TABLE `user_visits` (
 
 INSERT INTO `user_visits` (`id`, `idUser`, `idProfileVisited`, `time`) VALUES
 (22, 1, 6, 1494955689),
-(23, 1, 2, 1497258328),
+(23, 1, 2, 1497427496),
 (24, 2, 1, 1496829340),
 (25, 1, 3, 1497257938),
 (26, 1, 4, 1496845653);
@@ -524,7 +533,7 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT pour la table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `notifications`
 --

@@ -14,7 +14,9 @@ $valid_logged_actions = array(
 	"notification",
 	"likeUser",
 	"reportUser",
-	"blockUser");
+	"blockUser",
+	"getNewMessagesBetweenTwoUsers",
+	"sendMessage");
 
 $valid_unlogged_actions = array(
 	"register",

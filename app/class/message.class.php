@@ -42,7 +42,7 @@ class Message {
 	}
 
 	public function setContent($content) {
-		$content = htmlspecialchars(htmlspecialchars);
+		$content = htmlspecialchars($content);
 		if (strlen($content) > 300) {
 			trigger_error("Text too long", E_USER_WARNING);
 		}
