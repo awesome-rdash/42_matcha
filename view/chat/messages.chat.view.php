@@ -64,7 +64,7 @@ function sendMessage() {
     }
 
     var data = {};
-    data['message'] = document.getElementById("SendMessageTextBox").value;
+    data['content'] = document.getElementById("SendMessageTextBox").value;
     data['toUser'] = <?php echo $currentProfile->getId();?>;
 
     var formData = new FormData();

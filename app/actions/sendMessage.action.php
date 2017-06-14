@@ -10,11 +10,14 @@ if (isset($_POST['data']) && !empty($_POST['data'])) {
 }
 
 if ($error === false) {
-	if ($data['action'] == 'sendMessage'){
-		$message = new Message(0);
-		$hydrate_return = $message->hydrate($data);
-		print_r($hydrate_return);
+	$message = new Message(0);
+	$hydrate_return = $message->hydrate($data);
+	if ($hydrate_return != true) {
+		$error = "hydrate";
 	}
+	$messageManager = new MessageManager($db);
+	
+	print_r($message);
 }
 
 
