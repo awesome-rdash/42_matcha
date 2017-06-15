@@ -12,18 +12,20 @@ if (isset($_POST['data']) && !empty($_POST['data'])) {
 if ($error === false) {
 	$message = new Message(0);
 	$hydrate_return = $message->hydrate($data);
-	if ($hydrate_return != true) {
-		$error = "hydrate";
+	if ($hydrate_return !== true) {
+		$error = $hydrate_return;
 	}
-	$message->setFromUser($currentUser->getId());
-	$message->setNew(1);
-	$messageManager = new MessageManager($db);
-	$msgID = $messageManager->create($message);
-	$json_output['messageContent'] = html_entity_decode($message->getContent());
-	$json_output['messageId'] = $message->getId();
+	if ($error === false) {
+		$message->setFromUser($currentUser->getId());
+		$message->setNew(1);
+		$messageManager = new MessageManager($db);
+		$msgID = $messageManager->create($message);
+		$json_output['messageContent'] = $message->getContent();
+		$json_output['messageId'] = $message->getId();
+	}
 }
 
-if ($error) {
+if ($error !== false) {
 	if (is_array($error)) {
 		$json_output["err_msg"] = $error['msg'];
 	} else {

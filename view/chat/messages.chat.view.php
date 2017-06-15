@@ -59,18 +59,20 @@ function sendMessage() {
         if (ajax.readyState == 4 && ajax.status == 200) {
         	var reply = ajax.responseText;
         	var out = JSON.parse(reply);
-            console.log(out);
 
-            if (out['output'] == "ok") {
+            if (out['output'] == "ok" && out['messageId'] != 0) {
             	var div = document.createElement('div');
 				div.id = 'msg' + out['messageId'];
 				div.className = 'msgInList';
 
 				var p = document.createElement('p');
-				p.innerHTML = "<- " + out['messageContent'];
+				p.innerHTML = "<- " + unescape(out['messageContent']);
 
 				div.appendChild(p);
 				document.getElementById('messageList').insertBefore(div, messageList.childNodes[0]);
+				document.getElementById('SendMessageTextBox').value = "";
+            } else {
+            	alert("Erreur lors de l'envoi du message.");
             }
         }
     }
@@ -90,6 +92,8 @@ function sendMessage() {
 }
 
 </script>
+
+<p>Vous chattez avec <?php echo $currentProfile->getFirstName() . " " . $currentProfile->getLastName();?>.</p>
 
 <div id="sendMessage">
 <input type="text" name="message" id="SendMessageTextBox" placeholder="Tapez votre message ici"><button type="button" id="SendMessageButton" onClick="sendMessage();">Envoyer le message</button><br>

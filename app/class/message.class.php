@@ -42,6 +42,10 @@ class Message {
 	}
 
 	public function setContent($content) {
+		$content = trim($content);
+		if (empty($content)) {
+			return $error = "empty";
+		}
 		$content = htmlspecialchars($content);
 		if (strlen($content) > 300) {
 			trigger_error("Text too long", E_USER_WARNING);
