@@ -4,7 +4,14 @@
 ?>
 
 <script>
-setInterval(function() {
+
+function sort_messages(a, b) {
+   if (a["time"] < b["time"]) return -1;
+   if (a["time"] > b["time"]) return 1;
+   return 0;
+ }
+
+function reload_msg() {
 	var ajax;
 
     if (window.XMLHttpRequest) {
@@ -18,12 +25,16 @@ setInterval(function() {
     data["info"] = "messagesBetweenTwoUsers";
     data["fromUser"] = <?php echo $currentProfile->getId();?>;
     data["toUser"] = <?php echo $currentUser->getId();?>;
-    if (isNaN(data["lastCallTime"])) {
-    	data["lastCallTime"] = 0;
+
+    if (typeof reload_msg.lastCallTime == 'undefined') {
+    	var d = new Date();
+		var n = d.getTime();
+    	reload_msg.lastCallTime = n - 5;
     }
+    data["lastCallTime"] = reload_msg.lastCallTime;
 
     var formData = new FormData();
-
+    str = JSON.stringify(data, null, 4);
     formData.append('action', "getNewMessagesBetweenTwoUsers");
     formData.append('data', JSON.stringify(data));
     ajax.open('post', "action.php", true);
@@ -35,14 +46,30 @@ setInterval(function() {
             var toShow = JSON.parse(reply);
 
             if (toShow['output'] == "ok") {
-                
+            	reload_msg.lastCallTime = toShow["time"];
+            	var arrayContent = JSON.parse(toShow['messages']);
+            	arrayContent.sort(sort_messages);
+
+            	for (var i = 0, len = arrayContent.length; i < len; i++) {
+	            	var div = document.createElement('div');
+					div.id = 'msg' + arrayContent[i]['id'];
+					div.className = 'msgInList';
+
+					var p = document.createElement('p');
+					p.innerHTML = "-> " + unescape(arrayContent[i]['content']);
+
+					div.appendChild(p);
+					document.getElementById('messageList').insertBefore(div, messageList.childNodes[0]);
+            	}
             } else {
                 alert(toShow["err_msg"]);
             }
         }
     }
     return ajax;
-}, 5000)
+}
+
+setInterval(reload_msg, 5000);
 
 function sendMessage() {
 	var ajax;

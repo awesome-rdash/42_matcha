@@ -2,7 +2,7 @@
 
 class Message {
 	protected $_id;
-	protected $_timestamp;
+	protected $_time;
 	protected $_content;
 	protected $_new;
 	protected $_fromUser;
@@ -11,7 +11,7 @@ class Message {
 	use commonMembers;
 
 	public function getId() { return $this->_id; }
-	public function getTimestamp() { return $this->_timestamp; }
+	public function getTime() { return $this->_time; }
 	public function getContent() { return $this->_content; }
 	public function hasBeenRead() { return $this->_new; }
 	public function getFromUser() { return $this->_fromUser; }
@@ -48,17 +48,17 @@ class Message {
 		}
 		$content = htmlspecialchars($content);
 		if (strlen($content) > 300) {
-			trigger_error("Text too long", E_USER_WARNING);
+			return $error = "toolong";
 		}
 		$this->_content = $content;
 		return true;
 	}
 
-	public function setTimestamp($timestamp) {
-		if (!Utilities::isDigits($timestamp) || $timestamp <= 0) {
+	public function setTime($time) {
+		if (!Utilities::isDigits($time) || $time <= 0) {
 			trigger_error("Invalid upload time", E_USER_WARNING);
 		}
-		$this->_timestamp = $timestamp;
+		$this->_time = $time;
 		return true;
 	}
 

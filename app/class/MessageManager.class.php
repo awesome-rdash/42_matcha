@@ -97,12 +97,12 @@ class MessageManager {
 	}
 
 	public function getMessagesBetweenTwoTimestamp($toUser, $fromUser, $time1, $time2) {
-		$query = "SELECT * FROM messages WHERE toUser = :toUser AND fromUser = :fromUser AND time > :time1 AND time < :time2 ORDER BY time DESC";
+		$query = "SELECT * FROM messages WHERE toUser = :toUser AND fromUser = :fromUser AND time > :time1 ORDER BY time DESC";
 		$q = $this->_db->prepare($query);
 		$q->bindValue(':toUser', $toUser, PDO::PARAM_INT);
 		$q->bindValue(':fromUser', $fromUser, PDO::PARAM_INT);
 		$q->bindValue(':time1', $time1, PDO::PARAM_INT);
-		$q->bindValue(':time2', $time2, PDO::PARAM_INT);
+		//$q->bindValue(':time2', $time2, PDO::PARAM_INT);
 		$q->execute();
 
 		$result = array();
