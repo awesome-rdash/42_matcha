@@ -15,12 +15,13 @@ if ($error === false) {
 	if ($hydrate_return != true) {
 		$error = "hydrate";
 	}
+	$message->setFromUser($currentUser->getId());
+	$message->setNew(1);
 	$messageManager = new MessageManager($db);
-	
-	print_r($message);
+	$msgID = $messageManager->create($message);
+	$json_output['messageContent'] = html_entity_decode($message->getContent());
+	$json_output['messageId'] = $message->getId();
 }
-
-
 
 if ($error) {
 	if (is_array($error)) {

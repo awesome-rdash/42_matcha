@@ -1,7 +1,6 @@
 <?php
 	$messageManager = new MessageManager($db);
 	$messageList = $messageManager->getAllMessagesBetweenTwoUsers($currentProfile->getId(), $currentUser->getId());
-	print_r($messageList);
 ?>
 
 <script>
@@ -58,8 +57,21 @@ function sendMessage() {
 
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
-        	var reply = ajax.responseText
-            console.log(reply);
+        	var reply = ajax.responseText;
+        	var out = JSON.parse(reply);
+            console.log(out);
+
+            if (out['output'] == "ok") {
+            	var div = document.createElement('div');
+				div.id = 'msg' + out['messageId'];
+				div.className = 'msgInList';
+
+				var p = document.createElement('p');
+				p.innerHTML = "<- " + out['messageContent'];
+
+				div.appendChild(p);
+				document.getElementById('messageList').insertBefore(div, messageList.childNodes[0]);
+            }
         }
     }
 
@@ -91,7 +103,7 @@ if (empty($messageList)) {
 	echo "<div id=\"messageList\">";
 	foreach($messageList as $message) {
 		$symbol = ($message->getToUser() == $currentUser->getId()) ? "->" : "<-";
-		echo "<div class=\"msgInList\" id=\"msg" . $message->getId() . "\"><p>" . $symbol . " " . $message->getContent() . "</p></div>";
+		echo "<div class=\"msgInList\" id=\"msg" . $message->getId() . "\"><p>" . $symbol . " " . html_entity_decode($message->getContent()) . "</p></div>";
 	}
 }
 ?>
