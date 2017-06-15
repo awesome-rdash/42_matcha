@@ -19,6 +19,7 @@ class Member {
 	protected $_profilePicture;
 	protected $_featuredPictures;
 	protected $_lastLogin;
+	protected $_popularity;
 
 	use commonMembers;
 
@@ -38,6 +39,7 @@ class Member {
 	public function getProfilePicture() { return $this->_profilePicture; }
 	public function getFeaturedPictures() { return $this->_featuredPictures; }
 	public function getLastLogin() { return $this->_lastLogin; }
+	public function getPopularity() { return $this->_popularity; }
 
 	public function setId($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {
@@ -210,6 +212,23 @@ class Member {
 		}
 		$this->_lastLogin = $lastLogin;
 		return true;
+	}
+
+	public function setPopularity($popularity) {
+		if (!Utilities::isDigits($popularity) || $popularity <= 0) {
+			return genError("member", "invalid", "lastlogin");
+		}
+		$this->_popularity = $popularity;
+		return true;
+	}
+
+	public function recheckPopularity($db) {
+		echo "test";
+		$profileLikeManager = new ProfileLikeManager($db);
+		$numberLikes = $profileLikeManager->getNumberOfLikes($this->getId());
+		$this->$_popularity = $numberLikes;
+		$memberManager = new MemberManager($db);
+		$memberManager->update($this);
 	}
 
 	public function isPasswordConfirmationCorrect() {

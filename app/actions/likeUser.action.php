@@ -22,12 +22,16 @@ if (!isset($error)) {
 			if ($state === true) {
 				$profileLikeManager->create($profileLike);
 				$notificationManager->generateNotification("like", $action['id_user'], $currentUser->getId());
+				$member = $memberManager->getFromId($action['id_user']);
+				$member->recheckPopularity($db);
 			} else {
 				$error = $state;
 			}
 		} else {
 			$profileLikeManager->deleteWithoutId($action['id_user'], $currentUser->getId());
 			$notificationManager->generateNotification("unLike", $action['id_user'], $currentUser->getId());
+			$member = $memberManager->getFromId($action['id_user']);
+			$member->recheckPopularity($db);
 		}
 	} else {
 		$error = genError("profileLike", "notlogged", "login");

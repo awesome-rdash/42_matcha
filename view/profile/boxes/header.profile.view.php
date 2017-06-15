@@ -137,7 +137,7 @@ $profilePictureInfo = "<img id=\"profilePicture\" width=\"150px\" src=\"" . $pro
 		echo "<br />";
 		showEditableInfo("profilePicture", $profilePictureInfo, $profilePictureEdit);
 		echo "<br />";
-		echo "<div id=\"score\">Mon score de popularité : XXX<br /></div>";
+		echo "<div id=\"score\">Mon score de popularité : " . (string)$currentProfile->getPopularity() . "<br /></div>";
 		showEditableInfo("email", $mailInfo , $mailEdit);
 		echo "<br />";
 		showEditableInfo("password", $passwordInfo , $passwordEdit);
@@ -147,7 +147,7 @@ $profilePictureInfo = "<img id=\"profilePicture\" width=\"150px\" src=\"" . $pro
 		echo "<p>";
 		echo "<div>" . $nameInfos . "</div>";
 		echo "<div>" . $profilePictureInfo . "</div>";
-        echo "<div id=\"score\">Score de popularité : XXX<br /></div>";
+        echo "<div id=\"score\">Score de popularité : " . (string)$currentProfile->getPopularity() . "<br /></div>";
         echo "<div id=\"isConnected\">";
         if ((time() -  $currentProfile->getLastLogin()) < 1440) {
             echo "Utilisateur connecté.";
