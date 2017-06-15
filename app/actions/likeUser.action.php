@@ -8,6 +8,7 @@ foreach($toCheck as $element) {
 }
 
 $notificationManager = new notificationManager($db);
+$memberManager = new MemberManager($db);
 
 if (!isset($error)) {
 	if (isUserLogged() && $currentUser->getProfilePicture() != NULL) {

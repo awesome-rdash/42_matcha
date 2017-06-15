@@ -223,10 +223,9 @@ class Member {
 	}
 
 	public function recheckPopularity($db) {
-		echo "test";
 		$profileLikeManager = new ProfileLikeManager($db);
 		$numberLikes = $profileLikeManager->getNumberOfLikes($this->getId());
-		$this->$_popularity = $numberLikes;
+		$this->_popularity = $numberLikes;
 		$memberManager = new MemberManager($db);
 		$memberManager->update($this);
 	}
