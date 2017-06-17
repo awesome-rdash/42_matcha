@@ -22,6 +22,8 @@ if ($error === false) {
 		$msgID = $messageManager->create($message);
 		$json_output['messageContent'] = $message->getContent();
 		$json_output['messageId'] = $message->getId();
+		$notificationManager = new NotificationManager($db);
+		$notificationManager->generateNotification("message", $message->getToUser(), $currentUser->getId());
 	}
 }
 

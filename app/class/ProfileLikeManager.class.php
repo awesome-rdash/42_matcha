@@ -74,8 +74,29 @@ class ProfileLikeManager {
 		return ($result[0]);
 	}
 
+	public function getListOfMutualLikes($user1) {
+		$query = "SELECT * FROM user_likes WHERE (idProfileLiked = :user1 || idUser = :user1)";
+		$q = $this->_db->prepare($query);
+		$q->bindValue(':user1', $user1, PDO::PARAM_INT);
+		$q->execute();
+
+		$result = array();
+		$memberManager = new MemberManager($this->_db);
+		$alreadyListedUsers = array();
+		while($data = $q->fetch()) {
+			if ($this->isThereAMutualLike($user1, ($scdMemberID = ($data['idUser'] == $user1 ? $data['idProfileLiked'] : $data['idUser'])))) {
+				if (!in_array($scdMemberID, $alreadyListedUsers)) {
+					$newMember = $memberManager->getFromId($scdMemberID);
+					$result[] = $newMember;
+					$alreadyListedUsers[] = $scdMemberID;
+				}
+			}
+		}
+		return ($result);
+	}
+
 	public function isThereAMutualLike($user1, $user2) {
-		if ($this->ifProfileIsLikedByUser($user1, $user2) > 0 || $this->ifProfileIsLikedByUser($user2, $user1) > 0 ) {
+		if ($this->ifProfileIsLikedByUser($user1, $user2) > 0 && $this->ifProfileIsLikedByUser($user2, $user1) > 0 ) {
 			return true;
 		} else {
 			return false;
