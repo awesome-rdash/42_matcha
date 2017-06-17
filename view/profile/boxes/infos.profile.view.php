@@ -117,7 +117,7 @@ $tagsInfo .= '</div>';
 		if ($total_count == 0) {
 			echo "Votre profil n'a pas encore été visité.";
 		} else {
-			echo "Votre profil a été récemment visité par : ";
+			echo "Votre profil a été récemment visité par $total_count utilisateurs : ";
 		}
 		$count = 0;
 		$memberManager = new MemberManager($db);

@@ -6,6 +6,8 @@ if (isUserLogged()) {
 	$elementsList[] = array("Galerie", "gallery.php");
 	$elementsList[] = array("Chat", "chat.php");
 	$elementsList[] = array("Mon profil", "profile.php");
+	$elementsList[] = array("Parcours", "parcours.php");
+	$elementsList[] = array("Recherche", "recherche.php");
 } else {
 	$elementsList[] = array("Galerie", "gallery.php");
 }
