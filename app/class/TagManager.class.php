@@ -48,9 +48,9 @@ class TagManager {
 			throw new Exception("Invalid field");
 		}
 
-		$statement = 'SELECT COUNT(*) FROM tags WHERE ' . $field . ' = :content';
-		$q = $this->_db->prepare($content);
-		$q->bindValue(':content', $content, PDO::PARAM_STR);
+		$statement = 'SELECT COUNT(*) FROM tags WHERE ' . $field . ' = :value';
+		$q = $this->_db->prepare($value);
+		$q->bindValue(':value', $value, PDO::PARAM_STR);
 		$q->execute();
 
 		$result = $q->fetch();
@@ -59,6 +59,16 @@ class TagManager {
 		} else {
 			return false;
 		}
+	}
+
+	public function ifExist($content) {
+		$q = $this->_db->prepare('SELECT COUNT(*) FROM tags WHERE content = :content');
+		$q->bindValue(':content', $content, PDO::PARAM_STR);
+		$q->execute();
+
+		$result = $q->fetch();
+		
+		return (($result[0] > 0) ? true : false);
 	}
 
 	public function getFromId($id) {

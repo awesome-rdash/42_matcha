@@ -20,7 +20,7 @@ function run_sql_file($location, $bdd, $dbname){
     $commands = '';
     foreach($lines as $line){
         $line = trim($line);
-        if( $line && !startsWith($line,'--') ){
+        if ($line && !startsWith($line,'--')){
             $commands .= $line . "\n";
         }
     }

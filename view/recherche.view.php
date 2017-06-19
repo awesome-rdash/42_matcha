@@ -8,6 +8,11 @@
 				echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"assets/css/" . $cssPage . "\">";
 			}
 		?>
+		<style>
+		fieldset {
+			display: inline-block;
+		}
+		</style>
 	</head>
 	<body>
 		<?php 
@@ -15,58 +20,80 @@
 			?>
 			<div id="filters">
 			<form method="POST" action="recherche.php">
-				<label for="age">Tranche d'age : </label>
-				<select name="uid">
-					<option value="0" <?php if ($age == 0) {echo "selected";} ?>>Tous les ages</option>
-					<option value="1" <?php if ($age == 1) {echo "selected";} ?>>Moins de 18 ans</option>
-					<option value="2" <?php if ($age == 2) {echo "selected";} ?>>Entre 18 et 21 ans</option>
-					<option value="3" <?php if ($age == 3) {echo "selected";} ?>>Entre 21 et 27 ans</option>
-					<option value="4" <?php if ($age == 4) {echo "selected";} ?>>Entre 27 et 35 ans</option>
-					<option value="5" <?php if ($age == 5) {echo "selected";} ?>>Entre 35 et 45 ans</option>
-					<option value="6" <?php if ($age == 6) {echo "selected";} ?>>Entre 45 et 60 ans</option>
-					<option value="7" <?php if ($age == 7) {echo "selected";} ?>>Entre 60 et 80 ans</option>
-					<option value="8" <?php if ($age == 8) {echo "selected";} ?>>Plus de 80 ans</option>
-				</select>
-				<label for="ppp">Nombre d'images par page : </label>
-				<select name="ppp">
-					<option value="10" <?php if ($ppp == "10") {echo "selected";} ?>>10</option>
-					<option value="25" <?php if ($ppp == "25") {echo "selected";} ?>>25</option>
-					<option value="50" <?php if ($ppp == "50") {echo "selected";} ?>>50</option>
-					<option value="100" <?php if ($ppp == "100") {echo "selected";} ?>>100</option>
-				</select>
-				<label for="ppp">Ordre de tri des images : </label>
-				<select name="order">
-					<option value="desc" <?php if ($order == "DESC") {echo "selected";} ?>>Du plus recent au plus ancien</option>
-					<option value="asc" <?php if ($order == "ASC") {echo "selected";} ?>>Du plus ancien au plus recent</option>
-				</select>
-				<input type="submit" value="Filtrer les images">
+				<fieldset>
+					<legend>Filtrer les profils</legend>
+					<p>Un champs vide ou un 0 ne sera pas pris en compte dans la recherche</p>
+
+					<fieldset>
+						<legend>Par Age</legend>
+
+						<label for="ageMin">Minimum</label>
+						<input type="number" name="ageMin" id="ageMin" min="0" value="<?php echo $ageMin;?>"/>
+						<br />
+
+						<label for="ageMax">Maximum</label>
+						<input type="number" name="ageMax" id="ageMax" min="0" value="<?php echo $ageMax;?>"/>
+					</fieldset>
+
+					<fieldset>
+						<legend>Par score de popularite</legend>
+
+						<label for="popMin">Minimum</label>
+						<input type="number" name="popMin" id="popMin" min="0" value="<?php echo $popMin;?>"/>
+						<br />
+
+						<label for="popMax">Maximum</label>
+						<input type="number" name="popMax" id="popMax" value="<?php echo $popMax;?>" />
+					</fieldset>
+
+					<fieldset>
+						<legend>Par localisation</legend>
+
+						<label for="localisation">Autour de...</label>
+						<input type="text" name="localisation" id="localisation" value="<?php echo $localisation;?>"/>
+						<br />
+						
+						<label for="locMax">Distance maximum</label>
+						<input type="number" name="locMax" id="locMax" min="0" value="<?php echo $locMax;?>"/>
+					</fieldset>
+
+					<fieldset>
+						<legend>Par centre d'interets</legend>
+
+						<label for="tags">Listez les centres d'interet separes par une virgule</label>
+						<input type="text" name="tags" id="tags" value="<?php echo $tags;?>"/>
+					</fieldset>
+
+					<fieldset>
+						<legend>Par sexualite</legend>
+
+						<label for="sexe">Sexe : </label>
+						<input type="radio" name="sexe" value="male" <?php if ($sexe == "male") { echo "checked";}?>/>Homme - 
+						<input type="radio" name="sexe" value="female"<?php if ($sexe == "female") { echo "checked";}?>/>Femme - 
+						<input type="radio" name="sexe" value="both"<?php if ($sexe == "both") { echo "checked";}?>/>Les deux 
+					</fieldset>
+
+				</fieldset>
+
+				<fieldset>
+					<legend>Trier les profils</legend>
+				   	<label for="sortMethod">Quelle methode voulez vous utiliser ?</label>
+					<select name="sortMethod" id="sortMethod">
+						<option value="age" <?php if ($sortMethod == "age") { echo "selected";}?>>Par age</option>
+						<option value="popularity" <?php if ($sortMethod == "popularity") { echo "selected";}?>>Par score de popularite</option>
+						<option value="localisation" <?php if ($sortMethod == "localisation") { echo "selected";}?>>Par localisation</option>
+				        <option value="tags" <?php if ($sortMethod == "tags") { echo "selected";}?>>Par centre d'interets</option>
+			        </select>
+			        <br />
+
+				   	<label for="sortOrder">Dans quelle ordre ?</label>
+				   	<select name="sortOrder" id="sortOrder">
+						<option value="desc" <?php if ($sortOrder == "desc") { echo "selected";}?>>Ordre decroissant</option>
+						<option value="asc" <?php if ($sortOrder == "asc") { echo "selected";}?>>Ordre croissant</option>
+			        </select>
+				</fieldset>
+				<input type="submit" value="Lancer la recherche" />
 			</form>
 		</div>
-		<div id="page_selector">
-			<p>PAGE : <?php
-			for ($i = 0; $i <= $nbPages; $i++) {
-				$current = "";
-				if ($i == $page) {
-					$current = "class=\"currentPage\"";
-				}
-				echo "<a $current href=\"gallery.php?page=$i\">$i</a>";
-				if ($i < $nbPages) {
-					echo " - ";
-				}
-			}
-			?></p>
-		</div>
-		<div id="pics_page">
-		<?php
-		foreach($pics as $element) {
-			$pic = new UserPicture(0);
-			$pic->hydrate($element);
-			?>
-			<div class="picture">
-				<a href="picture.php?pic=<?php echo $pic->getId(); ?>"><img src="data/userpics/<?php echo $pic->getId();?>.jpeg" class="userpic" /></a>
-			</div>
-			<?php
-		}
-		?>
 	</body>
 </html>

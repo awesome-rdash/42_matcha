@@ -6,62 +6,150 @@ $pageTitle = "Recherche Matcha";
 $pageStylesheets = array ("main.css", "header.css", "index.css");
 
 $mm = new MemberManager($db);
-$picManager = new UserPictureManager($db);
+$tm = new TagManager($db);
 
-$age = 0;
-$ppp = 25;
-$order = "DESC";
-$startAt = 0;
-$page = 0;
+$ageMin = 0;
+$ageMax = 0;
+$popMin = 0;
+$popMax = 0;
+$localisation = 0;
+$tags = "";
+$locMax = 0;
+$sexe = "both";
+$sortMethod = "popularity";
+$sortOrder = "asc";
 
-if (isset($_SESSION['gallery_parameters']['order'])) {
-	$order = $_SESSION['gallery_parameters']['order'];
+if (isset($_SESSION['recherche_parameters']['sortOrder'])) {
+	$sortOrder = $_SESSION['recherche_parameters']['sortOrder'];
 }
 
-if (isset($_SESSION['gallery_parameters']['ppp'])) {
-	$ppp = $_SESSION['gallery_parameters']['ppp'];
+if (isset($_SESSION['recherche_parameters']['ageMin'])) {
+	$ageMin = $_SESSION['recherche_parameters']['ageMin'];
 }
 
-if (isset($_SESSION['gallery_parameters']['uid'])) {
-	$uid = $_SESSION['gallery_parameters']['uid'];
+if (isset($_SESSION['recherche_parameters']['ageMax'])) {
+	$ageMax = $_SESSION['recherche_parameters']['ageMax'];
 }
 
-if (isset($_POST["order"])) {
-	if ($_POST["order"] === "asc") {
-		$_SESSION['gallery_parameters']['order'] = "ASC";
-		$order = $_SESSION['gallery_parameters']['order'];
-	} else if ($_POST["order"] === "desc"){
-		$_SESSION['gallery_parameters']['order'] = "DESC";
-		$order = $_SESSION['gallery_parameters']['order'];
+if (isset($_SESSION['recherche_parameters']['popMin'])) {
+	$popMin = $_SESSION['recherche_parameters']['popMin'];
+}
+
+if (isset($_SESSION['recherche_parameters']['popMax'])) {
+	$popMax = $_SESSION['recherche_parameters']['popMax'];
+}
+
+if (isset($_SESSION['recherche_parameters']['locMax'])) {
+	$locMax = $_SESSION['recherche_parameters']['locMax'];
+}
+
+if (isset($_SESSION['recherche_parameters']['sexe'])) {
+	$sexe = $_SESSION['recherche_parameters']['sexe'];
+}
+
+if (isset($_SESSION['recherche_parameters']['sortMethod'])) {
+	$sortMethod = $_SESSION['recherche_parameters']['sortMethod'];
+}
+
+if (isset($_POST['ageMin'])) {
+	if ($_POST['ageMin'] > 0 && ($_POST['ageMin'] <= $_POST['ageMax'] || $_POST['ageMax'] == 0)) {
+		$ageMin = intval($_POST['ageMin']);
+		$_SESSION['recherche_parameters']['ageMin'] = $ageMin;
 	}
 }
 
-if (isset($_POST['ppp'])) {
-	if ($_POST['ppp'] == 10 || $_POST['ppp'] == 25 || $_POST['ppp'] == 50 || $_POST['ppp'] == 100) {
-		$_SESSION['gallery_parameters']['ppp'] = intval($_POST['ppp']);
-		$ppp = $_SESSION['gallery_parameters']['ppp'];
+if (isset($_POST['ageMax'])) {
+	if ($_POST['ageMax'] > 0 && ($_POST['ageMax'] >= $_POST['ageMax'] || $_POST['ageMin'] == 0)) {
+		$ageMax = intval($_POST['ageMax']);
+		$_SESSION['recherche_parameters']['ageMin'] = $ageMax;
 	}
 }
 
-if (isset($_POST['uid'])) {
-	if ($mm->ifExist("id", intval($_POST['uid']) || $_POST['uid'] == 0)) {
-		$_SESSION['gallery_parameters']['uid'] = intval($_POST['uid']);
-		$uid = $_SESSION['gallery_parameters']['uid'];
+if (isset($_POST['popMin'])) {
+	if ($_POST['popMin'] > 0 && ($_POST['popMin'] <= $_POST['popMax'] || $_POST['popMax'] == 0)) {
+		$popMin = intval($_POST['popMin']);
+		$_SESSION['recherche_parameters']['popMin'] = $popMin;
 	}
 }
 
-$count = $picManager->getEditedPicturesCount($uid, $ppp);
-$nbPages = intval($count[0] / $ppp);	
+if (isset($_POST['popMax'])) {
+	if ($_POST['popMax'] > 0 && ($_POST['popMax'] >= $_POST['popMax'] || $_POST['ageMin'] == 0)) {
+		$popMax = intval($_POST['popMax']);
+		$_SESSION['recherche_parameters']['popMax'] = $popMax;
+	}
+}
 
-if (isset($_GET['page'])) {
-	if (is_numeric($_GET['page'])) {
-		if ($_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
-			$startAt = intval($_GET['page']) * $ppp;
-			$page = $_GET['page'];
+if (isset($_POST['locMax'])) {
+	if ($_POST['locMax'] > 0) {
+		$locMax = intval($_POST['locMax']);
+		$_SESSION['recherche_parameters']['locMax'] = $locMax;
+	}
+}
+
+if (isset($_POST['tags'])) {
+	$tagsToCheck = explode(",", $_POST['tags']);
+	$tagsList = array();
+
+	foreach($tagsToCheck as $tagData) {
+		$tagData = trim($tagData);
+		if (!in_array($tagData, $tagsList) && $tm->ifExist($tagData)) {
+			$tags .= ($tags == "") ? $tagData : (", " . $tagData);
+			$tagsList[] = $tagData;
 		}
 	}
 }
 
-$pics = $picManager->getEditedPictures($uid, $ppp, $order, $startAt);
+if (isset($_POST['sexe'])) {
+	switch($_POST['sexe']) {
+		case "male":
+			$sexe = "male";
+			$_SESSION['recherche_parameters']['sexe'] = $sexe;
+			break;
 
-$usersList = $mm->getAllExistingUsers();
+		case "female":
+			$sexe = "female";
+			$_SESSION['recherche_parameters']['sexe'] = $sexe;
+			break;
+
+		case "both":
+			$sexe = "both";
+			$_SESSION['recherche_parameters']['sexe'] = $sexe;
+			break;
+		break;
+	}
+}
+
+if (isset($_POST['sortMethod'])) {
+	switch($_POST['sortMethod']) {
+		case "age":
+			$sortMethod = "age";
+			$_SESSION['recherche_parameters']['sortMethod'] = $sortMethod;
+			break;
+
+		case "popularity":
+			$sortMethod = "popularity";
+			$_SESSION['recherche_parameters']['sortMethod'] = $sortMethod;
+			break;
+
+		case "localisation":
+			$sortMethod = "localisation";
+			$_SESSION['recherche_parameters']['sortMethod'] = $sortMethod;
+			break;
+
+		case "tags":
+			$sortMethod = "tags";
+			$_SESSION['recherche_parameters']['sortMethod'] = $sortMethod;
+			break;
+		break;
+	}
+}
+
+if (isset($_POST["sortOrder"])) {
+	if ($_POST["sortOrder"] === "asc") {
+		$_SESSION['recherche_parameters']['sortOrder'] = "asc";
+		$sortOrder = $_SESSION['recherche_parameters']['sortOrder'];
+	} else if ($_POST["sortOrder"] === "desc"){
+		$_SESSION['recherche_parameters']['sortOrder'] = "desc";
+		$sortOrder = $_SESSION['recherche_parameters']['sortOrder'];
+	}
+}
