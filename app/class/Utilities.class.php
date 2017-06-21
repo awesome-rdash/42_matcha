@@ -19,4 +19,20 @@ Class Utilities {
 	static public function getAddress() {
 			return "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/";
 	}
+
+	static public function calculateAge($timestamp = 0, $now = 0) {
+	    if ($now == 0)
+	        $now = time();
+
+	    $yearDiff   = date("Y", $now) - date("Y", $timestamp);
+	    $monthDiff  = date("m", $now) - date("m", $timestamp);
+	    $dayDiff    = date("d", $now) - date("d", $timestamp);
+
+	    if ($monthDiff < 0)
+	        $yearDiff--;
+	    elseif (($monthDiff == 0) && ($dayDiff < 0))
+	        $yearDiff--;
+
+	    return intval($yearDiff);
+	}
 }

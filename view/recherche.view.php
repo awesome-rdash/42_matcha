@@ -67,6 +67,15 @@
 					<fieldset>
 						<legend>Par sexualite</legend>
 
+						<label for="sexuality">Attire par : </label>
+						<input type="radio" name="sexuality" value="male" <?php if ($sexuality == "male") { echo "checked";}?>/>Les hommes - 
+						<input type="radio" name="sexuality" value="female"<?php if ($sexuality == "female") { echo "checked";}?>/>Les femmes - 
+						<input type="radio" name="sexuality" value="both"<?php if ($sexuality == "both") { echo "checked";}?>/>Les deux 
+					</fieldset>
+
+					<fieldset>
+						<legend>Par sexe</legend>
+
 						<label for="sexe">Sexe : </label>
 						<input type="radio" name="sexe" value="male" <?php if ($sexe == "male") { echo "checked";}?>/>Homme - 
 						<input type="radio" name="sexe" value="female"<?php if ($sexe == "female") { echo "checked";}?>/>Femme - 
@@ -94,6 +103,11 @@
 				</fieldset>
 				<input type="submit" value="Lancer la recherche" />
 			</form>
+			<p>
+			<pre>
+			<?php echo print_r($users); ?>
+			</pre>
+			</p>
 		</div>
 	</body>
 </html>

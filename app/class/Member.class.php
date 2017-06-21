@@ -40,7 +40,7 @@ class Member {
 	public function getFeaturedPictures() { return $this->_featuredPictures; }
 	public function getLastLogin() { return $this->_lastLogin; }
 	public function getPopularity() { return $this->_popularity; }
-	public function getAge() { return $this->; }
+	public function getAge() { return Utilities::calculateAge($this->_birthdate); }
 
 	public function setId($id) {
 		if (!Utilities::isDigits($id) || $id < 0) {

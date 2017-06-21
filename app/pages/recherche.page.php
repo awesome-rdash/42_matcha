@@ -5,9 +5,6 @@ include_once("app/init.app.php");
 $pageTitle = "Recherche Matcha";
 $pageStylesheets = array ("main.css", "header.css", "index.css");
 
-$mm = new MemberManager($db);
-$tm = new TagManager($db);
-
 $ageMin = 0;
 $ageMax = 0;
 $popMin = 0;
@@ -16,67 +13,67 @@ $localisation = 0;
 $tags = "";
 $locMax = 0;
 $sexe = "both";
+$sexuality = "both";
 $sortMethod = "popularity";
 $sortOrder = "asc";
 
-if (isset($_SESSION['recherche_parameters']['sortOrder'])) {
+$mm = new MemberManager($db);
+$tm = new TagManager($db);
+
+if (isset($_SESSION['recherche_parameters']['sortOrder']))
 	$sortOrder = $_SESSION['recherche_parameters']['sortOrder'];
-}
 
-if (isset($_SESSION['recherche_parameters']['ageMin'])) {
+if (isset($_SESSION['recherche_parameters']['ageMin']))
 	$ageMin = $_SESSION['recherche_parameters']['ageMin'];
-}
 
-if (isset($_SESSION['recherche_parameters']['ageMax'])) {
+if (isset($_SESSION['recherche_parameters']['ageMax']))
 	$ageMax = $_SESSION['recherche_parameters']['ageMax'];
-}
 
-if (isset($_SESSION['recherche_parameters']['popMin'])) {
+if (isset($_SESSION['recherche_parameters']['popMin']))
 	$popMin = $_SESSION['recherche_parameters']['popMin'];
-}
 
-if (isset($_SESSION['recherche_parameters']['popMax'])) {
+if (isset($_SESSION['recherche_parameters']['popMax']))
 	$popMax = $_SESSION['recherche_parameters']['popMax'];
-}
 
-if (isset($_SESSION['recherche_parameters']['locMax'])) {
+if (isset($_SESSION['recherche_parameters']['locMax']))
 	$locMax = $_SESSION['recherche_parameters']['locMax'];
-}
 
-if (isset($_SESSION['recherche_parameters']['sexe'])) {
+if (isset($_SESSION['recherche_parameters']['sexuality']))
+	$sexe = $_SESSION['recherche_parameters']['sexuality'];
+
+if (isset($_SESSION['recherche_parameters']['sexe']))
 	$sexe = $_SESSION['recherche_parameters']['sexe'];
-}
 
 if (isset($_SESSION['recherche_parameters']['sortMethod'])) {
 	$sortMethod = $_SESSION['recherche_parameters']['sortMethod'];
 }
 
 if (isset($_POST['ageMin'])) {
-	if ($_POST['ageMin'] > 0 && ($_POST['ageMin'] <= $_POST['ageMax'] || $_POST['ageMax'] == 0)) {
+	if ($_POST['ageMin'] > 0 && ($_POST['ageMin'] <= $_POST['ageMax'] || $_POST['ageMax'] == 0))
 		$ageMin = intval($_POST['ageMin']);
-		$_SESSION['recherche_parameters']['ageMin'] = $ageMin;
-	}
+	else
+		$ageMin = 0;
+	$_SESSION['recherche_parameters']['ageMin'] = $ageMin;
 }
 
 if (isset($_POST['ageMax'])) {
-	if ($_POST['ageMax'] > 0 && ($_POST['ageMax'] >= $_POST['ageMax'] || $_POST['ageMin'] == 0)) {
+	if ($_POST['ageMax'] > 0 && ($_POST['ageMax'] >= $ageMin || $ageMin == 0))
 		$ageMax = intval($_POST['ageMax']);
-		$_SESSION['recherche_parameters']['ageMin'] = $ageMax;
-	}
+	$_SESSION['recherche_parameters']['ageMax'] = $ageMax;
 }
 
 if (isset($_POST['popMin'])) {
-	if ($_POST['popMin'] > 0 && ($_POST['popMin'] <= $_POST['popMax'] || $_POST['popMax'] == 0)) {
+	if ($_POST['popMin'] > 0 && ($_POST['popMin'] <= $_POST['popMax'] || $_POST['popMax'] == 0))
 		$popMin = intval($_POST['popMin']);
-		$_SESSION['recherche_parameters']['popMin'] = $popMin;
-	}
+	else
+		$popMin = 0;
+	$_SESSION['recherche_parameters']['popMin'] = $popMin;
 }
 
 if (isset($_POST['popMax'])) {
-	if ($_POST['popMax'] > 0 && ($_POST['popMax'] >= $_POST['popMax'] || $_POST['ageMin'] == 0)) {
+	if ($_POST['popMax'] > 0 && ($_POST['popMax'] >= $popMin || $popMin == 0))
 		$popMax = intval($_POST['popMax']);
-		$_SESSION['recherche_parameters']['popMax'] = $popMax;
-	}
+	$_SESSION['recherche_parameters']['popMax'] = $popMax;
 }
 
 if (isset($_POST['locMax'])) {
@@ -119,6 +116,26 @@ if (isset($_POST['sexe'])) {
 	}
 }
 
+if (isset($_POST['sexuality'])) {
+	switch($_POST['sexuality']) {
+		case "male":
+			$sexuality = "male";
+			$_SESSION['recherche_parameters']['sexuality'] = $sexuality;
+			break;
+
+		case "female":
+			$sexuality = "female";
+			$_SESSION['recherche_parameters']['sexuality'] = $sexuality;
+			break;
+
+		case "both":
+			$sexuality = "both";
+			$_SESSION['recherche_parameters']['sexuality'] = $sexuality;
+			break;
+		break;
+	}
+}
+
 if (isset($_POST['sortMethod'])) {
 	switch($_POST['sortMethod']) {
 		case "age":
@@ -156,20 +173,26 @@ if (isset($_POST["sortOrder"])) {
 
 // Fonction de recherche
 function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe, $sortMethod, $sortOrder) {
+	global $db;
+	$mm = new MemberManager($db);
+	$tm = new TagManager($db);
 	$totalUsers = $mm->getAllExistingUsers();
 
 	$finalListOfUsers = array();
 
 	foreach ($totalUsers as $user) {
-		echo "----------------------------------<br />";
-		echo "Utilisateur actuel : <pre>";
-		print_r($user);
-		echo "</pre> <br />";
+		$member = new Member(0);
+		$member->hydrate($user);
 
-		if
-			(
-				($ageMin == 0 || $user->getAge() > $ageMin)
-			)
+		if (
+			($ageMin == 0 || $member->getAge() >= $ageMin) &&
+			($ageMax == 0 || $member->getAge() <= $ageMax) &&
+			($popMin == 0 || $member->getPopularity() >= $popMin) &&
+			($popMax == 0 || $member->getPopularity() <= $popMax) &&
+			($sexe == 0 || $member->getSexe() == $sexe) &&
+			($sexuality == 0 || $member->getSexuality() == $sexuality)
+		) {
+			$finalListOfUsers[] = $member;
 		}
 	}
 
@@ -177,38 +200,3 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe,
 }
 
 $users = search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe, $sortMethod, $sortOrder);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
