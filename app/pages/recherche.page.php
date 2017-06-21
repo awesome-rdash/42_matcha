@@ -153,3 +153,62 @@ if (isset($_POST["sortOrder"])) {
 		$sortOrder = $_SESSION['recherche_parameters']['sortOrder'];
 	}
 }
+
+// Fonction de recherche
+function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe, $sortMethod, $sortOrder) {
+	$totalUsers = $mm->getAllExistingUsers();
+
+	$finalListOfUsers = array();
+
+	foreach ($totalUsers as $user) {
+		echo "----------------------------------<br />";
+		echo "Utilisateur actuel : <pre>";
+		print_r($user);
+		echo "</pre> <br />";
+
+		if
+			(
+				($ageMin == 0 || $user->getAge() > $ageMin)
+			)
+		}
+	}
+
+	return ($finalListOfUsers);
+}
+
+$users = search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe, $sortMethod, $sortOrder);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
