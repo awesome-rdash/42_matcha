@@ -32,7 +32,9 @@ function run_sql_file($location, $bdd, $dbname){
     $bdd->exec('USE ' . $dbname . ';');
     foreach($commands as $command){
         if(trim($command)){
-            $success += ($lastReqResult = $bdd->exec($command)===false ? 0 : 1);
+            $lastReqResult = ($bdd->exec($command)===false ? 0 : 1);
+            $success += $lastReqResult;
+            $total++;
             echo "\nPDO::errorInfo():\n<pre>";
             print_r($bdd->errorInfo());
             echo "</pre>";
