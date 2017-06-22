@@ -127,15 +127,15 @@ function sendMessage() {
 </div>
 
 <div id="messageBox">
-<?php
-if (empty($messageList)) {
-	echo "<p>Vous n'avez pas encore echange de message.</p>";
-} else {
-	echo "<div id=\"messageList\">";
-	foreach($messageList as $message) {
-		$symbol = ($message->getToUser() == $currentUser->getId()) ? "->" : "<-";
-		echo "<div class=\"msgInList\" id=\"msg" . $message->getId() . "\"><p>" . $symbol . " " . html_entity_decode($message->getContent()) . "</p></div>";
-	}
-}
-?>
+    <div id="messageList">
+        <?php
+        if (empty($messageList)) {
+        	echo "<p>Vous n'avez pas encore echange de message.</p>";
+        } else {    	foreach($messageList as $message) {
+        		$symbol = ($message->getToUser() == $currentUser->getId()) ? "->" : "<-";
+        		echo "<div class=\"msgInList\" id=\"msg" . $message->getId() . "\"><p>" . $symbol . " " . html_entity_decode($message->getContent()) . "</p>";
+        	}
+        }
+        ?>
+    </div>
 </div>
