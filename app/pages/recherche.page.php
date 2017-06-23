@@ -172,7 +172,7 @@ if (isset($_POST["sortOrder"])) {
 }
 
 // Fonction de recherche
-function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe, $sortMethod, $sortOrder) {
+function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe, $sexuality, $sortMethod, $sortOrder) {
 	global $db;
 	$mm = new MemberManager($db);
 	$tm = new TagManager($db);
@@ -199,4 +199,4 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe,
 	return ($finalListOfUsers);
 }
 
-$users = search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe, $sortMethod, $sortOrder);
+$users = search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe, $sexuality, $sortMethod, $sortOrder);
