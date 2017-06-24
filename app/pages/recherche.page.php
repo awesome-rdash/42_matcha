@@ -9,7 +9,7 @@ $ageMin = 0;
 $ageMax = 0;
 $popMin = 0;
 $popMax = 0;
-$localisation = 0;
+$localisation = "";
 $tags = "";
 $locMax = 0;
 $sexe = "both";
@@ -37,6 +37,9 @@ if (isset($_SESSION['recherche_parameters']['popMax']))
 
 if (isset($_SESSION['recherche_parameters']['locMax']))
 	$locMax = $_SESSION['recherche_parameters']['locMax'];
+
+if (isset($_SESSION['recherche_parameters']['localisation']))
+	$localisation = $_SESSION['recherche_parameters']['localisation'];
 
 if (isset($_SESSION['recherche_parameters']['sexuality']))
 	$sexe = $_SESSION['recherche_parameters']['sexuality'];
@@ -76,10 +79,16 @@ if (isset($_POST['popMax'])) {
 	$_SESSION['recherche_parameters']['popMax'] = $popMax;
 }
 
-if (isset($_POST['locMax'])) {
-	if ($_POST['locMax'] > 0) {
+if (isset($_POST['locMax']) && isset($_POST['localisation'])) {
+	if ($_POST['locMax'] >= 0) {
 		$locMax = intval($_POST['locMax']);
 		$_SESSION['recherche_parameters']['locMax'] = $locMax;
+	}
+
+	if ($gresult = Utilities::getLongLatFromString($_POST['localisation']) != false) {
+		$localisation = $_POST['localisation'];
+		$_SESSION['recherche_parameters']['localisation'] = $localisation;
+		$localisationLatLong = $gresult;
 	}
 }
 
@@ -171,7 +180,7 @@ if (isset($_POST["sortOrder"])) {
 	}
 }
 
-function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe, $sexuality, $sortMethod, $sortOrder) {
+function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisation, $tags, $sexe, $sexuality, $sortMethod, $sortOrder) {
 	global $db;
 	$mm = new MemberManager($db);
 	$tm = new TagManager($db);
@@ -188,7 +197,10 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe,
 			($popMin == 0 || $member->getPopularity() >= $popMin) &&
 			($popMax == 0 || $member->getPopularity() <= $popMax) &&
 			($sexe == 0 || $member->getSexe() == $sexe) &&
-			($sexuality == 0 || $member->getSexuality() == $sexuality)
+			($sexuality == 0 || $member->getSexuality() == $sexuality) &&
+			($locMax == 0 || (
+				Utilities::distanceBetweenTwoPoints($member->getLocationLat(), $member->getLocationLong(),
+					$localisation['lat'], $localisation['long'])) <= $locMax)
 		) {
 			$finalListOfUsers[] = $member;
 		}
@@ -215,4 +227,4 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe,
 	return ($finalListOfUsers);
 }
 
-$users = search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe, $sexuality, $sortMethod, $sortOrder);
+$users = search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisationLatLong, $tags, $sexe, $sexuality, $sortMethod, $sortOrder);

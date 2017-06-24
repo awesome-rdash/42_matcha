@@ -53,7 +53,7 @@
 						<input type="text" name="localisation" id="localisation" value="<?php echo $localisation;?>"/>
 						<br />
 						
-						<label for="locMax">Distance maximum</label>
+						<label for="locMax">Distance maximum (en KM)</label>
 						<input type="number" name="locMax" id="locMax" min="0" value="<?php echo $locMax;?>"/>
 					</fieldset>
 

@@ -60,4 +60,37 @@ Class Utilities {
 			return false;
 		}
 	}
+
+	static public function distanceBetweenTwoPoints($lat1, $lon1, $lat2, $lon2) {
+		$theta = $lon1 - $lon2;
+		$dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+		$dist = acos($dist);
+		$dist = rad2deg($dist);
+		$miles = $dist * 60 * 1.1515;
+		return ($miles * 1.609344);
+	}
+
+	static public function getLocationInString($lat, $long) {
+		if ($lat == 0 || $long == 0)
+			return false;
+
+		global $mapsAPI;
+
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $lat .
+		"," . $long .
+		"&key=" . $mapsAPI;
+
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		    CURLOPT_RETURNTRANSFER => 1,
+		    CURLOPT_URL => $url
+			));
+		$result = json_decode(curl_exec($curl), true);
+
+		if ($result["status"] == "OK") {
+			return $result['results'][0]["formatted_address"];
+		} else {
+			return false;
+		}
+	}
 }

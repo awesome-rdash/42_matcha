@@ -276,27 +276,7 @@ class Member {
 	}
 
 	public function getLocationInString() {
-		if ($this->_locLat == 0 || $this->_locLong == 0)
-			return false;
-
-		global $mapsAPI;
-
-		$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $this->_locLat .
-		"," . $this->_locLong .
-		"&key=" . $mapsAPI;
-
-		$curl = curl_init();
-		curl_setopt_array($curl, array(
-		    CURLOPT_RETURNTRANSFER => 1,
-		    CURLOPT_URL => $url
-			));
-		$result = json_decode(curl_exec($curl), true);
-
-		if ($result["status"] == "OK") {
-			return $result['results'][0]["formatted_address"];
-		} else {
-			return false;
-		}
+		return Utilities::getLocationInString($this->_locLat, $this->_locLong);
 	}
 
 	public function setLocationFromString($string) {
