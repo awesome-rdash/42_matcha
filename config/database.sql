@@ -1,20 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.0
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
--- Client :  localhost
--- Généré le :  Sam 17 Juin 2017 à 19:08
--- Version du serveur :  5.7.11
--- Version de PHP :  7.0.0
+-- Client :  localhost:8889
+-- Généré le :  Sam 24 Juin 2017 à 14:24
+-- Version du serveur :  5.6.35
+-- Version de PHP :  7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de données :  `matcha`
@@ -185,27 +179,6 @@ CREATE TABLE `messages` (
   `new` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `messages`
---
-
-INSERT INTO `messages` (`id`, `fromUser`, `toUser`, `content`, `time`, `new`) VALUES
-(1, 2, 1, 'test test test', 4561, 1),
-(2, 1, 2, 'user1 to user2', 5, 1),
-(3, 2, 1, 'test test', 1, 1),
-(4, 1, 5, 'test', 1497713606, 1),
-(5, 1, 5, 'test', 1497713608, 1),
-(6, 1, 5, 'test', 1497713608, 1),
-(7, 1, 5, 'test', 1497713608, 1),
-(8, 1, 5, 'test', 1497713608, 1),
-(9, 1, 5, 'test', 1497713609, 1),
-(10, 1, 5, 'test', 1497713615, 1),
-(11, 1, 5, 'test', 1497713616, 1),
-(12, 1, 5, 'test', 1497714061, 1),
-(13, 1, 5, 'fewqq', 1497714063, 1),
-(14, 1, 5, 'uhmcthmpcrthpmocrthmperhmpcthcrthpu,crthpu,crthputcrhpu,crthpu,crtyhp,crtyhpu,acrthpu,acryhipu', 1497719979, 1),
-(15, 1, 5, '&lt;script&gt;alert(&quot;test&quot;)&lt;/script&gt;', 1497722500, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -370,22 +343,23 @@ CREATE TABLE `users` (
   `sexual_orientation` enum('male','female','both') DEFAULT NULL,
   `profilePicture` int(11) DEFAULT NULL,
   `featuredPictures` text,
-  `lastLogin` int(11) NOT NULL,
-  `locationLat` float NOT NULL,
-  `LocationLong` float NOT NULL
+  `lastLogin` int(11) NOT NULL DEFAULT '0',
+  `locationLat` float DEFAULT NULL,
+  `locationLong` float DEFAULT NULL,
+  `popularity` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`, `lastLogin`, `locationLat`, `LocationLong`) VALUES
-(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, 'Prenom', 'test', NULL, b'00', 'ts', 1, 'female', 9, '13,13,6,7', 1497443641, 0, 0),
-(2, 'test', 'test@test.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 3, NULL, 'test', NULL, NULL, NULL, NULL, 1, NULL, 7, NULL, 0, 0, 0),
-(3, 'tameretest2', 'jrouzier@outlook.com', '8d9e2cc2d89dd1b980e302dc530aa2519ae31e6326ef82b25d25d9bf97054b253470a026b8f67ee3c20dc49a8fef73ceca3590f2fac6ff1e8f16d4af175130a9', 1491927428, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0),
-(4, 'tameretest', 'sebhug@free.fr', '02ec27b3db4131a31bc3446c7b6dfe8ea17a365de5ab0795107540eccb8ac6d5a78c6eaf590e3290bc9d14d533002436247c1826f560df6d069aef3efba67f3e', 1491927491, NULL, 'testhuguenot', 'test', NULL, b'01', '', 1, 'both', NULL, NULL, 0, 0, 0),
-(5, 'root', 'root@outlook.com', '2ae79f9bb91a6c53b1d17ecc533926203630d734006775004ae8086d7558d02b50d1afca5f270336d21a60bc11ffd1f5a14bbfbcf9d2d78d9fadb29fe87d00e2', 1492032388, NULL, 'root', 'root', NULL, NULL, NULL, 1, NULL, 16, '16,16,16,16', 0, 0, 0),
-(6, 'jrouzier', 'jrouzier@esport42.fr', '839f24ff0037376f636613cbf49f6e60320073bf29bfe0f0c842eedfa25b3ce37aa9edca128bbc0ca28d2930270234abc1c0776434055c95a297afa69713582f', 1494840771, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 1, NULL, NULL, NULL, 0, 0, 0);
+INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`, `lastLogin`, `locationLat`, `locationLong`, `popularity`) VALUES
+(1, 'admin2', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, 865036800, 'Prenom', 'test', NULL, b'00', 'ts', 1, 'female', 9, '13,13,6,7', 1498307090, 0, 0, 1),
+(2, 'test', 'test@test.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 3, NULL, 'test', NULL, NULL, NULL, NULL, 1, NULL, 7, NULL, 0, 0, 0, 1),
+(3, 'tameretest2', 'jrouzier@outlook.com', '8d9e2cc2d89dd1b980e302dc530aa2519ae31e6326ef82b25d25d9bf97054b253470a026b8f67ee3c20dc49a8fef73ceca3590f2fac6ff1e8f16d4af175130a9', 1491927428, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 5),
+(4, 'tameretest', 'sebhug@free.fr', '02ec27b3db4131a31bc3446c7b6dfe8ea17a365de5ab0795107540eccb8ac6d5a78c6eaf590e3290bc9d14d533002436247c1826f560df6d069aef3efba67f3e', 1491927491, NULL, 'testhuguenot', 'test', NULL, b'01', '', 1, 'both', NULL, NULL, 0, 2, 0, 20),
+(5, 'root', 'root@outlook.com', '2ae79f9bb91a6c53b1d17ecc533926203630d734006775004ae8086d7558d02b50d1afca5f270336d21a60bc11ffd1f5a14bbfbcf9d2d78d9fadb29fe87d00e2', 1492032388, NULL, 'root', 'root', NULL, NULL, NULL, 1, NULL, 16, '16,16,16,16', 0, 0, 0, 0),
+(6, 'jrouzier', 'jrouzier@esport42.fr', '839f24ff0037376f636613cbf49f6e60320073bf29bfe0f0c842eedfa25b3ce37aa9edca128bbc0ca28d2930270234abc1c0776434055c95a297afa69713582f', 1494840771, NULL, 'Rouzier', 'Justin', NULL, b'00', NULL, 1, NULL, NULL, NULL, 0, 0, 0, 10);
 
 -- --------------------------------------------------------
 
@@ -559,7 +533,7 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT pour la table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `notifications`
 --
@@ -595,6 +569,3 @@ ALTER TABLE `user_likes`
 --
 ALTER TABLE `user_visits`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

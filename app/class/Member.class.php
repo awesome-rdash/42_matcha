@@ -19,6 +19,8 @@ class Member {
 	protected $_profilePicture;
 	protected $_featuredPictures;
 	protected $_lastLogin;
+	protected $_locLong;
+	protected $_locLat;
 	protected $_popularity;
 
 	use commonMembers;
@@ -208,7 +210,7 @@ class Member {
 	}
 
 	public function setLastLogin($lastLogin) {
-		if (!Utilities::isDigits($lastLogin) || $lastLogin <= 0) {
+		if (!Utilities::isDigits($lastLogin) || $lastLogin < 0) {
 			return genError("member", "invalid", "lastlogin");
 		}
 		$this->_lastLogin = $lastLogin;
@@ -220,6 +222,16 @@ class Member {
 			return genError("member", "invalid", "lastlogin");
 		}
 		$this->_popularity = $popularity;
+		return true;
+	}
+
+	public function setLocationLong($locLong) {
+		$this->_locLong;
+		return true;
+	}
+
+	public function setLocationLat($locLat) {
+		$this->_locLat;
 		return true;
 	}
 

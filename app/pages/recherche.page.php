@@ -171,18 +171,21 @@ if (isset($_POST["sortOrder"])) {
 	}
 }
 
-// Fonction de recherche
 function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe, $sexuality, $sortMethod, $sortOrder) {
 	global $db;
 	$mm = new MemberManager($db);
 	$tm = new TagManager($db);
 	$totalUsers = $mm->getAllExistingUsers();
-
+	/*
+	echo "<pre>";
+	print_r($totalUsers);
+	echo "</pre>";
+*/
 	$finalListOfUsers = array();
 
 	foreach ($totalUsers as $user) {
 		$member = new Member(0);
-		$member->hydrate($user);
+		$result = $member->hydrate($user);
 
 		if (
 			($ageMin == 0 || $member->getAge() >= $ageMin) &&
@@ -194,6 +197,24 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe,
 		) {
 			$finalListOfUsers[] = $member;
 		}
+	}
+
+	if ($sortMethod == "age" && $sortOrder == "asc") {
+		usort($finalListOfUsers, function($a, $b) {
+		    return $a->getAge() <=> $b->getAge();
+		});
+	} else if ($sortMethod == "age" && $sortOrder == "desc"){
+		usort($finalListOfUsers, function($a, $b) {
+		    return $b->getAge() <=> $a->getAge();
+		});
+	} else if ($sortMethod == "popularity" && $sortOrder == "asc"){
+		usort($finalListOfUsers, function($a, $b) {
+		    return $a->getPopularity() <=> $b->getPopularity();
+		});
+	} else if ($sortMethod == "popularity" && $sortOrder == "desc"){
+		usort($finalListOfUsers, function($a, $b) {
+		    return $b->getPopularity() <=> $a->getPopularity();
+		});
 	}
 
 	return ($finalListOfUsers);

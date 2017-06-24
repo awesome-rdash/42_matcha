@@ -46,6 +46,7 @@ if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 			$currentUser = $return;
 			$currentUser->setLastLogin(time());
 			$manager->update($currentUser);
+			$currentUser->recheckPopularity($db);
 		}
 	} else {
 		$_SESSION['connected'] = false;
