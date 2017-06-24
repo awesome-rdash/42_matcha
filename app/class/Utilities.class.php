@@ -52,6 +52,7 @@ Class Utilities {
 			));
 
 		$result = json_decode(curl_exec($curl), true);
+
 		if ($result["status"] == "OK") {
 			$return["long"] = $result['results'][0]['geometry']['location']['lng'];
 			$return["lat"] = $result['results'][0]['geometry']['location']['lat'];
@@ -66,8 +67,8 @@ Class Utilities {
 		$dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
 		$dist = acos($dist);
 		$dist = rad2deg($dist);
-		$miles = $dist * 60 * 1.1515;
-		return ($miles * 1.609344);
+		$km = $dist * 60 * 1.1515 * 1.609344;
+		return ($km);
 	}
 
 	static public function getLocationInString($lat, $long) {

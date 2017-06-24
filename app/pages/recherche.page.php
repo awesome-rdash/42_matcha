@@ -16,6 +16,7 @@ $sexe = "both";
 $sexuality = "both";
 $sortMethod = "popularity";
 $sortOrder = "asc";
+$localisationLatLong = NULL;
 
 $mm = new MemberManager($db);
 $tm = new TagManager($db);
@@ -85,11 +86,13 @@ if (isset($_POST['locMax']) && isset($_POST['localisation'])) {
 		$_SESSION['recherche_parameters']['locMax'] = $locMax;
 	}
 
-	if ($gresult = Utilities::getLongLatFromString($_POST['localisation']) != false) {
-		$localisation = $_POST['localisation'];
-		$_SESSION['recherche_parameters']['localisation'] = $localisation;
+	if (($gresult = Utilities::getLongLatFromString($_POST['localisation'])) != false) {
+		$localisation = Utilities::getLocationInString($gresult['lat'], $gresult['long']);
 		$localisationLatLong = $gresult;
+	} else {
+		$localisation = "";
 	}
+	$_SESSION['recherche_parameters']['localisation'] = $localisation;
 }
 
 if (isset($_POST['tags'])) {
@@ -180,7 +183,7 @@ if (isset($_POST["sortOrder"])) {
 	}
 }
 
-function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisation, $tags, $sexe, $sexuality, $sortMethod, $sortOrder) {
+function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisationLatLong, $tags, $sexe, $sexuality, $sortMethod, $sortOrder) {
 	global $db;
 	$mm = new MemberManager($db);
 	$tm = new TagManager($db);
@@ -198,9 +201,9 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisation
 			($popMax == 0 || $member->getPopularity() <= $popMax) &&
 			($sexe == 0 || $member->getSexe() == $sexe) &&
 			($sexuality == 0 || $member->getSexuality() == $sexuality) &&
-			($locMax == 0 || (
-				Utilities::distanceBetweenTwoPoints($member->getLocationLat(), $member->getLocationLong(),
-					$localisation['lat'], $localisation['long'])) <= $locMax)
+			($locMax == 0 || $localisationLatLong == NULL ||
+				(Utilities::distanceBetweenTwoPoints($member->getLocationLat(), $member->getLocationLong(),
+					$localisationLatLong['lat'], $localisationLatLong['long'])) <= $locMax)
 		) {
 			$finalListOfUsers[] = $member;
 		}
@@ -221,6 +224,14 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisation
 	} else if ($sortMethod == "popularity" && $sortOrder == "desc"){
 		usort($finalListOfUsers, function($a, $b) {
 		    return $b->getPopularity() <=> $a->getPopularity();
+		});
+	} else if ($sortMethod == "localisation" && $sortOrder == "asc") {
+		usort($finalListOfUsers, function($a, $b) {
+		    return distanceBetweenTwoPoints($a->getLocationLat(), $a->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']) <=> distanceBetweenTwoPoints($b->getLocationLat(), $b->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']);
+		});
+	} else if ($sortMethod == "localisation" && $sortOrder == "desc") {
+		usort($finalListOfUsers, function($a, $b) {
+		    return distanceBetweenTwoPoints($b->getLocationLat(), $b->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']) <=> distanceBetweenTwoPoints($a->getLocationLat(), $a->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']);
 		});
 	}
 
