@@ -11,6 +11,8 @@ if (isset($_POST['data']) && !empty($_POST['data'])) {
 if ($error === false) {
 	if ($data['pageId'] == 'password') {
 		$return = $currentUser->setPassword($data['password'], true);
+	} else if ($data['pageId'] == "location") {
+		$return = $currentUser->setLocationFromString($data['location']);
 	} else {
 		$return = $currentUser->hydrate($data);
 	}
@@ -28,6 +30,8 @@ if ($error === false) {
 			$json_output[$key] = $currentUser->getSexeInString();
 		} else if ($key == "sexual_orientation") {
 			$json_output[$key] = $currentUser->getOrientationInString();
+		} else if ($key == "location") {
+			$json_output[$key] = $currentUser->getLocationInString();
 		} else {
 			$method = "get" . ucfirst($key);
 			if (method_exists($currentUser, $method) && isset($value)) {

@@ -176,11 +176,6 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $tags, $sexe,
 	$mm = new MemberManager($db);
 	$tm = new TagManager($db);
 	$totalUsers = $mm->getAllExistingUsers();
-	/*
-	echo "<pre>";
-	print_r($totalUsers);
-	echo "</pre>";
-*/
 	$finalListOfUsers = array();
 
 	foreach ($totalUsers as $user) {

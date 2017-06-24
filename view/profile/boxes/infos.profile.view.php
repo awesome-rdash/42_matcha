@@ -49,6 +49,11 @@ for($i = 0; $i < 4; $i++) {
 	}
 }
 
+
+$locationInfo = "Adresse : <span id=\"location_field\">" . (($loc = $currentProfile->getLocationInString()) ? $loc : "Pas d'adresse") . "</span>";
+
+$locationEdit = "<input type=\"text\" id=\"editLocation\" value=\"" . (($loc = $currentProfile->getLocationInString()) ? $loc : "") . "\"/>";
+
 $tagsInfo .= '</div>';
 
 	if ($ownProfile) {
@@ -80,6 +85,8 @@ $tagsInfo .= '</div>';
 		showEditableInfo("sexe", $sexeInfo, $sexeEdit);
 		echo "<br />";
 		showEditableInfo("orientation", $orientationInfo , $orientationEdit);
+		echo "<br />";
+		showEditableInfo("location", $locationInfo , $locationEdit);
 		echo "<br />";
 		showEditableInfo("bio", $bioInfo , $bioEdit);
 		echo "<br />";
@@ -114,11 +121,10 @@ $tagsInfo .= '</div>';
 		$visitedUsers = $profileVisitsManager->getListOfUserVisits($currentProfile->getId());
 		$total_count = count($visitedUsers);
 		echo " ";
-		if ($total_count == 0) {
+		if ($total_count == 0)
 			echo "Votre profil n'a pas encore été visité.";
-		} else {
+		else
 			echo "Votre profil a été récemment visité par $total_count utilisateurs : ";
-		}
 		$count = 0;
 		$memberManager = new MemberManager($db);
 		foreach($visitedUsers as $visit) {
@@ -136,6 +142,8 @@ $tagsInfo .= '</div>';
 		echo $sexeInfo;
 		echo "<br />";
 		echo $orientationInfo;
+		echo "<br />";
+		echo $locationInfo;
 		echo "<br />";
 		echo $bioInfo;
 		echo "<br />";

@@ -28,6 +28,8 @@ try {
 
 date_default_timezone_set('Europe/Paris');
 
+$mapsAPI = "AIzaSyDL228EdYTuQ0mvE9V5LwrQwWj4D9rzIG4";
+
 spl_autoload_register(function($class) {
     require_once 'app/class/'. $class .'.class.php';
 });

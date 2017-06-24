@@ -46,6 +46,15 @@ function updateBio() {
     updateData(data);
 }
 
+function updateLocation() {
+    var data = {};
+
+    data["location"] = document.getElementById("editLocation").value;
+    data["pageId"] = "location";
+    data["type"] = "static";
+    updateData(data);
+}
+
 function updateSexe() {
     var data = {};
 

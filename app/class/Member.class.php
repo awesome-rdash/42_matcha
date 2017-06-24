@@ -42,6 +42,8 @@ class Member {
 	public function getFeaturedPictures() { return $this->_featuredPictures; }
 	public function getLastLogin() { return $this->_lastLogin; }
 	public function getPopularity() { return $this->_popularity; }
+	public function getLocationLong() { return $this->_locLong; }
+	public function getLocationLat() { return $this->_locLat; }
 	public function getAge() { return Utilities::calculateAge($this->_birthdate); }
 
 	public function setId($id) {
@@ -98,7 +100,7 @@ class Member {
 	}
 
 	public function setRegister_time($register_time) {
-		if (!Utilities::isDigits($register_time) || $register_time <= 0) {
+		if (!Utilities::isDigits($register_time) || $register_time < 0) {
 			return genError("member", "invalid", "register_time");
 		}
 		$this->_register_time = $register_time;
@@ -218,7 +220,7 @@ class Member {
 	}
 
 	public function setPopularity($popularity) {
-		if (!Utilities::isDigits($popularity) || $popularity <= 0) {
+		if (!Utilities::isDigits($popularity) || $popularity < 0) {
 			return genError("member", "invalid", "lastlogin");
 		}
 		$this->_popularity = $popularity;
@@ -226,12 +228,12 @@ class Member {
 	}
 
 	public function setLocationLong($locLong) {
-		$this->_locLong;
+		$this->_locLong = $locLong;
 		return true;
 	}
 
 	public function setLocationLat($locLat) {
-		$this->_locLat;
+		$this->_locLat = $locLat;
 		return true;
 	}
 
@@ -270,6 +272,41 @@ class Member {
 			return "Femmes et hommes";
 		} else {
 			return "Non renseigné";
+		}
+	}
+
+	public function getLocationInString() {
+		if ($this->_locLat == 0 || $this->_locLong == 0)
+			return false;
+
+		global $mapsAPI;
+
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $this->_locLat .
+		"," . $this->_locLong .
+		"&key=" . $mapsAPI;
+
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		    CURLOPT_RETURNTRANSFER => 1,
+		    CURLOPT_URL => $url
+			));
+		$result = json_decode(curl_exec($curl), true);
+
+		if ($result["status"] == "OK") {
+			return $result['results'][0]["formatted_address"];
+		} else {
+			return false;
+		}
+	}
+
+	public function setLocationFromString($string) {
+		$result = Utilities::getLongLatFromString($string);
+		if ($result != false) {
+			$this->_locLong = $result["long"];
+			$this->_locLat = $result["lat"];
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

@@ -35,4 +35,29 @@ Class Utilities {
 
 	    return intval($yearDiff);
 	}
+
+	static public function getLongLatFromString($string) {
+		if (empty($string))
+			return false;
+
+		global $mapsAPI;
+
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($string) .
+		"&key=" . $mapsAPI;
+
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		    CURLOPT_RETURNTRANSFER => 1,
+		    CURLOPT_URL => $url
+			));
+
+		$result = json_decode(curl_exec($curl), true);
+		if ($result["status"] == "OK") {
+			$return["long"] = $result['results'][0]['geometry']['location']['lng'];
+			$return["lat"] = $result['results'][0]['geometry']['location']['lat'];
+			return $return;
+		} else {
+			return false;
+		}
+	}
 }
