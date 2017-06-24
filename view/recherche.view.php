@@ -104,9 +104,12 @@
 				<input type="submit" value="Lancer la recherche" />
 			</form>
 			<p>
-			<pre>
-			<?php echo print_r($users); ?>
-			</pre>
+				Liste des utilisateurs pour vos parametres :
+				<?php
+				foreach($users as $user) {
+					echo "<a href=\"" . Utilities::getAddress() . "profile.php?member=" . $user->getId() . "\">". $user->getFirstname() . " " . $user->getLastname() . "</a><br />";
+				}
+				?>
 			</p>
 		</div>
 	</body>

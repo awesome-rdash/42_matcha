@@ -18,6 +18,10 @@ $sortMethod = "popularity";
 $sortOrder = "asc";
 $localisationLatLong = NULL;
 
+echo "<pre>";
+print_r($_POST);
+echo "</pre>";
+
 $mm = new MemberManager($db);
 $tm = new TagManager($db);
 
@@ -63,6 +67,8 @@ if (isset($_POST['ageMin'])) {
 if (isset($_POST['ageMax'])) {
 	if ($_POST['ageMax'] > 0 && ($_POST['ageMax'] >= $ageMin || $ageMin == 0))
 		$ageMax = intval($_POST['ageMax']);
+	else
+		$ageMax = 0;
 	$_SESSION['recherche_parameters']['ageMax'] = $ageMax;
 }
 
@@ -77,6 +83,8 @@ if (isset($_POST['popMin'])) {
 if (isset($_POST['popMax'])) {
 	if ($_POST['popMax'] > 0 && ($_POST['popMax'] >= $popMin || $popMin == 0))
 		$popMax = intval($_POST['popMax']);
+	else
+		$popMax = 0;
 	$_SESSION['recherche_parameters']['popMax'] = $popMax;
 }
 
@@ -199,8 +207,8 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisation
 			($ageMax == 0 || $member->getAge() <= $ageMax) &&
 			($popMin == 0 || $member->getPopularity() >= $popMin) &&
 			($popMax == 0 || $member->getPopularity() <= $popMax) &&
-			($sexe == 0 || $member->getSexe() == $sexe) &&
-			($sexuality == 0 || $member->getSexuality() == $sexuality) &&
+			($sexe == 0 || $member->getSexe() === $sexe) &&
+			($sexuality == 0 || $member->getSexuality() === $sexuality) &&
 			($locMax == 0 || $localisationLatLong == NULL ||
 				(Utilities::distanceBetweenTwoPoints($member->getLocationLat(), $member->getLocationLong(),
 					$localisationLatLong['lat'], $localisationLatLong['long'])) <= $locMax)
@@ -225,13 +233,15 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisation
 		usort($finalListOfUsers, function($a, $b) {
 		    return $b->getPopularity() <=> $a->getPopularity();
 		});
-	} else if ($sortMethod == "localisation" && $sortOrder == "asc") {
+	} else if ($sortMethod == "localisation" && $sortOrder == "desc" && !empty($localisationLatLong)) {
 		usort($finalListOfUsers, function($a, $b) {
-		    return distanceBetweenTwoPoints($a->getLocationLat(), $a->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']) <=> distanceBetweenTwoPoints($b->getLocationLat(), $b->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']);
+			global $localisationLatLong;
+		    return Utilities::distanceBetweenTwoPoints($a->getLocationLat(), $a->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']) <=> Utilities::distanceBetweenTwoPoints($b->getLocationLat(), $b->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']);
 		});
-	} else if ($sortMethod == "localisation" && $sortOrder == "desc") {
+	} else if ($sortMethod == "localisation" && $sortOrder == "asc" && !empty($localisationLatLong)) {
 		usort($finalListOfUsers, function($a, $b) {
-		    return distanceBetweenTwoPoints($b->getLocationLat(), $b->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']) <=> distanceBetweenTwoPoints($a->getLocationLat(), $a->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']);
+			global $localisationLatLong;
+		    return Utilities::distanceBetweenTwoPoints($b->getLocationLat(), $b->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']) <=> Utilities::distanceBetweenTwoPoints($a->getLocationLat(), $a->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']);
 		});
 	}
 
