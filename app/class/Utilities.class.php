@@ -151,10 +151,11 @@ Class Utilities {
 		return $nbOfTags;
 }
 
-	static public function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisationLatLong, $tags, $sexe, $sexuality, $sortMethod, $sortOrder) {
+	static public function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisationLatLong, $tags, $sexe, $sexuality, $sortMethod, $sortOrder, $currentUserId) {
 		global $db;
 		$mm = new MemberManager($db);
 		$tm = new TagManager($db);
+		$ub = new UserBlockManager($db);
 		$totalUsers = $mm->getAllExistingUsers();
 		$finalListOfUsers = array();
 
@@ -172,7 +173,8 @@ Class Utilities {
 				($locMax == 0 || $localisationLatLong == NULL ||
 					(Utilities::distanceBetweenTwoPoints($member->getLocationLat(), $member->getLocationLong(),
 						$localisationLatLong['lat'], $localisationLatLong['long'])) <= $locMax) &&
-				(empty($tags) || Utilities::ifUsersHaveTags($member->getId(), $tags) > 0)
+				(empty($tags) || Utilities::ifUsersHaveTags($member->getId(), $tags) > 0) &&
+				(!($ub->ifProfileIsAlreadyBlockedByUser($member->getId(), $currentUserId)))
 			) {
 				$finalListOfUsers[] = $member;
 			}

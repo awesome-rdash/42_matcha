@@ -157,4 +157,4 @@ if (isset($_POST["sortOrder"])) {
 	}
 }
 
-$users = Utilities::search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisationLatLong, $tagsList, $sexe, $sexuality, $sortMethod, $sortOrder);
+$users = Utilities::search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisationLatLong, $tagsList, $sexe, $sexuality, $sortMethod, $sortOrder, $currentUser->getId());
