@@ -116,12 +116,12 @@ if (isset($_POST['tags'])) {
 if (isset($_POST['sexe'])) {
 	switch($_POST['sexe']) {
 		case "male":
-			$sexe = "male";
+			$sexe = 0;
 			$_SESSION['recherche_parameters']['sexe'] = $sexe;
 			break;
 
 		case "female":
-			$sexe = "female";
+			$sexe = 1;
 			$_SESSION['recherche_parameters']['sexe'] = $sexe;
 			break;
 
@@ -218,8 +218,8 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisation
 			($ageMax == 0 || $member->getAge() <= $ageMax) &&
 			($popMin == 0 || $member->getPopularity() >= $popMin) &&
 			($popMax == 0 || $member->getPopularity() <= $popMax) &&
-			($sexe == 0 || $member->getSexe() === $sexe) &&
-			($sexuality == 0 || $member->getSexuality() === $sexuality) &&
+			($sexe === "both" || $member->getSexe() === $sexe) &&
+			($sexuality === "both" || $member->getSexual_orientation() == $sexuality) &&
 			($locMax == 0 || $localisationLatLong == NULL ||
 				(Utilities::distanceBetweenTwoPoints($member->getLocationLat(), $member->getLocationLong(),
 					$localisationLatLong['lat'], $localisationLatLong['long'])) <= $locMax) &&

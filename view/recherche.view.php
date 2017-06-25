@@ -75,11 +75,11 @@
 
 					<fieldset>
 						<legend>Par sexe</legend>
-
+						<?php echo "sexe $sexe"; ?>
 						<label for="sexe">Sexe : </label>
-						<input type="radio" name="sexe" value="male" <?php if ($sexe == "male") { echo "checked";}?>/>Homme - 
-						<input type="radio" name="sexe" value="female"<?php if ($sexe == "female") { echo "checked";}?>/>Femme - 
-						<input type="radio" name="sexe" value="both"<?php if ($sexe == "both") { echo "checked";}?>/>Les deux 
+						<input type="radio" name="sexe" value="male" <?php if ($sexe == 0) { echo "checked";}?>/>Homme - 
+						<input type="radio" name="sexe" value="female"<?php if ($sexe == 1) { echo "checked";}?>/>Femme - 
+						<input type="radio" name="sexe" value="both"<?php if ($sexe === "both") { echo "checked";}?>/>Les deux 
 					</fieldset>
 
 				</fieldset>
