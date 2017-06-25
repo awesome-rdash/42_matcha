@@ -91,6 +91,15 @@ class TagManager {
 		return ($result);
 	}
 
+	public function getTagContentFromId($id) {
+		$statement = ('SELECT content FROM tags WHERE id = :id');
+		$q = $this->_db->prepare($statement);
+		$q->bindValue(':id', $id, PDO::PARAM_INT);
+		$q->execute();
+		$donnees = $q->fetch();
+		return $donnees['content'];
+	}
+
 	public function getAllTagsFromMemberId($id) {
 		$q = $this->_db->prepare('SELECT * FROM tags_users WHERE id_user = :id_user');
 		$q->bindValue(':id_user', $id, PDO::PARAM_INT);

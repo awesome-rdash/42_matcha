@@ -11,16 +11,13 @@ $popMin = 0;
 $popMax = 0;
 $localisation = "";
 $tags = "";
+$tagsList = "";
 $locMax = 0;
 $sexe = "both";
 $sexuality = "both";
 $sortMethod = "popularity";
 $sortOrder = "asc";
 $localisationLatLong = NULL;
-
-echo "<pre>";
-print_r($_POST);
-echo "</pre>";
 
 $mm = new MemberManager($db);
 $tm = new TagManager($db);
@@ -191,6 +188,20 @@ if (isset($_POST["sortOrder"])) {
 	}
 }
 
+function ifUsersHaveTags($userId, $tagsList) {
+	global $db;
+	$tm = new TagManager($db);
+	$tagsFromUser = $tm->getAllTagsFromMemberId($userId, "content_array");
+
+	$nbOfTags = 0;
+	foreach($tagsFromUser as $tag) {
+		$tagContent = $tm->getTagContentFromId($tag->getId());
+		if (in_array($tagContent, $tagsList))
+			$nbOfTags++;
+	}
+	return $nbOfTags;
+}
+
 function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisationLatLong, $tags, $sexe, $sexuality, $sortMethod, $sortOrder) {
 	global $db;
 	$mm = new MemberManager($db);
@@ -211,7 +222,8 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisation
 			($sexuality == 0 || $member->getSexuality() === $sexuality) &&
 			($locMax == 0 || $localisationLatLong == NULL ||
 				(Utilities::distanceBetweenTwoPoints($member->getLocationLat(), $member->getLocationLong(),
-					$localisationLatLong['lat'], $localisationLatLong['long'])) <= $locMax)
+					$localisationLatLong['lat'], $localisationLatLong['long'])) <= $locMax) &&
+			(empty($tags) || ifUsersHaveTags($member->getId(), $tags) > 0)
 		) {
 			$finalListOfUsers[] = $member;
 		}
@@ -233,6 +245,14 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisation
 		usort($finalListOfUsers, function($a, $b) {
 		    return $b->getPopularity() <=> $a->getPopularity();
 		});
+	} else if ($sortMethod == "tags" && $sortOrder == "asc" && !empty($tagsList)){
+		usort($finalListOfUsers, function($a, $b) {
+		    return ifUsersHaveTags($a->getId(), $tagsList) <=> ifUsersHaveTags($b->getId(), $tagsList);
+		});
+	} else if ($sortMethod == "tags" && $sortOrder == "desc" && !empty($tagsList)){
+		usort($finalListOfUsers, function($a, $b) {
+		    return ifUsersHaveTags($b->getId(), $tagsList) <=> ifUsersHaveTags($a->getId(), $tagsList);
+		});
 	} else if ($sortMethod == "localisation" && $sortOrder == "desc" && !empty($localisationLatLong)) {
 		usort($finalListOfUsers, function($a, $b) {
 			global $localisationLatLong;
@@ -248,4 +268,4 @@ function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisation
 	return ($finalListOfUsers);
 }
 
-$users = search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisationLatLong, $tags, $sexe, $sexuality, $sortMethod, $sortOrder);
+$users = search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisationLatLong, $tagsList, $sexe, $sexuality, $sortMethod, $sortOrder);

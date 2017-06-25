@@ -106,7 +106,7 @@
 			<p>
 				Liste des utilisateurs pour vos parametres :
 				<?php
-				foreach($users as $user) {
+					foreach($users as $user) {
 					echo "<a href=\"" . Utilities::getAddress() . "profile.php?member=" . $user->getId() . "\">". $user->getFirstname() . " " . $user->getLastname() . "</a><br />";
 				}
 				?>

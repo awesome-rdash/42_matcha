@@ -94,4 +94,46 @@ Class Utilities {
 			return false;
 		}
 	}
+
+	static public function get_client_ip_server() {
+	    $ipaddress = '';
+	    if (getenv('HTTP_CLIENT_IP'))
+	        $ipaddress = getenv('HTTP_CLIENT_IP');
+	    else if(getenv('HTTP_X_FORWARDED_FOR'))
+	        $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+	    else if(getenv('HTTP_X_FORWARDED'))
+	        $ipaddress = getenv('HTTP_X_FORWARDED');
+	    else if(getenv('HTTP_FORWARDED_FOR'))
+	        $ipaddress = getenv('HTTP_FORWARDED_FOR');
+	    else if(getenv('HTTP_FORWARDED'))
+	        $ipaddress = getenv('HTTP_FORWARDED');
+	    else if(getenv('REMOTE_ADDR'))
+	        $ipaddress = getenv('REMOTE_ADDR');
+	    else
+	        $ipaddress = 'UNKNOWN';
+	 
+	    return $ipaddress;
+	}
+
+	static public function getLocationByIp($ip) {
+		global $mapsAPI;
+
+		$url = "freegeoip.net/json/" . $ip;
+
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		    CURLOPT_RETURNTRANSFER => 1,
+		    CURLOPT_URL => $url
+			));
+
+		$result = json_decode(curl_exec($curl), true);
+
+		if (isset($result["ip"])) {
+			$return["long"] = $result['longitude'];
+			$return["lat"] = $result['latitude'];
+			return $return;
+		} else {
+			return false;
+		}
+	}
 }

@@ -289,4 +289,15 @@ class Member {
 			return false;
 		}
 	}
+
+	public function checkLocation() {
+		if ($this->_locLat != 0 && $this->_locLong != 0)
+			return true;
+
+		$result = Utilities::getLocationByIp(Utilities::get_client_ip_server());
+		if ($result) {
+			$this->_locLong = $result["long"];
+			$this->_locLat = $result["lat"];
+		}
+	}
 }
