@@ -45,6 +45,7 @@ if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
 			header("Location: index.php");
 			$_SESSION['connected'] = false;
 		} else {
+			$_SESSION['connected'] = true;
 			$currentUser = $return;
 			$currentUser->setLastLogin(time());
 			$manager->update($currentUser);

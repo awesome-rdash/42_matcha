@@ -136,4 +136,84 @@ Class Utilities {
 			return false;
 		}
 	}
+
+	static public function ifUsersHaveTags($userId, $tagsList) {
+		global $db;
+		$tm = new TagManager($db);
+		$tagsFromUser = $tm->getAllTagsFromMemberId($userId, "content_array");
+
+		$nbOfTags = 0;
+		foreach($tagsFromUser as $tag) {
+			$tagContent = $tm->getTagContentFromId($tag->getId());
+			if (in_array($tagContent, $tagsList))
+				$nbOfTags++;
+		}
+		return $nbOfTags;
+}
+
+	static public function search_users($ageMin, $ageMax, $popMin, $popMax, $locMax, $localisationLatLong, $tags, $sexe, $sexuality, $sortMethod, $sortOrder) {
+		global $db;
+		$mm = new MemberManager($db);
+		$tm = new TagManager($db);
+		$totalUsers = $mm->getAllExistingUsers();
+		$finalListOfUsers = array();
+
+		foreach ($totalUsers as $user) {
+			$member = new Member(0);
+			$result = $member->hydrate($user);
+
+			if (
+				($ageMin == 0 || $member->getAge() >= $ageMin) &&
+				($ageMax == 0 || $member->getAge() <= $ageMax) &&
+				($popMin == 0 || $member->getPopularity() >= $popMin) &&
+				($popMax == 0 || $member->getPopularity() <= $popMax) &&
+				($sexe === "both" || $member->getSexe() === $sexe) &&
+				($sexuality === "both" || $member->getSexual_orientation() == "both" || $member->getSexual_orientation() == $sexuality) &&
+				($locMax == 0 || $localisationLatLong == NULL ||
+					(Utilities::distanceBetweenTwoPoints($member->getLocationLat(), $member->getLocationLong(),
+						$localisationLatLong['lat'], $localisationLatLong['long'])) <= $locMax) &&
+				(empty($tags) || Utilities::ifUsersHaveTags($member->getId(), $tags) > 0)
+			) {
+				$finalListOfUsers[] = $member;
+			}
+		}
+
+		if ($sortMethod == "age" && $sortOrder == "asc") {
+			usort($finalListOfUsers, function($a, $b) {
+			    return $a->getAge() <=> $b->getAge();
+			});
+		} else if ($sortMethod == "age" && $sortOrder == "desc"){
+			usort($finalListOfUsers, function($a, $b) {
+			    return $b->getAge() <=> $a->getAge();
+			});
+		} else if ($sortMethod == "popularity" && $sortOrder == "asc"){
+			usort($finalListOfUsers, function($a, $b) {
+			    return $a->getPopularity() <=> $b->getPopularity();
+			});
+		} else if ($sortMethod == "popularity" && $sortOrder == "desc"){
+			usort($finalListOfUsers, function($a, $b) {
+			    return $b->getPopularity() <=> $a->getPopularity();
+			});
+		} else if ($sortMethod == "tags" && $sortOrder == "asc" && !empty($tagsList)){
+			usort($finalListOfUsers, function($a, $b) {
+			    return ifUsersHaveTags($a->getId(), $tagsList) <=> ifUsersHaveTags($b->getId(), $tagsList);
+			});
+		} else if ($sortMethod == "tags" && $sortOrder == "desc" && !empty($tagsList)){
+			usort($finalListOfUsers, function($a, $b) {
+			    return ifUsersHaveTags($b->getId(), $tagsList) <=> ifUsersHaveTags($a->getId(), $tagsList);
+			});
+		} else if ($sortMethod == "localisation" && $sortOrder == "desc" && !empty($localisationLatLong)) {
+			usort($finalListOfUsers, function($a, $b) {
+				global $localisationLatLong;
+			    return Utilities::distanceBetweenTwoPoints($a->getLocationLat(), $a->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']) <=> Utilities::distanceBetweenTwoPoints($b->getLocationLat(), $b->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']);
+			});
+		} else if ($sortMethod == "localisation" && $sortOrder == "asc" && !empty($localisationLatLong)) {
+			usort($finalListOfUsers, function($a, $b) {
+				global $localisationLatLong;
+			    return Utilities::distanceBetweenTwoPoints($b->getLocationLat(), $b->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']) <=> Utilities::distanceBetweenTwoPoints($a->getLocationLat(), $a->getLocationLong(), $localisationLatLong['lat'], $localisationLatLong['long']);
+			});
+		}
+
+		return ($finalListOfUsers);
+	}
 }
