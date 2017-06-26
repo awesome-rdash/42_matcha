@@ -1,45 +1,12 @@
--- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
---
--- Client :  localhost:8889
--- Généré le :  Sam 24 Juin 2017 à 14:24
--- Version du serveur :  5.6.35
--- Version de PHP :  7.1.1
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
---
--- Base de données :  `matcha`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `blocked_users`
---
 
 CREATE TABLE `blocked_users` (
   `id` int(11) NOT NULL,
   `fromUser` int(11) NOT NULL,
   `toUserBlocked` int(11) NOT NULL,
   `time` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `blocked_users`
---
-
-INSERT INTO `blocked_users` (`id`, `fromUser`, `toUserBlocked`, `time`) VALUES
-(1, 1, 2, 1496844364),
-(2, 1, 3, 1497257933);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `comments`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
@@ -49,12 +16,6 @@ CREATE TABLE `comments` (
   `time_posted` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Structure de la table `errors`
---
-
 CREATE TABLE `errors` (
   `id` int(11) NOT NULL,
   `module` varchar(20) NOT NULL,
@@ -62,10 +23,6 @@ CREATE TABLE `errors` (
   `element` varchar(20) NOT NULL,
   `message` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `errors`
---
 
 INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (9, 'register', 'missingfield', 'nickname', 'Vous devez entrer un nom d\'utilisateur.'),
@@ -108,54 +65,23 @@ INSERT INTO `errors` (`id`, `module`, `type`, `element`, `message`) VALUES
 (46, 'tag', 'specialchar', 'content', 'Le TAG ne peut être composé que de caractères alphanumériques.'),
 (48, 'taglink', 'alreadyexist', 'addlink', 'Le TAG est déjà associé.');
 
--- --------------------------------------------------------
-
---
--- Structure de la table `fakeaccounts_reports`
---
-
 CREATE TABLE `fakeaccounts_reports` (
   `id` int(11) NOT NULL,
   `fromUser` int(11) NOT NULL,
   `toUserReported` int(11) NOT NULL,
   `time` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `fakeaccounts_reports`
---
-
-INSERT INTO `fakeaccounts_reports` (`id`, `fromUser`, `toUserReported`, `time`) VALUES
-(1, 1, 2, 1496827061),
-(2, 1, 3, 1497257904);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `filters`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 CREATE TABLE `filters` (
   `id` int(11) NOT NULL,
   `upload_time` int(11) NOT NULL,
   `owner_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `filters`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 INSERT INTO `filters` (`id`, `upload_time`, `owner_id`) VALUES
 (1, 1, 1),
 (2, 1, 1),
-(3, 1, 1),
-(4, 1490274541, 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `likes`
---
+(3, 1, 1);
 
 CREATE TABLE `likes` (
   `id` int(11) NOT NULL,
@@ -164,12 +90,6 @@ CREATE TABLE `likes` (
   `time_liked` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Structure de la table `messages`
---
-
 CREATE TABLE `messages` (
   `id` int(11) NOT NULL,
   `fromUser` int(11) NOT NULL,
@@ -177,13 +97,7 @@ CREATE TABLE `messages` (
   `content` tinytext NOT NULL,
   `time` int(11) NOT NULL,
   `new` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `notifications`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL,
@@ -192,79 +106,17 @@ CREATE TABLE `notifications` (
   `new` tinyint(1) NOT NULL DEFAULT '0',
   `toUser` int(11) NOT NULL,
   `fromUser` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `notifications`
---
-
-INSERT INTO `notifications` (`id`, `timestamp`, `type`, `new`, `toUser`, `fromUser`) VALUES
-(3, 1492027297, 'like', 0, 1, 4),
-(4, 1492027270, 'visit', 0, 1, 3),
-(5, 1492034134, 'like', 1, 5, 1),
-(6, 1496845028, 'like', 0, 1, 1),
-(7, 1497257899, 'like', 1, 2, 1),
-(8, 1497257900, 'unLike', 1, 2, 1),
-(9, 1497258324, 'like', 1, 2, 1),
-(10, 1497258326, 'unLike', 1, 2, 1),
-(11, 1497258328, 'like', 1, 2, 1),
-(12, 1497713606, 'message', 1, 5, 1),
-(13, 1497713608, 'message', 1, 5, 1),
-(14, 1497713608, 'message', 1, 5, 1),
-(15, 1497713608, 'message', 1, 5, 1),
-(16, 1497713608, 'message', 1, 5, 1),
-(17, 1497713609, 'message', 1, 5, 1),
-(18, 1497713615, 'message', 1, 5, 1),
-(19, 1497713616, 'message', 1, 5, 1),
-(20, 1497714061, 'message', 1, 5, 1),
-(21, 1497714063, 'message', 1, 5, 1),
-(22, 1497719979, 'message', 1, 5, 1),
-(23, 1497722500, 'message', 1, 5, 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `tags`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 CREATE TABLE `tags` (
   `id` int(11) NOT NULL,
   `content` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `tags`
---
-
-INSERT INTO `tags` (`id`, `content`) VALUES
-(1, 'test'),
-(2, 'php'),
-(3, 'camagru');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `tags_users`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 CREATE TABLE `tags_users` (
   `id_tag` int(11) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `tags_users`
---
-
-INSERT INTO `tags_users` (`id_tag`, `id_user`) VALUES
-(1, 1),
-(2, 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `tokens`
---
 
 CREATE TABLE `tokens` (
   `id` int(11) NOT NULL,
@@ -273,25 +125,7 @@ CREATE TABLE `tokens` (
   `time_created` int(11) NOT NULL,
   `usefor` varchar(20) NOT NULL,
   `isused` bit(1) NOT NULL DEFAULT b'0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `tokens`
---
-
-INSERT INTO `tokens` (`id`, `user_id`, `token`, `time_created`, `usefor`, `isused`) VALUES
-(1, 0, '496174e72a1de9371bf71e3bf81d8f06bc64721b', 1491927266, 'mailconfirmation', b'0'),
-(2, 0, '4b9584149393c431c5c8a349b4787b1b9689c165', 1491927353, 'mailconfirmation', b'0'),
-(3, 3, '1bddccaa5f4a41c1583967eae5b9f225df30a913', 1491927428, 'mailconfirmation', b'0'),
-(4, 4, '9e29f3cac1cfe57e9037348d2316756e33d2dc58', 1491927491, 'mailconfirmation', b'0'),
-(5, 5, '72ccea702b2da462c9d27e0c2a1ace7f9de248c1', 1492032388, 'mailconfirmation', b'0'),
-(6, 6, 'bfa8518902baba2c3b1c133bb4abbad588489d54', 1494840771, 'mailconfirmation', b'0');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `userpictures`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 CREATE TABLE `userpictures` (
   `id` int(11) NOT NULL,
@@ -299,33 +133,7 @@ CREATE TABLE `userpictures` (
   `upload_time` int(11) NOT NULL,
   `filter_used` int(11) NOT NULL,
   `owner_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `userpictures`
---
-
-INSERT INTO `userpictures` (`id`, `upload_source`, `upload_time`, `filter_used`, `owner_id`) VALUES
-(3, 'stock', 1490274544, 1, 1),
-(4, 'stock', 1490274548, 1, 1),
-(5, 'stock', 1490289389, 4, 1),
-(6, 'stock', 1490289389, 4, 1),
-(7, 'stock', 1490289390, 4, 1),
-(8, 'stock', 1490289390, 4, 1),
-(9, 'stock', 1490289390, 4, 1),
-(10, 'stock', 1490289391, 4, 1),
-(11, 'stock', 1490289391, 4, 1),
-(12, 'stock', 1490289391, 4, 1),
-(13, 'stock', 1491925954, 1, 1),
-(14, 'stock', 1491935176, 2, 1),
-(15, 'stock', 1492009462, 2, 1),
-(16, 'stock', 1494840917, 2, 6);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `users`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
@@ -337,235 +145,104 @@ CREATE TABLE `users` (
   `firstname` varchar(20) DEFAULT NULL,
   `lastname` varchar(20) DEFAULT NULL,
   `phone` varchar(10) DEFAULT NULL,
-  `sexe` bit(2) DEFAULT NULL,
+  `sexe` bit(2) DEFAULT b'0',
   `bio` text,
   `mail_confirmed` tinyint(1) NOT NULL DEFAULT '0',
-  `sexual_orientation` enum('male','female','both') DEFAULT NULL,
+  `sexual_orientation` enum('male','female','both') DEFAULT 'both',
   `profilePicture` int(11) DEFAULT NULL,
   `featuredPictures` text,
   `lastLogin` int(11) NOT NULL DEFAULT '0',
-  `locationLat` float DEFAULT NULL,
-  `locationLong` float DEFAULT NULL,
+  `locationLat` decimal(9,6) DEFAULT '0.000000',
+  `locationLong` decimal(9,6) DEFAULT '0.000000',
   `popularity` int(11) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `users`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `register_time`, `birthdate`, `firstname`, `lastname`, `phone`, `sexe`, `bio`, `mail_confirmed`, `sexual_orientation`, `profilePicture`, `featuredPictures`, `lastLogin`, `locationLat`, `locationLong`, `popularity`) VALUES
-(1, 'admin2', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, 865036800, 'Prenom', 'test', NULL, b'00', 'ts', 1, 'female', 9, '13,13,6,7', 1498307090, 0, 0, 1),
-(2, 'test', 'test@test.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 3, NULL, 'test', NULL, NULL, NULL, NULL, 1, NULL, 7, NULL, 0, 0, 0, 1),
-(3, 'tameretest2', 'jrouzier@outlook.com', '8d9e2cc2d89dd1b980e302dc530aa2519ae31e6326ef82b25d25d9bf97054b253470a026b8f67ee3c20dc49a8fef73ceca3590f2fac6ff1e8f16d4af175130a9', 1491927428, NULL, 'Rouzier', 'Justin', NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 5),
-(4, 'tameretest', 'sebhug@free.fr', '02ec27b3db4131a31bc3446c7b6dfe8ea17a365de5ab0795107540eccb8ac6d5a78c6eaf590e3290bc9d14d533002436247c1826f560df6d069aef3efba67f3e', 1491927491, NULL, 'testhuguenot', 'test', NULL, b'01', '', 1, 'both', NULL, NULL, 0, 2, 0, 20),
-(5, 'root', 'root@outlook.com', '2ae79f9bb91a6c53b1d17ecc533926203630d734006775004ae8086d7558d02b50d1afca5f270336d21a60bc11ffd1f5a14bbfbcf9d2d78d9fadb29fe87d00e2', 1492032388, NULL, 'root', 'root', NULL, NULL, NULL, 1, NULL, 16, '16,16,16,16', 0, 0, 0, 0),
-(6, 'jrouzier', 'jrouzier@esport42.fr', '839f24ff0037376f636613cbf49f6e60320073bf29bfe0f0c842eedfa25b3ce37aa9edca128bbc0ca28d2930270234abc1c0776434055c95a297afa69713582f', 1494840771, NULL, 'Rouzier', 'Justin', NULL, b'00', NULL, 1, NULL, NULL, NULL, 0, 0, 0, 10);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `user_likes`
---
+(1, 'admin', 'admin@camagru.fr', '838858b5bb0592b88fef9c3a67a97546949687b8d45e505a50c203d064c0306be286d20d5f41b2d1cecd613e8c410c49031db7b878629761b64691d11ced1a58', 1470013136, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 0, NULL, NULL, NULL);
 
 CREATE TABLE `user_likes` (
   `id` int(11) NOT NULL,
   `idUser` int(11) NOT NULL,
   `idProfileLiked` int(11) NOT NULL,
   `time` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `user_likes`
---
-
-INSERT INTO `user_likes` (`id`, `idUser`, `idProfileLiked`, `time`) VALUES
-(11, 1, 5, 1492034125),
-(14, 1, 2, 1497258328),
-(15, 5, 1, 4);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `user_visits`
---
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 CREATE TABLE `user_visits` (
   `id` int(11) NOT NULL,
   `idUser` int(11) NOT NULL,
   `idProfileVisited` int(11) NOT NULL,
   `time` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
---
--- Contenu de la table `user_visits`
---
 
-INSERT INTO `user_visits` (`id`, `idUser`, `idProfileVisited`, `time`) VALUES
-(22, 1, 6, 1494955689),
-(23, 1, 2, 1497427496),
-(24, 2, 1, 1496829340),
-(25, 1, 3, 1497257938),
-(26, 1, 4, 1496845653);
-
---
--- Index pour les tables exportées
---
-
---
--- Index pour la table `blocked_users`
---
 ALTER TABLE `blocked_users`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `comments`
---
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `errors`
---
 ALTER TABLE `errors`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `fakeaccounts_reports`
---
 ALTER TABLE `fakeaccounts_reports`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `filters`
---
 ALTER TABLE `filters`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `likes`
---
 ALTER TABLE `likes`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `messages`
---
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `notifications`
---
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `tags`
---
 ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `tokens`
---
 ALTER TABLE `tokens`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `userpictures`
---
 ALTER TABLE `userpictures`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `users`
---
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `user_likes`
---
 ALTER TABLE `user_likes`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `user_visits`
---
 ALTER TABLE `user_visits`
   ADD PRIMARY KEY (`id`);
 
---
--- AUTO_INCREMENT pour les tables exportées
---
 
---
--- AUTO_INCREMENT pour la table `blocked_users`
---
 ALTER TABLE `blocked_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT pour la table `comments`
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `errors`
---
 ALTER TABLE `errors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
---
--- AUTO_INCREMENT pour la table `fakeaccounts_reports`
---
 ALTER TABLE `fakeaccounts_reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT pour la table `filters`
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `filters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT pour la table `likes`
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 ALTER TABLE `likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `messages`
---
 ALTER TABLE `messages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `notifications`
---
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
---
--- AUTO_INCREMENT pour la table `tags`
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `tokens`
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT pour la table `userpictures`
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `userpictures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT pour la table `users`
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT pour la table `user_likes`
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 ALTER TABLE `user_likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
---
--- AUTO_INCREMENT pour la table `user_visits`
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `user_visits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
