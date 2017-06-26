@@ -16,7 +16,7 @@ $localisation = $currentUser->getLocationInString();
 $tags = "";
 $tagsList = "";
 $locMax = 15;
-$sortMethod = "popularity";
+$sortMethod = "localisation";
 $sortOrder = "asc";
 $localisationLatLong = array("lat" => $currentUser->getLocationLat(), "long" => $currentUser->getLocationLong());
 

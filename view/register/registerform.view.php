@@ -28,6 +28,10 @@
 
 				<label for="firstname">Prénom : </label>
 				<input type="text" name="firstname" id="firstname" maxlength="25" required <?php if (isset($_POST['firstname'])) { echo "value=\"" . htmlspecialchars($_POST['firstname']) . "\"" ; } ?> />
+
+				<br />
+				<label for="bday">Date de naissance : </label>
+				<input id="bday" type="date" name="bday" max="<?php echo date('Y-m-d'); ?>" required/>
 			</fieldset>
 		<center><input type="submit" name="submit" value="S'inscrire">
 	</form>
