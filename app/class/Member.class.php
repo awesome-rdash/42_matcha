@@ -290,6 +290,14 @@ class Member {
 		}
 	}
 
+	public function setBdayFromString($string) {
+		if ($bday = strtotime($string)) {
+			$this->_birthdate = $bday;
+			return true;
+		}
+		return false;
+	}
+
 	public function checkLocation() {
 		if ($this->_locLat != 0 && $this->_locLong != 0)
 			return true;

@@ -40,7 +40,7 @@ if (!isset($error)) {
 		"email" => $_POST['email'],
 		"firstname" => $_POST['firstname'],
 		"lastname" => $_POST['lastname'],
-		"bdayFromString" =? $_POST['bday']);
+		"bdayFromString" => $_POST['bday']);
 	$return = $member->hydrate($parameters);
 	if ($return !== true) {
 		$error = $return;

@@ -5,7 +5,7 @@ Class Utilities {
 		$headers   = array();
 		$headers[] = "MIME-Version: 1.0";
 		$headers[] = "Content-type: text/plain; charset=iso-8859-1";
-		$headers[] = "From: Camagru <no-reply@camagru.fr>";
+		$headers[] = "From: Matcha <no-reply@matcha.fr>";
 		$headers[] = "Subject: $subject";
 		$headers[] = "X-Mailer: PHP/".phpversion();
 
