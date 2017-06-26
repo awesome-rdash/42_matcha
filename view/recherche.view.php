@@ -75,7 +75,6 @@
 
 					<fieldset>
 						<legend>Par sexe</legend>
-						<?php echo "sexe $sexe"; ?>
 						<label for="sexe">Sexe : </label>
 						<input type="radio" name="sexe" value="male" <?php if ($sexe == 0) { echo "checked";}?>/>Homme - 
 						<input type="radio" name="sexe" value="female"<?php if ($sexe == 1) { echo "checked";}?>/>Femme - 

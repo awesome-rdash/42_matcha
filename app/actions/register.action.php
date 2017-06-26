@@ -1,6 +1,6 @@
 <?php
 
-$toCheck = array("nickname", "email", "password", "password2", "firstname", "lastname");
+$toCheck = array("nickname", "email", "password", "password2", "firstname", "lastname", "bday");
 
 foreach($_POST as $key => $value) {
 	if (empty($_POST[$key])) {
@@ -39,7 +39,8 @@ if (!isset($error)) {
 		"nickname" => $_POST['nickname'], 
 		"email" => $_POST['email'],
 		"firstname" => $_POST['firstname'],
-		"lastname" => $_POST['lastname']);
+		"lastname" => $_POST['lastname'],
+		"bdayFromString" =? $_POST['bday']);
 	$return = $member->hydrate($parameters);
 	if ($return !== true) {
 		$error = $return;
