@@ -95,7 +95,7 @@ CREATE TABLE `messages` (
   `fromUser` int(11) NOT NULL,
   `toUser` int(11) NOT NULL,
   `content` tinytext NOT NULL,
-  `time` int(11) NOT NULL,
+  `time_posted` int(11) NOT NULL,
   `new` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
