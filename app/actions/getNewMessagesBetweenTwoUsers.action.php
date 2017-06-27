@@ -17,7 +17,6 @@ if ($error === false) {
 	if ($data['info'] == "messagesBetweenTwoUsers") {
 		$currentProfile = $memberManager->getFromID($data['fromUser']);
 		$newMessages = $messageManager->getMessagesBetweenTwoTimestamp($currentUser->getId(), $currentProfile->getId(), $data['lastCallTime']);
-		//print_r($newMessages);
 		$messageOutputList = array();
 
 		foreach($newMessages as $message) {

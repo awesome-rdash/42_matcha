@@ -29,7 +29,6 @@ function reload_msg() {
     	var d = new Date();
 		var n = d.getTime();
     	reload_msg.lastCallTime = n;
-        console.log("Initializing");
     }
     data["lastCallTime"] = reload_msg.lastCallTime;
 
@@ -43,7 +42,6 @@ function reload_msg() {
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var reply = ajax.responseText;
-            console.log(reply);
             var toShow = JSON.parse(reply);
 
             if (toShow['output'] == "ok") {
@@ -88,7 +86,6 @@ function sendMessage() {
         if (ajax.readyState == 4 && ajax.status == 200) {
         	var reply = ajax.responseText;
         	var out = JSON.parse(reply);
-            console.log(out);
 
             if (out['output'] == "ok" && out['messageId'] != 0) {
             	var div = document.createElement('div');
