@@ -28,7 +28,6 @@ if ($error === false) {
 			}
 
 			$json_output['notifications'] = json_encode($notificationsOutputList);
-			//print_r($notificationsOutputList);
 		}
 	} else if ($data['info'] == "markAllAsRead") {
 		$notificationManager->markAllAsReadForUser($currentUser->getId());

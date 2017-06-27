@@ -77,7 +77,6 @@ function reload_notifs() {
                         document.getElementById("notificationButton").style.display = "none";
                     } else if (toShow['count'] != 0){
                         document.getElementById("notificationButton").style.display = "block";
-                        console.log(toShow['notifications']);
                         var arrayContent = JSON.parse(toShow['notifications']);
                         arrayContent.sort(sort_notifs);
 
