@@ -24,12 +24,12 @@ function reload_msg() {
     var data = {};
     data["info"] = "messagesBetweenTwoUsers";
     data["fromUser"] = <?php echo $currentProfile->getId();?>;
-    data["toUser"] = <?php echo $currentUser->getId();?>;
 
     if (typeof reload_msg.lastCallTime == 'undefined') {
     	var d = new Date();
 		var n = d.getTime();
-    	reload_msg.lastCallTime = n - 5;
+    	reload_msg.lastCallTime = n;
+        console.log("Initializing");
     }
     data["lastCallTime"] = reload_msg.lastCallTime;
 
@@ -43,6 +43,7 @@ function reload_msg() {
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var reply = ajax.responseText;
+            console.log(reply);
             var toShow = JSON.parse(reply);
 
             if (toShow['output'] == "ok") {
@@ -69,6 +70,7 @@ function reload_msg() {
     return ajax;
 }
 
+reload_msg();
 setInterval(reload_msg, 5000);
 
 function sendMessage() {
@@ -86,6 +88,7 @@ function sendMessage() {
         if (ajax.readyState == 4 && ajax.status == 200) {
         	var reply = ajax.responseText;
         	var out = JSON.parse(reply);
+            console.log(out);
 
             if (out['output'] == "ok" && out['messageId'] != 0) {
             	var div = document.createElement('div');

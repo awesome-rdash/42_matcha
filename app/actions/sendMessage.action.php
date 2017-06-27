@@ -22,6 +22,7 @@ if ($error === false) {
 		$msgID = $messageManager->create($message);
 		$json_output['messageContent'] = $message->getContent();
 		$json_output['messageId'] = $message->getId();
+		$json_output['time_posted'] = $message->getTime_posted();
 		$notificationManager = new NotificationManager($db);
 		$notificationManager->generateNotification("message", $message->getToUser(), $currentUser->getId());
 	}

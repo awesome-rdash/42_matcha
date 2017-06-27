@@ -84,7 +84,7 @@
 				Liste des utilisateurs vous correspondant :
 				<?php
 					foreach($users as $user) {
-					echo "<a href=\"" . Utilities::getAddress() . "profile.php?member=" . $user->getId() . "\">". $user->getFirstname() . " " . $user->getLastname() . "</a><br />";
+					echo "<a href=\"profile.php?member=" . $user->getId() . "\">". $user->getFirstname() . " " . $user->getLastname() . "</a><br />";
 				}
 				?>
 			</p>

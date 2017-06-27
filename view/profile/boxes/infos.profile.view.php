@@ -4,6 +4,8 @@ $sexeInfo = "Sexe : <span id=\"sexe_field\">" . $currentProfile->getSexeInString
 $orientationInfo = "Orientation sexuelle : <span id=\"sexual_orientation_field\">" . $currentProfile->getOrientationInString() . "</span>";
 $bioInfo = "Bio : <span id=\"bio_field\">" . htmlspecialchars($currentProfile->getBio()) . "</span>";
 
+$ageInfo = "Age : " . $currentProfile->getAge() . " ans";
+
 $tagList = $tagManager->getAllTagsFromMemberId($currentProfile->getId());
 $tagsInfo = '<div id="tagList">';
 foreach($tagList as $tag) {
@@ -86,6 +88,8 @@ $tagsInfo .= '</div>';
 		echo "<br />";
 		showEditableInfo("orientation", $orientationInfo , $orientationEdit);
 		echo "<br />";
+		echo $ageInfo;
+		echo "<br />";
 		showEditableInfo("location", $locationInfo , $locationEdit);
 		echo "<br />";
 		showEditableInfo("bio", $bioInfo , $bioEdit);
@@ -142,6 +146,8 @@ $tagsInfo .= '</div>';
 		echo $sexeInfo;
 		echo "<br />";
 		echo $orientationInfo;
+		echo "<br />";
+		echo $ageInfo;
 		echo "<br />";
 		echo $locationInfo;
 		echo "<br />";

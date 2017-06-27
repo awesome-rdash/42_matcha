@@ -291,8 +291,14 @@ class Member {
 	}
 
 	public function setBdayFromString($string) {
+		echo "setBdayFromString<pre>";
+		print_r($string);
+		echo "</pre>";
 		if ($bday = strtotime($string)) {
 			$this->_birthdate = $bday;
+			echo "setBdayFromString<pre>";
+			print_r($string);
+			echo "</pre>";
 			return true;
 		}
 		return false;

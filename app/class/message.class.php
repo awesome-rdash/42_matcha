@@ -2,7 +2,7 @@
 
 class Message {
 	protected $_id;
-	protected $_time;
+	protected $_time_posted;
 	protected $_content;
 	protected $_new;
 	protected $_fromUser;
@@ -11,7 +11,7 @@ class Message {
 	use commonMembers;
 
 	public function getId() { return $this->_id; }
-	public function getTime() { return $this->_time; }
+	public function getTime_posted() { return $this->_time_posted; }
 	public function getContent() { return $this->_content; }
 	public function hasBeenRead() { return $this->_new; }
 	public function getFromUser() { return $this->_fromUser; }
@@ -54,11 +54,11 @@ class Message {
 		return true;
 	}
 
-	public function setTime($time) {
+	public function setTime_posted($time) {
 		if (!Utilities::isDigits($time) || $time <= 0) {
 			trigger_error("Invalid upload time", E_USER_WARNING);
 		}
-		$this->_time = $time;
+		$this->_time_posted = $time;
 		return true;
 	}
 

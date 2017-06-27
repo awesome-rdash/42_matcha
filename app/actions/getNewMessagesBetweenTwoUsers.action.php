@@ -16,14 +16,15 @@ if ($error === false) {
 	$json_output['info'] = $data['info'];
 	if ($data['info'] == "messagesBetweenTwoUsers") {
 		$currentProfile = $memberManager->getFromID($data['fromUser']);
-		$newMessages = $messageManager->getMessagesBetweenTwoTimestamp($currentUser->getId(), $currentProfile->getId(), $data['lastCallTime'], time());
+		$newMessages = $messageManager->getMessagesBetweenTwoTimestamp($currentUser->getId(), $currentProfile->getId(), $data['lastCallTime']);
+		//print_r($newMessages);
 		$messageOutputList = array();
 
 		foreach($newMessages as $message) {
 			$messageJS = array(
 				"content" => $message->getContent(),
 				"id" => $message->getId(),
-				"time" => $message->getTime());
+				"time_posted" => $message->getTime_posted());
 			$messageOutputList[] = $messageJS;
 		}
 

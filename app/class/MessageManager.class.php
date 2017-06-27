@@ -9,10 +9,9 @@ class MessageManager {
 
 	public function create(Message $message) {
 		$q = $this->_db->prepare('
-			INSERT INTO messages(id, time, content, new, toUser, fromUser)
-			VALUES(:id, :time, :content, :new, :toUser, :fromUser)');
-		$q->bindValue(':id', $message->getId(), PDO::PARAM_INT);
-		$q->bindValue(':time', time(), PDO::PARAM_INT);
+			INSERT INTO messages(time_posted, content, new, toUser, fromUser)
+			VALUES(:time_posted, :content, :new, :toUser, :fromUser)');
+		$q->bindValue(':time_posted', time(), PDO::PARAM_INT);
 		$q->bindValue(':content', $message->getContent(), PDO::PARAM_STR);
 		$q->bindValue(':new', $message->hasBeenRead(), PDO::PARAM_INT);
 		$q->bindValue(':fromUser', $message->getFromUser(), PDO::PARAM_INT);
@@ -27,9 +26,9 @@ class MessageManager {
 	public function update(Message $message) {
 		$q = $this->_db->prepare('
 			UPDATE messages
-			SET timestamp = :timestamp, content = :content, new = :new, toUser = :toUser, fromUser = :fromUser
+			SET time_posted = :time_posted, content = :content, new = :new, toUser = :toUser, fromUser = :fromUser
 			WHERE id = :id');
-		$q->bindValue(':timestamp', time(), PDO::PARAM_INT);
+		$q->bindValue(':time_posted', time(), PDO::PARAM_INT);
 		$q->bindValue(':content', $message->getContent(), PDO::PARAM_STR);
 		$q->bindValue(':new', $message->hasBeenRead(), PDO::PARAM_INT);
 		$q->bindValue(':fromUser', $message->getTransmitter(), PDO::PARAM_INT);
@@ -82,7 +81,7 @@ class MessageManager {
 	}
 
 	public function getAllMessagesBetweenTwoUsers($fromUser, $toUser) {
-		$query = "SELECT * FROM messages WHERE (toUser = :toUser OR toUser = :fromUser) AND (fromUser = :fromUser OR fromUser = :toUser) ORDER BY time DESC";
+		$query = "SELECT * FROM messages WHERE (toUser = :toUser OR toUser = :fromUser) AND (fromUser = :fromUser OR fromUser = :toUser) ORDER BY time_posted DESC";
 		$q = $this->_db->prepare($query);
 		$q->bindValue(':toUser', $toUser, PDO::PARAM_INT);
 		$q->bindValue(':fromUser', $fromUser, PDO::PARAM_INT);
@@ -96,13 +95,12 @@ class MessageManager {
 		return ($result);
 	}
 
-	public function getMessagesBetweenTwoTimestamp($toUser, $fromUser, $time1, $time2) {
-		$query = "SELECT * FROM messages WHERE toUser = :toUser AND fromUser = :fromUser AND time > :time1 ORDER BY time DESC";
+	public function getMessagesBetweenTwoTimestamp($toUser, $fromUser, $time1) {
+		$query = "SELECT * FROM messages WHERE toUser = :toUser AND fromUser = :fromUser AND time_posted > :time1 ORDER BY time_posted ASC";
 		$q = $this->_db->prepare($query);
 		$q->bindValue(':toUser', $toUser, PDO::PARAM_INT);
 		$q->bindValue(':fromUser', $fromUser, PDO::PARAM_INT);
 		$q->bindValue(':time1', $time1, PDO::PARAM_INT);
-		//$q->bindValue(':time2', $time2, PDO::PARAM_INT);
 		$q->execute();
 
 		$result = array();
