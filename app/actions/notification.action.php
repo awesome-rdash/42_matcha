@@ -15,8 +15,20 @@ if ($error === false) {
 	$json_output['info'] = $data['info'];
 	if ($data['info'] == "count") {
 		$json_output["count"] = $notificationManager->getUnreadNotificationsCount($currentUser->getId());
-		if ($data['lastCallTime'] != 0) {
-			$newNotifs = $notificationManager->notificationsBetweenTwoTimestamp($currentUser->getId());
+		if ($data['lastCallTime'] != 0 && $json_output["count"] > 0) {
+			$newNotifs = $notificationManager->notificationsAfterOneTimestamp($currentUser->getId(), $data['lastCallTime']);
+			$notificationsOutputList = array();
+
+			foreach($newNotifs as $notif) {
+				$notifJS = array(
+					"content" => $notif->getStringFromNotification($db),
+					"id" => $notif->getId(),
+					"time_created" => $notif->getTimestamp());
+				$notificationsOutputList[] = $notifJS;
+			}
+
+			$json_output['notifications'] = json_encode($notificationsOutputList);
+			//print_r($notificationsOutputList);
 		}
 	} else if ($data['info'] == "markAllAsRead") {
 		$notificationManager->markAllAsReadForUser($currentUser->getId());
